@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace RelTexPacNet
 {
     public class TexturePacker
     {
-        private readonly string COMMAND_PATH = @".\Texture_packer.exe";
+        private readonly string COMMAND_PATH = @".\Resources\Texture_packer.exe";
 
         private Settings _settings;
 
@@ -32,11 +33,13 @@ namespace RelTexPacNet
             }
 
             public enum FileFormat
-            {
-                Unknown,
-                BMP,
-                PNG,
+            {                
+                Unknown = -1,
+                BMP = 0,
+                PNG = 1,
             }
+
+            public string InputPath { get; set; }
 
             public Size OutputSize  { get; set; }
             public string OutputFileName { get; set; }
@@ -46,13 +49,14 @@ namespace RelTexPacNet
 
             public override string ToString()
             {
-                return string.Format("{0} {1} {2} {3} {4} {5}",
+                return string.Format("{0} {1} {2} {3} {4} {5} {6}",
                     OutputSize.Width,
                     OutputSize.Height,
                     OutputFileName,
                     (int)OutputBitsPerPixel,
-                    OutputFileFormat.ToString(),
-                    OutputMargin);
+                    (int)OutputFileFormat,
+                    OutputMargin,
+                    InputPath);
             }
         }
 
@@ -69,6 +73,7 @@ namespace RelTexPacNet
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.FileName = COMMAND_PATH;
             process.StartInfo.Arguments = _settings.ToString();
+            process.StartInfo.WorkingDirectory = @".\Resources"; //TODO
 
             process.Start();
             var output = process.StandardOutput.ReadToEnd();

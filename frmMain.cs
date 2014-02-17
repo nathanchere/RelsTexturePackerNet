@@ -18,6 +18,9 @@ namespace RelTexPacNet
         public frmMain()
         {
             InitializeComponent();
+
+            cboOutputBPP.DataSource = Enum.GetValues(typeof(TexturePacker.Settings.BitsPerPixel));
+            cboOutputFormat.DataSource = Enum.GetValues(typeof(TexturePacker.Settings.FileFormat));
         }
 
         private void btnTweet_Click(object sender, EventArgs e)
@@ -41,6 +44,7 @@ namespace RelTexPacNet
                     Convert.ToInt32(numOutputWidth.Value),
                     Convert.ToInt32(numOutputHeight.Value)
                 ),
+                InputPath = @"images\",
             };
             var packer = new TexturePacker(settings);
             packer.Run();
