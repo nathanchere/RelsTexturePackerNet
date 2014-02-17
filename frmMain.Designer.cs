@@ -34,6 +34,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.numOutputHeight = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnOutputPath = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtOutputPath = new System.Windows.Forms.TextBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -46,15 +49,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtOutputFilename = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnInputPath = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtInputPath = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.btnFollow = new System.Windows.Forms.PictureBox();
             this.btnTweet = new System.Windows.Forms.PictureBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.btnInputPath = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.btnOutputPath = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numOutputWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numOutputHeight)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -130,7 +130,7 @@
             // 
             this.groupBox1.Controls.Add(this.btnOutputPath);
             this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.textBox2);
+            this.groupBox1.Controls.Add(this.txtOutputPath);
             this.groupBox1.Controls.Add(this.checkBox3);
             this.groupBox1.Controls.Add(this.checkBox2);
             this.groupBox1.Controls.Add(this.checkBox1);
@@ -152,6 +152,34 @@
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Output Settings";
+            // 
+            // btnOutputPath
+            // 
+            this.btnOutputPath.Enabled = false;
+            this.btnOutputPath.Location = new System.Drawing.Point(172, 125);
+            this.btnOutputPath.Name = "btnOutputPath";
+            this.btnOutputPath.Size = new System.Drawing.Size(23, 20);
+            this.btnOutputPath.TabIndex = 18;
+            this.btnOutputPath.Text = "...";
+            this.btnOutputPath.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(8, 129);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(29, 13);
+            this.label9.TabIndex = 17;
+            this.label9.Text = "Path";
+            // 
+            // txtOutputPath
+            // 
+            this.txtOutputPath.Location = new System.Drawing.Point(64, 126);
+            this.txtOutputPath.Name = "txtOutputPath";
+            this.txtOutputPath.ReadOnly = true;
+            this.txtOutputPath.Size = new System.Drawing.Size(109, 20);
+            this.txtOutputPath.TabIndex = 16;
+            this.txtOutputPath.Text = ".\\output";
             // 
             // checkBox3
             // 
@@ -222,9 +250,6 @@
             // 
             this.cboOutputFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboOutputFormat.FormattingEnabled = true;
-            this.cboOutputFormat.Items.AddRange(new object[] {
-            "BMP",
-            "PNG"});
             this.cboOutputFormat.Location = new System.Drawing.Point(229, 44);
             this.cboOutputFormat.Name = "cboOutputFormat";
             this.cboOutputFormat.Size = new System.Drawing.Size(73, 21);
@@ -243,12 +268,6 @@
             // 
             this.cboOutputBPP.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboOutputBPP.FormattingEnabled = true;
-            this.cboOutputBPP.Items.AddRange(new object[] {
-            "16",
-            "24",
-            "32",
-            "4",
-            "8"});
             this.cboOutputBPP.Location = new System.Drawing.Point(229, 19);
             this.cboOutputBPP.Name = "cboOutputBPP";
             this.cboOutputBPP.Size = new System.Drawing.Size(73, 21);
@@ -275,13 +294,41 @@
             // 
             this.groupBox2.Controls.Add(this.btnInputPath);
             this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.txtInputPath);
             this.groupBox2.Location = new System.Drawing.Point(12, 86);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(312, 48);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Input Settings";
+            // 
+            // btnInputPath
+            // 
+            this.btnInputPath.Enabled = false;
+            this.btnInputPath.Location = new System.Drawing.Point(172, 19);
+            this.btnInputPath.Name = "btnInputPath";
+            this.btnInputPath.Size = new System.Drawing.Size(23, 20);
+            this.btnInputPath.TabIndex = 9;
+            this.btnInputPath.Text = "...";
+            this.btnInputPath.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(8, 22);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(29, 13);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "Path";
+            // 
+            // txtInputPath
+            // 
+            this.txtInputPath.Location = new System.Drawing.Point(64, 19);
+            this.txtInputPath.Name = "txtInputPath";
+            this.txtInputPath.ReadOnly = true;
+            this.txtInputPath.Size = new System.Drawing.Size(109, 20);
+            this.txtInputPath.TabIndex = 7;
+            this.txtInputPath.Text = ".\\images";
             // 
             // label8
             // 
@@ -315,62 +362,6 @@
             this.btnTweet.TabIndex = 7;
             this.btnTweet.TabStop = false;
             this.btnTweet.Click += new System.EventHandler(this.btnTweet_Click);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(8, 22);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(29, 13);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "Path";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(64, 19);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(109, 20);
-            this.textBox1.TabIndex = 7;
-            this.textBox1.Text = ".\\images";
-            // 
-            // btnInputPath
-            // 
-            this.btnInputPath.Enabled = false;
-            this.btnInputPath.Location = new System.Drawing.Point(172, 19);
-            this.btnInputPath.Name = "btnInputPath";
-            this.btnInputPath.Size = new System.Drawing.Size(23, 20);
-            this.btnInputPath.TabIndex = 9;
-            this.btnInputPath.Text = "...";
-            this.btnInputPath.UseVisualStyleBackColor = true;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(8, 129);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(29, 13);
-            this.label9.TabIndex = 17;
-            this.label9.Text = "Path";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(64, 126);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(109, 20);
-            this.textBox2.TabIndex = 16;
-            this.textBox2.Text = ".\\output";
-            // 
-            // btnOutputPath
-            // 
-            this.btnOutputPath.Enabled = false;
-            this.btnOutputPath.Location = new System.Drawing.Point(172, 125);
-            this.btnOutputPath.Name = "btnOutputPath";
-            this.btnOutputPath.Size = new System.Drawing.Size(23, 20);
-            this.btnOutputPath.TabIndex = 18;
-            this.btnOutputPath.Text = "...";
-            this.btnOutputPath.UseVisualStyleBackColor = true;
             // 
             // frmMain
             // 
@@ -425,9 +416,9 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.PictureBox btnFollow;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtInputPath;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtOutputPath;
         private System.Windows.Forms.Button btnInputPath;
         private System.Windows.Forms.Button btnOutputPath;
     }

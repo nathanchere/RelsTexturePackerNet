@@ -42,10 +42,13 @@ namespace RelTexPacNet
             public string InputPath { get; set; }
 
             public Size OutputSize  { get; set; }
+            public int OutputMargin { get; set; }
+
             public string OutputFileName { get; set; }
+            public string OutputPath { get; set; }
+
             public BitsPerPixel OutputBitsPerPixel { get; set; }
             public FileFormat OutputFileFormat { get; set; }
-            public int OutputMargin { get; set; }
 
             public override string ToString()
             {
