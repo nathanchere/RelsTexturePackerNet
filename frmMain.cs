@@ -21,6 +21,8 @@ namespace RelTexPacNet
 
             cboOutputBPP.DataSource = Enum.GetValues(typeof(TexturePacker.Settings.BitsPerPixel));
             cboOutputFormat.DataSource = Enum.GetValues(typeof(TexturePacker.Settings.FileFormat));
+
+            cboOutputBPP.SelectedIndex = 5; //TODO
         }
 
         private void btnTweet_Click(object sender, EventArgs e)
@@ -35,7 +37,16 @@ namespace RelTexPacNet
 
         private void btnRun_Click(object sender, EventArgs e)
         {
-            var settings = new TexturePacker.Settings {
+            var settings = GetSettings();
+            var packer = new TexturePacker(settings);
+            var result = packer.Run();
+
+            MessageBox.Show("Complete\n\n" + result.ErrorMessage);
+        }
+
+        private TexturePacker.Settings GetSettings()
+        {
+            return new TexturePacker.Settings {
                 OutputBitsPerPixel = (TexturePacker.Settings.BitsPerPixel)cboOutputBPP.SelectedValue,
                 OutputFileFormat= (TexturePacker.Settings.FileFormat)cboOutputFormat.SelectedValue,
                 OutputFileName = txtOutputFilename.Text,
@@ -44,11 +55,14 @@ namespace RelTexPacNet
                 OutputSize = new Size(
                     Convert.ToInt32(numOutputWidth.Value),
                     Convert.ToInt32(numOutputHeight.Value)
-                ),
+                    ),
                 InputPath = txtInputPath.Text,
             };
-            var packer = new TexturePacker(settings);
-            packer.Run();
+        }
+
+        private void btnDebug_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(GetSettings().ToString());
         }
     }
 }

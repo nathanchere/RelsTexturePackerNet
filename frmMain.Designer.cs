@@ -55,6 +55,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.btnFollow = new System.Windows.Forms.PictureBox();
             this.btnTweet = new System.Windows.Forms.PictureBox();
+            this.btnDebug = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numOutputWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numOutputHeight)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -68,7 +69,7 @@
             // 
             this.btnRun.Location = new System.Drawing.Point(12, 12);
             this.btnRun.Name = "btnRun";
-            this.btnRun.Size = new System.Drawing.Size(312, 68);
+            this.btnRun.Size = new System.Drawing.Size(242, 68);
             this.btnRun.TabIndex = 0;
             this.btnRun.Text = "Run";
             this.btnRun.UseVisualStyleBackColor = true;
@@ -179,7 +180,7 @@
             this.txtOutputPath.ReadOnly = true;
             this.txtOutputPath.Size = new System.Drawing.Size(109, 20);
             this.txtOutputPath.TabIndex = 16;
-            this.txtOutputPath.Text = ".\\output";
+            this.txtOutputPath.Text = "output\\";
             // 
             // checkBox3
             // 
@@ -328,7 +329,7 @@
             this.txtInputPath.ReadOnly = true;
             this.txtInputPath.Size = new System.Drawing.Size(109, 20);
             this.txtInputPath.TabIndex = 7;
-            this.txtInputPath.Text = ".\\images";
+            this.txtInputPath.Text = "images\\";
             // 
             // label8
             // 
@@ -363,11 +364,22 @@
             this.btnTweet.TabStop = false;
             this.btnTweet.Click += new System.EventHandler(this.btnTweet_Click);
             // 
+            // btnDebug
+            // 
+            this.btnDebug.Location = new System.Drawing.Point(260, 14);
+            this.btnDebug.Name = "btnDebug";
+            this.btnDebug.Size = new System.Drawing.Size(65, 65);
+            this.btnDebug.TabIndex = 10;
+            this.btnDebug.Text = "Debug";
+            this.btnDebug.UseVisualStyleBackColor = true;
+            this.btnDebug.Click += new System.EventHandler(this.btnDebug_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(336, 358);
+            this.Controls.Add(this.btnDebug);
             this.Controls.Add(this.btnFollow);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.btnTweet);
@@ -421,6 +433,7 @@
         private System.Windows.Forms.TextBox txtOutputPath;
         private System.Windows.Forms.Button btnInputPath;
         private System.Windows.Forms.Button btnOutputPath;
+        private System.Windows.Forms.Button btnDebug;
     }
 }
 
