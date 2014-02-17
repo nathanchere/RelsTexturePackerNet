@@ -40,11 +40,12 @@ namespace RelTexPacNet
                 OutputFileFormat= (TexturePacker.Settings.FileFormat)cboOutputFormat.SelectedValue,
                 OutputFileName = txtOutputFilename.Text,
                 OutputMargin = Convert.ToInt32(numOutputMargin.Value),
+                OutputPath = txtOutputPath.Text,
                 OutputSize = new Size(
                     Convert.ToInt32(numOutputWidth.Value),
                     Convert.ToInt32(numOutputHeight.Value)
                 ),
-                InputPath = @"images\",
+                InputPath = txtInputPath.Text,
             };
             var packer = new TexturePacker(settings);
             packer.Run();

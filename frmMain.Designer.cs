@@ -34,22 +34,27 @@
             this.label2 = new System.Windows.Forms.Label();
             this.numOutputHeight = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtOutputFilename = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.cboOutputBPP = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.cboOutputFormat = new System.Windows.Forms.ComboBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.numOutputMargin = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cboOutputFormat = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cboOutputBPP = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtOutputFilename = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.btnFollow = new System.Windows.Forms.PictureBox();
             this.btnTweet = new System.Windows.Forms.PictureBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.btnInputPath = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.btnOutputPath = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numOutputWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numOutputHeight)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -61,9 +66,9 @@
             // 
             // btnRun
             // 
-            this.btnRun.Location = new System.Drawing.Point(178, 145);
+            this.btnRun.Location = new System.Drawing.Point(12, 12);
             this.btnRun.Name = "btnRun";
-            this.btnRun.Size = new System.Drawing.Size(146, 139);
+            this.btnRun.Size = new System.Drawing.Size(312, 68);
             this.btnRun.TabIndex = 0;
             this.btnRun.Text = "Run";
             this.btnRun.UseVisualStyleBackColor = true;
@@ -123,6 +128,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnOutputPath);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.textBox2);
             this.groupBox1.Controls.Add(this.checkBox3);
             this.groupBox1.Controls.Add(this.checkBox2);
             this.groupBox1.Controls.Add(this.checkBox1);
@@ -138,74 +146,42 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.numOutputWidth);
             this.groupBox1.Controls.Add(this.numOutputHeight);
-            this.groupBox1.Location = new System.Drawing.Point(12, 290);
+            this.groupBox1.Location = new System.Drawing.Point(12, 140);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(312, 151);
+            this.groupBox1.Size = new System.Drawing.Size(312, 156);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Output Settings";
             // 
-            // txtOutputFilename
+            // checkBox3
             // 
-            this.txtOutputFilename.Location = new System.Drawing.Point(64, 121);
-            this.txtOutputFilename.Name = "txtOutputFilename";
-            this.txtOutputFilename.Size = new System.Drawing.Size(109, 20);
-            this.txtOutputFilename.TabIndex = 5;
-            this.txtOutputFilename.Text = "texpack";
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(209, 129);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(93, 17);
+            this.checkBox3.TabIndex = 15;
+            this.checkBox3.Text = "C/C++ header";
+            this.checkBox3.UseVisualStyleBackColor = true;
             // 
-            // label3
+            // checkBox2
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 124);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "File name";
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(209, 106);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(90, 17);
+            this.checkBox2.TabIndex = 14;
+            this.checkBox2.Text = "Texture index";
+            this.checkBox2.UseVisualStyleBackColor = true;
             // 
-            // cboOutputBPP
+            // checkBox1
             // 
-            this.cboOutputBPP.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboOutputBPP.FormattingEnabled = true;
-            this.cboOutputBPP.Items.AddRange(new object[] {
-            "16",
-            "24",
-            "32",
-            "4",
-            "8"});
-            this.cboOutputBPP.Location = new System.Drawing.Point(229, 19);
-            this.cboOutputBPP.Name = "cboOutputBPP";
-            this.cboOutputBPP.Size = new System.Drawing.Size(73, 21);
-            this.cboOutputBPP.TabIndex = 7;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(184, 22);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(28, 13);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "BPP";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(184, 47);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(39, 13);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "Format";
-            // 
-            // cboOutputFormat
-            // 
-            this.cboOutputFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboOutputFormat.FormattingEnabled = true;
-            this.cboOutputFormat.Items.AddRange(new object[] {
-            "BMP",
-            "PNG"});
-            this.cboOutputFormat.Location = new System.Drawing.Point(229, 44);
-            this.cboOutputFormat.Name = "cboOutputFormat";
-            this.cboOutputFormat.Size = new System.Drawing.Size(73, 21);
-            this.cboOutputFormat.TabIndex = 9;
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(209, 83);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(62, 17);
+            this.checkBox1.TabIndex = 13;
+            this.checkBox1.Text = "Texture";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // label6
             // 
@@ -233,58 +209,84 @@
             0,
             0});
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(184, 47);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(39, 13);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "Format";
+            // 
+            // cboOutputFormat
+            // 
+            this.cboOutputFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboOutputFormat.FormattingEnabled = true;
+            this.cboOutputFormat.Items.AddRange(new object[] {
+            "BMP",
+            "PNG"});
+            this.cboOutputFormat.Location = new System.Drawing.Point(229, 44);
+            this.cboOutputFormat.Name = "cboOutputFormat";
+            this.cboOutputFormat.Size = new System.Drawing.Size(73, 21);
+            this.cboOutputFormat.TabIndex = 9;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(184, 22);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(28, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "BPP";
+            // 
+            // cboOutputBPP
+            // 
+            this.cboOutputBPP.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboOutputBPP.FormattingEnabled = true;
+            this.cboOutputBPP.Items.AddRange(new object[] {
+            "16",
+            "24",
+            "32",
+            "4",
+            "8"});
+            this.cboOutputBPP.Location = new System.Drawing.Point(229, 19);
+            this.cboOutputBPP.Name = "cboOutputBPP";
+            this.cboOutputBPP.Size = new System.Drawing.Size(73, 21);
+            this.cboOutputBPP.TabIndex = 7;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(8, 103);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(52, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "File name";
+            // 
+            // txtOutputFilename
+            // 
+            this.txtOutputFilename.Location = new System.Drawing.Point(64, 100);
+            this.txtOutputFilename.Name = "txtOutputFilename";
+            this.txtOutputFilename.Size = new System.Drawing.Size(109, 20);
+            this.txtOutputFilename.TabIndex = 5;
+            this.txtOutputFilename.Text = "texpack";
+            // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnInputPath);
             this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Location = new System.Drawing.Point(12, 145);
+            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Location = new System.Drawing.Point(12, 86);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(155, 139);
+            this.groupBox2.Size = new System.Drawing.Size(312, 48);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Input Settings";
             // 
-            // label7
-            // 
-            this.label7.Location = new System.Drawing.Point(11, 28);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(138, 79);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "Hard-coded to all contents of \\input folder; to be made configurable later";
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(203, 71);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(62, 17);
-            this.checkBox1.TabIndex = 13;
-            this.checkBox1.Text = "Texture";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(203, 97);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(90, 17);
-            this.checkBox2.TabIndex = 14;
-            this.checkBox2.Text = "Texture index";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(203, 123);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(93, 17);
-            this.checkBox3.TabIndex = 15;
-            this.checkBox3.Text = "C/C++ header";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(16, 477);
+            this.label8.Location = new System.Drawing.Point(18, 308);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(44, 13);
             this.label8.TabIndex = 8;
@@ -294,7 +296,7 @@
             // 
             this.btnFollow.BackColor = System.Drawing.Color.Transparent;
             this.btnFollow.Image = global::RelTexPacNet.Properties.Resources.twitter_nathanchere_follow;
-            this.btnFollow.Location = new System.Drawing.Point(178, 494);
+            this.btnFollow.Location = new System.Drawing.Point(180, 325);
             this.btnFollow.Name = "btnFollow";
             this.btnFollow.Size = new System.Drawing.Size(146, 24);
             this.btnFollow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -306,7 +308,7 @@
             // 
             this.btnTweet.BackColor = System.Drawing.Color.Transparent;
             this.btnTweet.Image = global::RelTexPacNet.Properties.Resources.twitter_nathanchere;
-            this.btnTweet.Location = new System.Drawing.Point(10, 494);
+            this.btnTweet.Location = new System.Drawing.Point(12, 325);
             this.btnTweet.Name = "btnTweet";
             this.btnTweet.Size = new System.Drawing.Size(158, 24);
             this.btnTweet.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -314,11 +316,67 @@
             this.btnTweet.TabStop = false;
             this.btnTweet.Click += new System.EventHandler(this.btnTweet_Click);
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(8, 22);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(29, 13);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "Path";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(64, 19);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(109, 20);
+            this.textBox1.TabIndex = 7;
+            this.textBox1.Text = ".\\images";
+            // 
+            // btnInputPath
+            // 
+            this.btnInputPath.Enabled = false;
+            this.btnInputPath.Location = new System.Drawing.Point(172, 19);
+            this.btnInputPath.Name = "btnInputPath";
+            this.btnInputPath.Size = new System.Drawing.Size(23, 20);
+            this.btnInputPath.TabIndex = 9;
+            this.btnInputPath.Text = "...";
+            this.btnInputPath.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(8, 129);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(29, 13);
+            this.label9.TabIndex = 17;
+            this.label9.Text = "Path";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(64, 126);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(109, 20);
+            this.textBox2.TabIndex = 16;
+            this.textBox2.Text = ".\\output";
+            // 
+            // btnOutputPath
+            // 
+            this.btnOutputPath.Enabled = false;
+            this.btnOutputPath.Location = new System.Drawing.Point(172, 125);
+            this.btnOutputPath.Name = "btnOutputPath";
+            this.btnOutputPath.Size = new System.Drawing.Size(23, 20);
+            this.btnOutputPath.TabIndex = 18;
+            this.btnOutputPath.Text = "...";
+            this.btnOutputPath.UseVisualStyleBackColor = true;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(336, 523);
+            this.ClientSize = new System.Drawing.Size(336, 358);
             this.Controls.Add(this.btnFollow);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.btnTweet);
@@ -335,6 +393,7 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numOutputMargin)).EndInit();
             this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnFollow)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnTweet)).EndInit();
             this.ResumeLayout(false);
@@ -359,13 +418,18 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.NumericUpDown numOutputMargin;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.PictureBox btnTweet;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.PictureBox btnFollow;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button btnInputPath;
+        private System.Windows.Forms.Button btnOutputPath;
     }
 }
 
