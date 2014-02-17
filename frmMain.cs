@@ -29,5 +29,21 @@ namespace RelTexPacNet
         {
             Process.Start(URL_FOLLOW);
         }
+
+        private void btnRun_Click(object sender, EventArgs e)
+        {
+            var settings = new TexturePacker.Settings {
+                OutputBitsPerPixel = (TexturePacker.Settings.BitsPerPixel)cboOutputBPP.SelectedValue,
+                OutputFileFormat= (TexturePacker.Settings.FileFormat)cboOutputFormat.SelectedValue,
+                OutputFileName = txtOutputFilename.Text,
+                OutputMargin = Convert.ToInt32(numOutputMargin.Value),
+                OutputSize = new Size(
+                    Convert.ToInt32(numOutputWidth.Value),
+                    Convert.ToInt32(numOutputHeight.Value)
+                ),
+            };
+            var packer = new TexturePacker(settings);
+            packer.Run();
+        }
     }
 }

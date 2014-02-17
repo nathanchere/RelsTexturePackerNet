@@ -61,12 +61,13 @@
             // 
             // btnRun
             // 
-            this.btnRun.Location = new System.Drawing.Point(134, 32);
+            this.btnRun.Location = new System.Drawing.Point(178, 145);
             this.btnRun.Name = "btnRun";
-            this.btnRun.Size = new System.Drawing.Size(72, 52);
+            this.btnRun.Size = new System.Drawing.Size(146, 139);
             this.btnRun.TabIndex = 0;
             this.btnRun.Text = "Run";
             this.btnRun.UseVisualStyleBackColor = true;
+            this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
             // 
             // numOutputWidth
             // 
