@@ -8,7 +8,7 @@ namespace RelTexPacNet
 {
     public class TextureAtlasCalculator
     {
-        public class Node
+        private class Node
         {
             public string FileName;
             public int Width;
@@ -17,11 +17,11 @@ namespace RelTexPacNet
             public int Y;
         }
 
-        public Size Size { get; private set; }
-        public bool AllowRotation { get; private set; }
+        private Size Size { get;  set; }
+        private bool AllowRotation { get;  set; }
 
-        public List<Node> usedRectangles = new List<Node>();
-        public List<Node> freeRectangles = new List<Node>();
+        private List<Node> usedRectangles = new List<Node>();
+        private List<Node> freeRectangles = new List<Node>();
 
         public TextureAtlasCalculator(int width, int height, int padding, bool allowRotation)
         {
@@ -170,6 +170,7 @@ namespace RelTexPacNet
                         bestX = (int)freeRectangles[i].X;
                     }
                 }
+
                 if (AllowRotation && freeRectangles[i].Width >= height && freeRectangles[i].Height >= width)
                 {
                     int topSideY = (int)freeRectangles[i].Y + width;

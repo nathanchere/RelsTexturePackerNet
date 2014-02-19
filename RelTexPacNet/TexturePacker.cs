@@ -11,15 +11,7 @@ namespace RelTexPacNet
 {
     public class TexturePacker
     {
-        private readonly string COMMAND_PATH = @".\Resources\Texture_packer.exe";
-
-        private Settings _settings;
-
-        public TexturePacker(Settings settings)
-        {
-            _settings = settings;
-        }
-
+        #region Child classes
         public class Settings
         {
             public enum BitsPerPixel
@@ -67,20 +59,29 @@ namespace RelTexPacNet
         {
             public bool WasSuccessful { get; set; }
             public string ErrorMessage { get; set; }
+
+            public Bitmap TextureAtlas { get; set; }
+            public string UvMap { get; set; }
+        }
+        #endregion
+
+        private Settings _settings;
+        private Dictionary<string, Bitmap> _sourceImages;
+
+        public TexturePacker(Settings settings)
+        {
+            _settings = settings;
+        }
+
+        public void AddImage(Bitmap bitmap, string reference)
+        {
+            _sourceImages.Add(reference, bitmap);
         }
 
         public Result Run()
-        {            
-            var process = new Process();
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.RedirectStandardOutput = true;
-            process.StartInfo.FileName = COMMAND_PATH;
-            process.StartInfo.Arguments = _settings.ToString();
-            process.StartInfo.WorkingDirectory = @".\Resources"; //TODO
-
-            process.Start();
-            var output = process.StandardOutput.ReadToEnd();
-            process.WaitForExit();
+        {
+            var x = new TextureAtlasCalculator(512, 256, 1, false);
+            var result = x.
 
             return new Result { ErrorMessage = output };
         }
