@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Linq;
 using Moq;
 using Xunit;
 
@@ -16,18 +17,64 @@ namespace RelTexPacNet
             return result.Object;
         }
 
-        public void TexturePacker_run_with_valid_input_returns_WasSuccessful_true()
+        public void Run_with_no_input_returns_WasSuccessful_false()
         {
-            var settings = new TexturePacker.Settings {                 
+            Assert.True(false);
+        }
+
+        public void Run_with_bad_input_returns_WasSuccessful_false()
+        {
+            Assert.True(false);
+        }
+
+        public void Run_with_no_input_returns_appropriate_error_message()
+        {
+            Assert.True(false);
+        }
+
+        public void Run_with_bad_input_returns_appropriate_error_message()
+        {
+            Assert.True(false);
+        }
+
+        public void Run_with_valid_input_returns_no_error_message()
+        {
+            Assert.True(false);
+        }
+
+        public void Run_with_valid_input_returns_WasSuccessful_true()
+        {
+            var settings = new TexturePacker.Settings
+            {
             };
+
             var packer = new TexturePacker(settings);
-            packer.AddImage(MockImage(120, 60),"a");
-            packer.AddImage(MockImage(64, 128),"b");
-            packer.AddImage(MockImage(32, 32),"c");
+            packer.AddImage(MockImage(120, 60), "a");
+            packer.AddImage(MockImage(64, 128), "b");
+            packer.AddImage(MockImage(32, 32), "c");
 
             var result = packer.Run();
 
             Assert.True(result.WasSuccessful);
+        }
+
+        public void Run_success_result_includes_all_added_textures()
+        {
+            var settings = new TexturePacker.Settings
+            {
+            };
+
+            var packer = new TexturePacker(settings);
+            
+            const int inputImageCount = 3;
+
+            packer.AddImage(MockImage(120, 60), "a");
+            packer.AddImage(MockImage(64, 128), "b");
+            packer.AddImage(MockImage(32, 32), "c");
+
+            var result = packer.Run();
+
+            Assert.Equal(result.TextureAtlas.Nodes.Count(), inputImageCount);
         }
     }
 }
