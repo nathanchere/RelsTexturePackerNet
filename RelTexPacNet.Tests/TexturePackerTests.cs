@@ -17,6 +17,8 @@ namespace RelTexPacNet
             return result.Object;
         }
 
+        // No no no no no
+
         public void Run_with_no_input_returns_WasSuccessful_false()
         {
             Assert.True(false);
