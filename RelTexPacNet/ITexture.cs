@@ -8,9 +8,8 @@ namespace RelTexPacNet
 {
     public interface ITexture
     {
-        byte[] Bitmap { get; }
+        Image Image { get; }
         int Width { get; }
         int Height { get; set; }
-
     }
 }

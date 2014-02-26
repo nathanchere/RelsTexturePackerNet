@@ -25,7 +25,7 @@ namespace RelTexPacNet
             }
 
             public enum FileFormat
-            {                
+            {
                 Unknown = -1,
                 BMP = 0,
                 PNG = 1,
@@ -33,7 +33,7 @@ namespace RelTexPacNet
 
             public string InputPath { get; set; }
 
-            public Size OutputSize  { get; set; }
+            public Size OutputSize { get; set; }
             public int OutputMargin { get; set; }
 
             public string OutputFileName { get; set; }
@@ -60,30 +60,45 @@ namespace RelTexPacNet
             public bool WasSuccessful { get; set; }
             public string ErrorMessage { get; set; }
 
-            public Bitmap TextureAtlas { get; set; }
-            public string UvMap { get; set; }
+            public TextureAtlas TextureAtlas { get; set; }
+            public List<TextureAtlas.Node> Nodes { get; set; }
         }
         #endregion
 
         private Settings _settings;
-        private Dictionary<string, Bitmap> _sourceImages;
+        private Dictionary<string, Image> _sourceImages;
 
         public TexturePacker(Settings settings)
         {
             _settings = settings;
         }
 
-        public void AddImage(Bitmap bitmap, string reference)
+        public void AddImage(Image image, string reference)
         {
-            _sourceImages.Add(reference, bitmap);
+            _sourceImages.Add(reference, image);
         }
 
         public Result Run()
         {
-            var x = new TextureAtlasCalculator(512, 256, 1, false);
-            var result = x.
+            try
+            {
+                var x = new TextureAtlasCalculator(512, 256, 1, false);                
 
-            return new Result { ErrorMessage = output };
+                return new Result { 
+                    WasSuccessful = true,
+                    ErrorMessage = "",
+                    Nodes = null,
+                    TextureAtlas = null,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Result
+                {
+                    WasSuccessful = false,
+                    ErrorMessage = ex.Message,
+                };
+            }        
         }
     }
 }

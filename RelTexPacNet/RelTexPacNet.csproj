@@ -49,6 +49,7 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="ITexture.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TextureAtlas.cs" />
@@ -83,11 +84,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\twitter-nathanchere_follow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Texture_packer.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
