@@ -1,9 +1,15 @@
-Rel's Texture Packer GUI .Net
-=============================
+RelTexPacNet - Texture Atlas Generator
+======================================
 
-A simple GUI for Rel's Texture Packer, since the official one is (as far as I can tell) done in VB6 and a pain in the ass to run on any remotely current operating system.
+This started out as a simple GUI for Rel's Texture Packer since the official GUI was done in VB6 and a pain in the ass to run on any remotely current operating system. After trying to work around numerous bugs and limitations of the underlying texture packer I decided it was easier to just rewrite the entire thing and ditch the RTP dependency completely.
 
-At the moment it's just a quick wrapper around Rel's Texture_packer executable. It would be ideal to rewrite the core texture_packer logic to have an all-in-one exe and fix some of the shortcomings but for now it works well enough.
+
+**master** branch is the most current code at any given time
+**stable** branch is updated with each release.
+
+If you want the most current *stable* code at any given point in time, use the **stable** branch.
+
+If you want to live on the bleeding edge and don't mind things potentially being broken, use **master**.
 
 Idealistic but highly unlikely to-do:
 ------------------
@@ -15,6 +21,6 @@ Idealistic but highly unlikely to-do:
 Credits / thanks
 ------
 
-[Relminator](http://rel.phatcode.net) - texture packer implementation
+[Relminator](http://rel.phatcode.net) - original texture packer which was the inspiration for this project
 
-[BlackPawn](http://www.blackpawn.com/texts/lightmaps/default.html) - texture atlas algorithm
+[BlackPawn](http://www.blackpawn.com/texts/lightmaps/default.html) - texture atlas algorithms
