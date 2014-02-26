@@ -19,31 +19,37 @@ namespace RelTexPacNet
 
         // No no no no no
 
+        [Fact]
         public void Run_with_no_input_returns_WasSuccessful_false()
         {
             Assert.True(false);
         }
 
+        [Fact]
         public void Run_with_bad_input_returns_WasSuccessful_false()
         {
             Assert.True(false);
         }
 
+        [Fact]
         public void Run_with_no_input_returns_appropriate_error_message()
         {
             Assert.True(false);
         }
 
+        [Fact]
         public void Run_with_bad_input_returns_appropriate_error_message()
         {
             Assert.True(false);
         }
 
+        [Fact]
         public void Run_with_valid_input_returns_no_error_message()
         {
             Assert.True(false);
         }
 
+        [Fact]
         public void Run_with_valid_input_returns_WasSuccessful_true()
         {
             var settings = new TexturePacker.Settings
@@ -60,6 +66,7 @@ namespace RelTexPacNet
             Assert.True(result.WasSuccessful);
         }
 
+        [Fact]
         public void Run_success_result_includes_all_added_textures()
         {
             var settings = new TexturePacker.Settings
