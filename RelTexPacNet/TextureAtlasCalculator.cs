@@ -36,14 +36,21 @@ namespace RelTexPacNet
 
         public TextureAtlas Render()
         {
-            var result = new TextureAtlas { 
-                Texture = new Bitmap(_size.Width,_size.Height),
-                Nodes = _nodes.Values,
+            var texture = new Bitmap(_size.Width, _size.Height);
+            var nodes = _nodes.Values.ToList();
+
+            var g = Graphics.FromImage(texture);
+
+            // Draw textures on appropriate places on bitmap
+            nodes.ForEach(n => { 
+                g.DrawImageUnscaled(n.Texture,n.X,n.Y);
+            });
+
+            return new TextureAtlas
+            {
+                Texture = texture,
+                Nodes = nodes,
             };
-
-
-
-            return result;
         }
     }
 }
