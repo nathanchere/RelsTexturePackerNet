@@ -81,10 +81,15 @@ namespace RelTexPacNet
         {
             try
             {
-                var x = new TextureAtlasCalculator(
+                var atlas = new TextureAtlasCalculator(
                     _settings.OutputSize,
-                    _settings.OutputMargin);                
+                    _settings.OutputMargin);
 
+                foreach (var key in _sourceImages.Keys)
+                {
+                    atlas.Add(_sourceImages[key], key);
+                }
+                
                 return new Result { 
                     WasSuccessful = true,
                     ErrorMessage = "",

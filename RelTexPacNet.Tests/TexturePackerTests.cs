@@ -12,7 +12,15 @@ namespace RelTexPacNet
             return new Bitmap(width, height);
         }
 
-        // No no no no no
+        [Fact] // define invalid settings?
+        public void Constructor_throws_with_invalid_settings()
+        {
+        }
+
+        [Fact] // define invalid settings?
+        public void Run_throws_with_invalid_settings()
+        {
+        }
 
         [Fact]
         public void Run_with_no_input_returns_WasSuccessful_false()
