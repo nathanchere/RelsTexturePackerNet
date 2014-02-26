@@ -117,10 +117,10 @@ namespace RelTexPacNet
 
             var result = packer.Run();
 
-            Assert.True(result.Nodes.Count == 3);
-            Assert.True(result.Nodes.Count(n => n.Reference == "a") == 1);
-            Assert.True(result.Nodes.Count(n => n.Reference == "b") == 1);
-            Assert.True(result.Nodes.Count(n => n.Reference == "c") == 1);
+            Assert.True(result.TextureAtlas.Nodes.Count() == 3);
+            Assert.True(result.TextureAtlas.Nodes.Count(n => n.Reference == "a") == 1);
+            Assert.True(result.TextureAtlas.Nodes.Count(n => n.Reference == "b") == 1);
+            Assert.True(result.TextureAtlas.Nodes.Count(n => n.Reference == "c") == 1);
         }
 
         [Fact]
@@ -137,7 +137,7 @@ namespace RelTexPacNet
 
             var result = packer.Run();
 
-            var wrongCount = result.Nodes
+            var wrongCount = result.TextureAtlas.Nodes
                 .Select(n => n.Reference)
                 .Count(s => !new[] {"a", "b", "c"}.Contains(s));
 

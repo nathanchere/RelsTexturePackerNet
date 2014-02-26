@@ -17,7 +17,7 @@ namespace RelTexPacNet
         public IEnumerable<Node> Nodes { get; set; }
 
         public Image Texture { get; set; }
-        public int Width { get; set; }
-        public int Height { get; set; }
+
+        //TODO: report method used, free space stats etc
     }
 }

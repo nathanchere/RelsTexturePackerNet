@@ -61,7 +61,6 @@ namespace RelTexPacNet
             public string ErrorMessage { get; set; }
 
             public TextureAtlas TextureAtlas { get; set; }
-            public List<TextureAtlas.Node> Nodes { get; set; }
         }
         #endregion
 
@@ -82,12 +81,13 @@ namespace RelTexPacNet
         {
             try
             {
-                var x = new TextureAtlasCalculator(512, 256, 1, false);                
+                var x = new TextureAtlasCalculator(
+                    _settings.OutputSize,
+                    _settings.OutputMargin);                
 
                 return new Result { 
                     WasSuccessful = true,
                     ErrorMessage = "",
-                    Nodes = null,
                     TextureAtlas = null,
                 };
             }

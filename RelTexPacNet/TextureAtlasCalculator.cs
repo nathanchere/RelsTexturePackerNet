@@ -8,11 +8,6 @@ namespace RelTexPacNet
 {
     public class TextureAtlasCalculator
     {
-        public TextureAtlasCalculator(int i, int i1, int i2, bool b)
-        {
-            throw new NotImplementedException();
-        }
-
         private class Node
         {
             public string FileName;
@@ -22,6 +17,13 @@ namespace RelTexPacNet
             public int Y;
         }
 
-       
+        private Size Size;
+
+        public TextureAtlasCalculator(Size size, int padding)
+        {
+            Size = size;         
+        }
+
+
     }
 }
