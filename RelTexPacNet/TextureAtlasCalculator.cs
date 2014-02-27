@@ -41,6 +41,8 @@ namespace RelTexPacNet
 
         public TextureAtlas Render()
         {
+            if (!_nodes.Any()) throw new Exception("No input textures provided");
+
             var texture = new Bitmap(Size.Width, Size.Height);
             var nodes = _nodes.Values.ToList();
 

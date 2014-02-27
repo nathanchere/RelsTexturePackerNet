@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
@@ -36,18 +37,6 @@ namespace RelTexPacNet
             return result.Object;
         }
 
-        [Fact] // define invalid settings?
-        public void Constructor_throws_with_invalid_settings()
-        {
-            Assert.True(false);
-        }
-
-        [Fact] // define invalid settings?
-        public void Run_throws_with_invalid_settings()
-        {
-            Assert.True(false);
-        }
-
         [Fact]
         public void Run_with_no_input_returns_WasSuccessful_false()
         {
@@ -58,13 +47,24 @@ namespace RelTexPacNet
         }
 
         [Fact]
-        public void Run_with_bad_input_returns_WasSuccessful_false()
+        public void Add_throws_on_bad_image()
         {
             var packer = new TexturePacker();
             packer.AddImage(null, "");
             var result = packer.Run();
 
             Assert.False(result.WasSuccessful);
+        }
+
+        [Fact]
+        public void Add_throws_on_bad_reference()
+        {
+            var packer = new TexturePacker();
+            var image = MockImage(1,1);
+            Assert.Throws<Exception>(() => packer.AddImage(null, "test"));
+            Assert.Throws<Exception>(() => packer.AddImage(image, ""));
+            Assert.Throws<Exception>(() => packer.AddImage(image, " "));
+            Assert.Throws<Exception>(() => packer.AddImage(image, null));
         }
 
         [Fact]

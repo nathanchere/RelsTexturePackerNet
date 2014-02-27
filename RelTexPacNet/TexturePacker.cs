@@ -26,10 +26,12 @@ namespace RelTexPacNet
             _sourceImages.Add(reference,image);
         }
 
-        public Result<TextureAtlas> Run()
+        public Result<TextureAtlas> Run() // TODO: pass in settings, IAtCalc here?
         {
             try
-            {        
+            {
+                _calculator.Render();
+
                 return new Result<TextureAtlas> { 
                     WasSuccessful = true,
                     ErrorMessage = "",
