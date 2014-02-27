@@ -61,9 +61,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Result.cs" />
     <Compile Include="TextureAtlas.cs" />
     <Compile Include="TextureAtlasCalculator.cs" />
     <Compile Include="TextureAtlasNode.cs" />
+    <Compile Include="TextureAtlasSettings.cs" />
     <Compile Include="TexturePacker.cs" />
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>

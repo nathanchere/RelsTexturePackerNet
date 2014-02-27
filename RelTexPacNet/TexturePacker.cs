@@ -12,15 +12,18 @@ namespace RelTexPacNet
 {
     public class TexturePacker
     {
-        public ITextureAtlasCalculator Calculator { get; set; }
+        private readonly ITextureAtlasCalculator _calculator;
+        private readonly Dictionary<string, Image> _sourceImages; 
 
-        public TexturePacker()
-        {            
+        public TexturePacker(ITextureAtlasCalculator calculator = null)
+        {
+            _calculator = calculator ?? new TextureAtlasCalculator();
         }
 
         public void AddImage(Image image, string reference)
         {
-            Calculator.Add(image, reference);
+            //TODO: dupe check etc
+            _sourceImages.Add(reference,image);
         }
 
         public Result<TextureAtlas> Run()

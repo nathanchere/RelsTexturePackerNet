@@ -19,8 +19,8 @@ namespace RelTexPacNet
         {
             InitializeComponent();
 
-            cboOutputBPP.DataSource = Enum.GetValues(typeof(TexturePacker.Settings.BitsPerPixel));
-            cboOutputFormat.DataSource = Enum.GetValues(typeof(TexturePacker.Settings.FileFormat));
+            cboOutputBPP.DataSource = Enum.GetValues(typeof(TextureAtlasSettings.BitsPerPixel));
+            cboOutputFormat.DataSource = Enum.GetValues(typeof(TextureAtlasSettings.FileFormat));
 
             cboOutputBPP.SelectedIndex = 5; //TODO
         }
@@ -38,25 +38,25 @@ namespace RelTexPacNet
         private void btnRun_Click(object sender, EventArgs e)
         {
             var settings = GetSettings();
-            var packer = new TexturePacker(settings);
+            var packer = new TexturePacker();
             var result = packer.Run();
 
             MessageBox.Show("Complete\n\n" + result.ErrorMessage);
         }
 
-        private TexturePacker.Settings GetSettings()
+        private TextureAtlasSettings GetSettings()
         {
-            return new TexturePacker.Settings {
-                OutputBitsPerPixel = (TexturePacker.Settings.BitsPerPixel)cboOutputBPP.SelectedValue,
-                OutputFileFormat= (TexturePacker.Settings.FileFormat)cboOutputFormat.SelectedValue,
+            return new TextureAtlasSettings
+            {
+                OutputBitsPerPixel = (TextureAtlasSettings.BitsPerPixel)cboOutputBPP.SelectedValue,
+                OutputFileFormat = (TextureAtlasSettings.FileFormat)cboOutputFormat.SelectedValue,
                 OutputFileName = txtOutputFilename.Text,
-                OutputMargin = Convert.ToInt32(numOutputMargin.Value),
+                TexturePadding = Convert.ToInt32(numOutputMargin.Value),
                 OutputPath = txtOutputPath.Text,
-                OutputSize = new Size(
+                MaximumSize = new Size(
                     Convert.ToInt32(numOutputWidth.Value),
                     Convert.ToInt32(numOutputHeight.Value)
                     ),
-                InputPath = txtInputPath.Text,
             };
         }
 
