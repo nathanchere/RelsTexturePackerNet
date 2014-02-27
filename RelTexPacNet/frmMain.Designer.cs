@@ -149,7 +149,7 @@
             this.groupBox1.Controls.Add(this.numOutputHeight);
             this.groupBox1.Location = new System.Drawing.Point(12, 140);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(312, 156);
+            this.groupBox1.Size = new System.Drawing.Size(312, 210);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Output Settings";
@@ -157,7 +157,7 @@
             // btnOutputPath
             // 
             this.btnOutputPath.Enabled = false;
-            this.btnOutputPath.Location = new System.Drawing.Point(172, 125);
+            this.btnOutputPath.Location = new System.Drawing.Point(172, 179);
             this.btnOutputPath.Name = "btnOutputPath";
             this.btnOutputPath.Size = new System.Drawing.Size(23, 20);
             this.btnOutputPath.TabIndex = 18;
@@ -167,7 +167,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(8, 129);
+            this.label9.Location = new System.Drawing.Point(8, 183);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(29, 13);
             this.label9.TabIndex = 17;
@@ -175,7 +175,7 @@
             // 
             // txtOutputPath
             // 
-            this.txtOutputPath.Location = new System.Drawing.Point(64, 126);
+            this.txtOutputPath.Location = new System.Drawing.Point(64, 180);
             this.txtOutputPath.Name = "txtOutputPath";
             this.txtOutputPath.ReadOnly = true;
             this.txtOutputPath.Size = new System.Drawing.Size(109, 20);
@@ -185,7 +185,7 @@
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(209, 129);
+            this.checkBox3.Location = new System.Drawing.Point(213, 182);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(93, 17);
             this.checkBox3.TabIndex = 15;
@@ -195,7 +195,7 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(209, 106);
+            this.checkBox2.Location = new System.Drawing.Point(213, 159);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(90, 17);
             this.checkBox2.TabIndex = 14;
@@ -205,7 +205,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(209, 83);
+            this.checkBox1.Location = new System.Drawing.Point(213, 136);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(62, 17);
             this.checkBox1.TabIndex = 13;
@@ -241,7 +241,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(184, 47);
+            this.label5.Location = new System.Drawing.Point(8, 130);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(39, 13);
             this.label5.TabIndex = 10;
@@ -251,15 +251,15 @@
             // 
             this.cboOutputFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboOutputFormat.FormattingEnabled = true;
-            this.cboOutputFormat.Location = new System.Drawing.Point(229, 44);
+            this.cboOutputFormat.Location = new System.Drawing.Point(64, 127);
             this.cboOutputFormat.Name = "cboOutputFormat";
-            this.cboOutputFormat.Size = new System.Drawing.Size(73, 21);
+            this.cboOutputFormat.Size = new System.Drawing.Size(62, 21);
             this.cboOutputFormat.TabIndex = 9;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(184, 22);
+            this.label4.Location = new System.Drawing.Point(8, 103);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(28, 13);
             this.label4.TabIndex = 8;
@@ -269,15 +269,15 @@
             // 
             this.cboOutputBPP.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboOutputBPP.FormattingEnabled = true;
-            this.cboOutputBPP.Location = new System.Drawing.Point(229, 19);
+            this.cboOutputBPP.Location = new System.Drawing.Point(64, 100);
             this.cboOutputBPP.Name = "cboOutputBPP";
-            this.cboOutputBPP.Size = new System.Drawing.Size(73, 21);
+            this.cboOutputBPP.Size = new System.Drawing.Size(62, 21);
             this.cboOutputBPP.TabIndex = 7;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 103);
+            this.label3.Location = new System.Drawing.Point(8, 157);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(52, 13);
             this.label3.TabIndex = 6;
@@ -285,9 +285,9 @@
             // 
             // txtOutputFilename
             // 
-            this.txtOutputFilename.Location = new System.Drawing.Point(64, 100);
+            this.txtOutputFilename.Location = new System.Drawing.Point(64, 154);
             this.txtOutputFilename.Name = "txtOutputFilename";
-            this.txtOutputFilename.Size = new System.Drawing.Size(109, 20);
+            this.txtOutputFilename.Size = new System.Drawing.Size(131, 20);
             this.txtOutputFilename.TabIndex = 5;
             this.txtOutputFilename.Text = "texpack";
             // 
@@ -334,7 +334,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(18, 308);
+            this.label8.Location = new System.Drawing.Point(20, 353);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(44, 13);
             this.label8.TabIndex = 8;
@@ -344,7 +344,7 @@
             // 
             this.btnFollow.BackColor = System.Drawing.Color.Transparent;
             this.btnFollow.Image = global::RelTexPacNet.Properties.Resources.twitter_nathanchere_follow;
-            this.btnFollow.Location = new System.Drawing.Point(180, 325);
+            this.btnFollow.Location = new System.Drawing.Point(182, 370);
             this.btnFollow.Name = "btnFollow";
             this.btnFollow.Size = new System.Drawing.Size(146, 24);
             this.btnFollow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -356,7 +356,7 @@
             // 
             this.btnTweet.BackColor = System.Drawing.Color.Transparent;
             this.btnTweet.Image = global::RelTexPacNet.Properties.Resources.twitter_nathanchere;
-            this.btnTweet.Location = new System.Drawing.Point(12, 325);
+            this.btnTweet.Location = new System.Drawing.Point(14, 370);
             this.btnTweet.Name = "btnTweet";
             this.btnTweet.Size = new System.Drawing.Size(158, 24);
             this.btnTweet.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -378,7 +378,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(336, 358);
+            this.ClientSize = new System.Drawing.Size(336, 405);
             this.Controls.Add(this.btnDebug);
             this.Controls.Add(this.btnFollow);
             this.Controls.Add(this.label8);
