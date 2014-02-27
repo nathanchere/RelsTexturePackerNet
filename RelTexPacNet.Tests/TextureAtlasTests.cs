@@ -11,7 +11,7 @@ namespace RelTexPacNet
     {
         public void ReturnsRightValue()
         {
-            var target = new TextureAtlasCalculator(new Size(), 1);
+            var target = new TextureAtlasCalculator();
 
             var result = false;
 

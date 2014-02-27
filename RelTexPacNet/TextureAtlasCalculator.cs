@@ -18,15 +18,13 @@ namespace RelTexPacNet
 
     public class TextureAtlasCalculator : ITextureAtlasCalculator
     {
-        private Size _size;
-        private int _padding;
+        public Size Size { get; set; }
+        public int Padding { get; set; }
         private Dictionary<string, TextureAtlasNode> _nodes;
 
 
-        public TextureAtlasCalculator(Size size, int padding)
+        public TextureAtlasCalculator()
         {
-            _size = size;
-            _padding = padding;
             _nodes = new Dictionary<string, TextureAtlasNode>();
         }
 
@@ -43,7 +41,7 @@ namespace RelTexPacNet
 
         public TextureAtlas Render()
         {
-            var texture = new Bitmap(_size.Width, _size.Height);
+            var texture = new Bitmap(Size.Width, Size.Height);
             var nodes = _nodes.Values.ToList();
 
             var g = Graphics.FromImage(texture);

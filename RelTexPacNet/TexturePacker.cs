@@ -56,17 +56,16 @@ namespace RelTexPacNet
         #endregion
 
         private readonly Settings _settings;
-        private readonly ITextureAtlasCalculator _calculator;
+        public ITextureAtlasCalculator Calculator { get; set; }
 
-        public TexturePacker(Settings settings, ITextureAtlasCalculator calculator = null)
+        public TexturePacker(Settings settings)
         {
-            _settings = settings;
-            _calculator = calculator ?? new TextureAtlasCalculator(_settings.OutputSize, _settings.OutputMargin);
+            _settings = settings;            
         }
 
         public void AddImage(Image image, string reference)
         {
-            _calculator.Add(image, reference);
+            Calculator.Add(image, reference);
         }
 
         public Result Run()
