@@ -144,7 +144,7 @@ namespace RelTexPacNet
             {
             };
 
-            var packer = new TexturePacker(settings);
+            var packer = new TexturePacker();
             packer.AddImage(new Bitmap(120, 60), "a");
             packer.AddImage(new Bitmap(80, 100), "b");
             packer.AddImage(new Bitmap(32, 32), "c");
