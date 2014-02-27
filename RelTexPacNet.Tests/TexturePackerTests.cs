@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using Moq;
 using Xunit;
@@ -10,6 +12,28 @@ namespace RelTexPacNet
         private Image MockImage(int height, int width)
         {
             return new Bitmap(width, height);
+        }
+
+
+        private ITextureAtlasCalculator MockTextureAtlasCalculator(Size size, int padding)
+        {
+            int value = 0;
+            var result = new Mock<ITextureAtlasCalculator>();
+            result.Setup(x => x.Add(It.IsAny<Image>(), It.IsAny<string>()))
+                .Callback(() => { value += 1; });
+            result.Setup(x => x.Render())
+                .Returns(() =>
+                {
+                    Debug.WriteLine("Returning mock atlas with " + value + " nodes");
+                    return new TextureAtlas
+                    {
+                        Texture = null,
+                        Nodes = null,
+                    };
+                }
+
+                );
+            return result.Object;
         }
 
         [Fact] // define invalid settings?

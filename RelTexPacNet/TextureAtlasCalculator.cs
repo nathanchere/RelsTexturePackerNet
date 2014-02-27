@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,13 @@ namespace RelTexPacNet
 
     // TODO: TAC exception types
 
-    public class TextureAtlasCalculator
+    public interface ITextureAtlasCalculator
+    {
+        void Add(Image image, string reference);
+        TextureAtlas Render();
+    }
+
+    public class TextureAtlasCalculator : ITextureAtlasCalculator
     {
         private Size _size;
         private int _padding;
