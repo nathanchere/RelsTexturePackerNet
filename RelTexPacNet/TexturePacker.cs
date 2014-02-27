@@ -9,6 +9,7 @@ using System.Windows.Forms;
 
 namespace RelTexPacNet
 {
+   
     public class TexturePacker
     {
         #region Child classes
@@ -54,32 +55,24 @@ namespace RelTexPacNet
         }
         #endregion
 
-        private Settings _settings;
-        private Dictionary<string, Image> _sourceImages;
+        private readonly Settings _settings;
+        private readonly ITextureAtlasCalculator _calculator;
 
-        public TexturePacker(Settings settings)
+        public TexturePacker(Settings settings, ITextureAtlasCalculator calculator = null)
         {
             _settings = settings;
+            _calculator = calculator ?? new TextureAtlasCalculator(_settings.OutputSize, _settings.OutputMargin);
         }
 
         public void AddImage(Image image, string reference)
         {
-            _sourceImages.Add(reference, image);
+            _calculator.Add(image, reference);
         }
 
         public Result Run()
         {
             try
-            {
-                var atlas = new TextureAtlasCalculator(
-                    _settings.OutputSize,
-                    _settings.OutputMargin);
-
-                foreach (var key in _sourceImages.Keys)
-                {
-                    atlas.Add(_sourceImages[key], key);
-                }
-                
+            {                  
                 return new Result { 
                     WasSuccessful = true,
                     ErrorMessage = "",
