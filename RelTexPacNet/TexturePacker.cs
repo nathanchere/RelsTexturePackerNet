@@ -22,7 +22,7 @@ namespace RelTexPacNet
 
         public void AddImage(Image image, string reference)
         {
-            //TODO: dupe check etc
+            if(string.IsNullOrWhitespace()
             _sourceImages.Add(reference,image);
         }
 
