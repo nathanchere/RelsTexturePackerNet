@@ -34,7 +34,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.numOutputHeight = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnOutputPath = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.colorPicker1 = new FerretLib.WinForms.Controls.ColorPicker();
             this.label9 = new System.Windows.Forms.Label();
             this.txtOutputPath = new System.Windows.Forms.TextBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
@@ -48,6 +49,7 @@
             this.cboOutputBPP = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtOutputFilename = new System.Windows.Forms.TextBox();
+            this.btnOutputPath = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnInputPath = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
@@ -56,8 +58,6 @@
             this.btnDebug = new System.Windows.Forms.Button();
             this.btnFollow = new System.Windows.Forms.PictureBox();
             this.btnTweet = new System.Windows.Forms.PictureBox();
-            this.colorPicker1 = new FerretLib.WinForms.Controls.ColorPicker();
-            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numOutputWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numOutputHeight)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -160,15 +160,25 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Output Settings";
             // 
-            // btnOutputPath
+            // label10
             // 
-            this.btnOutputPath.Enabled = false;
-            this.btnOutputPath.Location = new System.Drawing.Point(283, 45);
-            this.btnOutputPath.Name = "btnOutputPath";
-            this.btnOutputPath.Size = new System.Drawing.Size(23, 24);
-            this.btnOutputPath.TabIndex = 18;
-            this.btnOutputPath.Text = "...";
-            this.btnOutputPath.UseVisualStyleBackColor = true;
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(8, 161);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(79, 13);
+            this.label10.TabIndex = 20;
+            this.label10.Text = "Matte Colour";
+            // 
+            // colorPicker1
+            // 
+            this.colorPicker1.Location = new System.Drawing.Point(9, 168);
+            this.colorPicker1.MaximumSize = new System.Drawing.Size(9999, 140);
+            this.colorPicker1.MinimumSize = new System.Drawing.Size(250, 140);
+            this.colorPicker1.Name = "colorPicker1";
+            this.colorPicker1.Size = new System.Drawing.Size(297, 140);
+            this.colorPicker1.TabIndex = 19;
+            this.colorPicker1.Value = System.Drawing.Color.Transparent;
             // 
             // label9
             // 
@@ -302,6 +312,16 @@
             this.txtOutputFilename.TabIndex = 5;
             this.txtOutputFilename.Text = "texpack";
             // 
+            // btnOutputPath
+            // 
+            this.btnOutputPath.Enabled = false;
+            this.btnOutputPath.Location = new System.Drawing.Point(283, 45);
+            this.btnOutputPath.Name = "btnOutputPath";
+            this.btnOutputPath.Size = new System.Drawing.Size(23, 24);
+            this.btnOutputPath.TabIndex = 18;
+            this.btnOutputPath.Text = "...";
+            this.btnOutputPath.UseVisualStyleBackColor = true;
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.btnInputPath);
@@ -384,26 +404,6 @@
             this.btnTweet.TabIndex = 7;
             this.btnTweet.TabStop = false;
             this.btnTweet.Click += new System.EventHandler(this.btnTweet_Click);
-            // 
-            // colorPicker1
-            // 
-            this.colorPicker1.Location = new System.Drawing.Point(9, 168);
-            this.colorPicker1.MaximumSize = new System.Drawing.Size(9999, 140);
-            this.colorPicker1.MinimumSize = new System.Drawing.Size(250, 140);
-            this.colorPicker1.Name = "colorPicker1";
-            this.colorPicker1.Size = new System.Drawing.Size(297, 140);
-            this.colorPicker1.TabIndex = 19;
-            this.colorPicker1.Value = System.Drawing.Color.Empty;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(8, 161);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(79, 13);
-            this.label10.TabIndex = 20;
-            this.label10.Text = "Matte Colour";
             // 
             // frmMain
             // 
