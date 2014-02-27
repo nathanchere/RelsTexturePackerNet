@@ -40,6 +40,7 @@ namespace RelTexPacNet
             var nodes = _nodes.Values.ToList();
 
             var g = Graphics.FromImage(texture);
+            g.Clear(Color.FromArgb(0,255,0,255));
 
             // Draw textures on appropriate places on bitmap
             nodes.ForEach(n => { 

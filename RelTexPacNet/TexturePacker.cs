@@ -33,6 +33,8 @@ namespace RelTexPacNet
 
             public string InputPath { get; set; }
 
+            public Color OutputMatte { get; set; }
+
             public Size OutputSize { get; set; }
             public int OutputMargin { get; set; }
 
@@ -41,18 +43,6 @@ namespace RelTexPacNet
 
             public BitsPerPixel OutputBitsPerPixel { get; set; }
             public FileFormat OutputFileFormat { get; set; }
-
-            public override string ToString()
-            {
-                return string.Format("{0} {1} {2} {3} {4} {5} {6}",
-                    OutputSize.Width,
-                    OutputSize.Height,
-                    OutputFileName,
-                    (int)OutputBitsPerPixel,
-                    (int)OutputFileFormat,
-                    OutputMargin,
-                    InputPath);
-            }
         }
 
         public class Result
