@@ -53,9 +53,11 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txtInputPath = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.btnDebug = new System.Windows.Forms.Button();
             this.btnFollow = new System.Windows.Forms.PictureBox();
             this.btnTweet = new System.Windows.Forms.PictureBox();
-            this.btnDebug = new System.Windows.Forms.Button();
+            this.colorPicker1 = new FerretLib.WinForms.Controls.ColorPicker();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numOutputWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numOutputHeight)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -95,18 +97,20 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(8, 24);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.Size = new System.Drawing.Size(40, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Width";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(8, 50);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 13);
+            this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "Height";
             // 
@@ -129,7 +133,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btnOutputPath);
+            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.colorPicker1);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.txtOutputPath);
             this.groupBox1.Controls.Add(this.checkBox3);
@@ -147,9 +152,10 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.numOutputWidth);
             this.groupBox1.Controls.Add(this.numOutputHeight);
+            this.groupBox1.Controls.Add(this.btnOutputPath);
             this.groupBox1.Location = new System.Drawing.Point(12, 140);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(312, 210);
+            this.groupBox1.Size = new System.Drawing.Size(312, 312);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Output Settings";
@@ -157,9 +163,9 @@
             // btnOutputPath
             // 
             this.btnOutputPath.Enabled = false;
-            this.btnOutputPath.Location = new System.Drawing.Point(172, 179);
+            this.btnOutputPath.Location = new System.Drawing.Point(283, 45);
             this.btnOutputPath.Name = "btnOutputPath";
-            this.btnOutputPath.Size = new System.Drawing.Size(23, 20);
+            this.btnOutputPath.Size = new System.Drawing.Size(23, 24);
             this.btnOutputPath.TabIndex = 18;
             this.btnOutputPath.Text = "...";
             this.btnOutputPath.UseVisualStyleBackColor = true;
@@ -167,25 +173,26 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(8, 183);
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(132, 50);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(29, 13);
+            this.label9.Size = new System.Drawing.Size(33, 13);
             this.label9.TabIndex = 17;
             this.label9.Text = "Path";
             // 
             // txtOutputPath
             // 
-            this.txtOutputPath.Location = new System.Drawing.Point(64, 180);
+            this.txtOutputPath.Location = new System.Drawing.Point(195, 47);
             this.txtOutputPath.Name = "txtOutputPath";
             this.txtOutputPath.ReadOnly = true;
-            this.txtOutputPath.Size = new System.Drawing.Size(109, 20);
+            this.txtOutputPath.Size = new System.Drawing.Size(95, 20);
             this.txtOutputPath.TabIndex = 16;
             this.txtOutputPath.Text = "output\\";
             // 
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(213, 182);
+            this.checkBox3.Location = new System.Drawing.Point(188, 129);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(93, 17);
             this.checkBox3.TabIndex = 15;
@@ -195,7 +202,7 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(213, 159);
+            this.checkBox2.Location = new System.Drawing.Point(188, 106);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(90, 17);
             this.checkBox2.TabIndex = 14;
@@ -205,7 +212,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(213, 136);
+            this.checkBox1.Location = new System.Drawing.Point(188, 83);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(62, 17);
             this.checkBox1.TabIndex = 13;
@@ -215,9 +222,10 @@
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(8, 76);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(39, 13);
+            this.label6.Size = new System.Drawing.Size(45, 13);
             this.label6.TabIndex = 12;
             this.label6.Text = "Margin";
             // 
@@ -241,9 +249,10 @@
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(8, 130);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(39, 13);
+            this.label5.Size = new System.Drawing.Size(45, 13);
             this.label5.TabIndex = 10;
             this.label5.Text = "Format";
             // 
@@ -259,9 +268,10 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(8, 103);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(28, 13);
+            this.label4.Size = new System.Drawing.Size(31, 13);
             this.label4.TabIndex = 8;
             this.label4.Text = "BPP";
             // 
@@ -277,17 +287,18 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 157);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(132, 24);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 13);
+            this.label3.Size = new System.Drawing.Size(57, 13);
             this.label3.TabIndex = 6;
-            this.label3.Text = "File name";
+            this.label3.Text = "Filename";
             // 
             // txtOutputFilename
             // 
-            this.txtOutputFilename.Location = new System.Drawing.Point(64, 154);
+            this.txtOutputFilename.Location = new System.Drawing.Point(195, 21);
             this.txtOutputFilename.Name = "txtOutputFilename";
-            this.txtOutputFilename.Size = new System.Drawing.Size(131, 20);
+            this.txtOutputFilename.Size = new System.Drawing.Size(108, 20);
             this.txtOutputFilename.TabIndex = 5;
             this.txtOutputFilename.Text = "texpack";
             // 
@@ -334,35 +345,11 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(20, 353);
+            this.label8.Location = new System.Drawing.Point(18, 455);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(44, 13);
             this.label8.TabIndex = 8;
             this.label8.Text = "Support";
-            // 
-            // btnFollow
-            // 
-            this.btnFollow.BackColor = System.Drawing.Color.Transparent;
-            this.btnFollow.Image = global::RelTexPacNet.Properties.Resources.twitter_nathanchere_follow;
-            this.btnFollow.Location = new System.Drawing.Point(182, 370);
-            this.btnFollow.Name = "btnFollow";
-            this.btnFollow.Size = new System.Drawing.Size(146, 24);
-            this.btnFollow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.btnFollow.TabIndex = 9;
-            this.btnFollow.TabStop = false;
-            this.btnFollow.Click += new System.EventHandler(this.btnFollow_Click);
-            // 
-            // btnTweet
-            // 
-            this.btnTweet.BackColor = System.Drawing.Color.Transparent;
-            this.btnTweet.Image = global::RelTexPacNet.Properties.Resources.twitter_nathanchere;
-            this.btnTweet.Location = new System.Drawing.Point(14, 370);
-            this.btnTweet.Name = "btnTweet";
-            this.btnTweet.Size = new System.Drawing.Size(158, 24);
-            this.btnTweet.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.btnTweet.TabIndex = 7;
-            this.btnTweet.TabStop = false;
-            this.btnTweet.Click += new System.EventHandler(this.btnTweet_Click);
             // 
             // btnDebug
             // 
@@ -374,11 +361,55 @@
             this.btnDebug.UseVisualStyleBackColor = true;
             this.btnDebug.Click += new System.EventHandler(this.btnDebug_Click);
             // 
+            // btnFollow
+            // 
+            this.btnFollow.BackColor = System.Drawing.Color.Transparent;
+            this.btnFollow.Image = global::RelTexPacNet.Properties.Resources.twitter_nathanchere_follow;
+            this.btnFollow.Location = new System.Drawing.Point(180, 472);
+            this.btnFollow.Name = "btnFollow";
+            this.btnFollow.Size = new System.Drawing.Size(146, 24);
+            this.btnFollow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.btnFollow.TabIndex = 9;
+            this.btnFollow.TabStop = false;
+            this.btnFollow.Click += new System.EventHandler(this.btnFollow_Click);
+            // 
+            // btnTweet
+            // 
+            this.btnTweet.BackColor = System.Drawing.Color.Transparent;
+            this.btnTweet.Image = global::RelTexPacNet.Properties.Resources.twitter_nathanchere;
+            this.btnTweet.Location = new System.Drawing.Point(12, 472);
+            this.btnTweet.Name = "btnTweet";
+            this.btnTweet.Size = new System.Drawing.Size(158, 24);
+            this.btnTweet.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.btnTweet.TabIndex = 7;
+            this.btnTweet.TabStop = false;
+            this.btnTweet.Click += new System.EventHandler(this.btnTweet_Click);
+            // 
+            // colorPicker1
+            // 
+            this.colorPicker1.Location = new System.Drawing.Point(9, 168);
+            this.colorPicker1.MaximumSize = new System.Drawing.Size(9999, 140);
+            this.colorPicker1.MinimumSize = new System.Drawing.Size(250, 140);
+            this.colorPicker1.Name = "colorPicker1";
+            this.colorPicker1.Size = new System.Drawing.Size(297, 140);
+            this.colorPicker1.TabIndex = 19;
+            this.colorPicker1.Value = System.Drawing.Color.Empty;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(8, 161);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(79, 13);
+            this.label10.TabIndex = 20;
+            this.label10.Text = "Matte Colour";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(336, 405);
+            this.ClientSize = new System.Drawing.Size(336, 508);
             this.Controls.Add(this.btnDebug);
             this.Controls.Add(this.btnFollow);
             this.Controls.Add(this.label8);
@@ -434,6 +465,8 @@
         private System.Windows.Forms.Button btnInputPath;
         private System.Windows.Forms.Button btnOutputPath;
         private System.Windows.Forms.Button btnDebug;
+        private System.Windows.Forms.Label label10;
+        private FerretLib.WinForms.Controls.ColorPicker colorPicker1;
     }
 }
 
