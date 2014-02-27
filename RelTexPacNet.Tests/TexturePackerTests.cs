@@ -39,11 +39,13 @@ namespace RelTexPacNet
         [Fact] // define invalid settings?
         public void Constructor_throws_with_invalid_settings()
         {
+            Assert.True(false);
         }
 
         [Fact] // define invalid settings?
         public void Run_throws_with_invalid_settings()
         {
+            Assert.True(false);
         }
 
         [Fact]
