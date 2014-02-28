@@ -34,8 +34,6 @@ namespace RelTexPacNet
             }
 
             return result;
-        }
-
-        
+        }        
     }
 }
