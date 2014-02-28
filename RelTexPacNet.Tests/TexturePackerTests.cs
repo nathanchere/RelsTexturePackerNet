@@ -15,25 +15,20 @@ namespace RelTexPacNet
             return new Bitmap(width, height);
         }
 
-
         private ITextureAtlasCalculator MockTextureAtlasCalculator()
         {
-            int value = 0;
+            var nodes = new List<TextureAtlasNode>();
             var result = new Mock<ITextureAtlasCalculator>();
             result.Setup(x => x.Add(It.IsAny<Image>(), It.IsAny<string>()))
-                .Callback(() => { value += 1; });
-            result.Setup(x => x.Render())
-                .Returns(() =>
-                {
-                    Debug.WriteLine("Returning mock atlas with " + value + " nodes");
-                    return new TextureAtlas
-                    {
-                        Texture = null,
-                        Nodes = null,
-                    };
-                }
-
+                .Callback((Image image, string reference) =>
+                    nodes.Add(new TextureAtlasNode{Reference = reference, Texture = image})
                 );
+            result.Setup(x => x.Render())
+                .Returns(new TextureAtlas {
+                        Texture = null,
+                        Nodes = nodes,
+                        });
+
             return result.Object;
         }
 
@@ -60,7 +55,7 @@ namespace RelTexPacNet
             var packer = new TexturePacker();
             var result = packer.Run();
 
-            Assert.Equal(result.ErrorMessage, "No input images provided");
+            Assert.Equal(result.ErrorMessage, "No input textures provided");
         }
 
         [Fact]

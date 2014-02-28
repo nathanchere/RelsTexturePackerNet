@@ -34,6 +34,9 @@ namespace RelTexPacNet
         {
             try
             {
+                foreach (var item in _sourceImages)
+                    _calculator.Add(item.Value, item.Key);    
+
                 var result = _calculator.Render();
 
                 return new Result<TextureAtlas> { 
