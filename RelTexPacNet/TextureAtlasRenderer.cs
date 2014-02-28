@@ -18,7 +18,7 @@ namespace RelTexPacNet
             var result = new Bitmap(
                 atlas.Size.Width,
                 atlas.Size.Height,
-                PixelFormat.Format32bppPArgb
+                PixelFormat.Format32bppArgb
             );            
 
             using (var g = Graphics.FromImage(result))

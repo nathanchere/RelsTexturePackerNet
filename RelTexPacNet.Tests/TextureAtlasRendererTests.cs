@@ -28,17 +28,18 @@ namespace RelTexPacNet
         [Fact]
         private void Render_output_uses_matte_color()
         {
-            var color = Color.FromArgb(30, 60, 90, 120);
+            var color = Color.FromArgb(255,192,127,90);
             var renderer = new TextureAtlasRenderer();
             var result = renderer.Render(new TextureAtlas
             {
                 MatteColor = color,
             });
 
-            Assert.Equal(color, result.GetPixel(0,0));
+            Assert.Equal(color, result.GetPixel(0, 0));
+            Assert.Equal(color, result.GetPixel(result.Width - 1, result.Height -1));
         }        
 
-        [Fact]
+        [Fact(Skip="No reference images yet")]
         private void Render_produces_expected_output()
         {            
             Assert.True(false);
