@@ -17,6 +17,7 @@ namespace RelTexPacNet
 
         public TexturePacker(ITextureAtlasCalculator calculator = null)
         {
+            _sourceImages = new Dictionary<string, Image>();
             _calculator = calculator ?? new TextureAtlasCalculator();
         }
 
