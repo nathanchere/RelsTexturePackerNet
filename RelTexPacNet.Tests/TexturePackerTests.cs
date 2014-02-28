@@ -38,15 +38,6 @@ namespace RelTexPacNet
         }
 
         [Fact]
-        public void Run_with_no_input_returns_WasSuccessful_false()
-        {
-            var packer = new TexturePacker();
-            var result = packer.Run();
-
-            Assert.False(result.WasSuccessful);
-        }
-
-        [Fact]
         public void Add_throws_on_bad_image()
         {
             var packer = new TexturePacker();            
@@ -72,21 +63,19 @@ namespace RelTexPacNet
             Assert.Equal(result.ErrorMessage, "No input images provided");
         }
 
-        [Fact] //TODO: define what is bad input - reference, image
-        public void Run_with_bad_input_returns_appropriate_error_message()
-        {           
+        [Fact]
+        public void Run_with_no_input_returns_WasSuccessful_false()
+        {
             var packer = new TexturePacker();
-            packer.AddImage(null, "a");
-
             var result = packer.Run();
 
-            Assert.Equal(result.ErrorMessage, "Cannot process null values");
-        }
+            Assert.False(result.WasSuccessful);
+        }     
 
         [Fact]
         public void Run_with_valid_input_returns_no_error_message()
         {
-            var packer = new TexturePacker();
+            var packer = new TexturePacker(MockTextureAtlasCalculator());
             packer.AddImage(new Bitmap(120, 60), "a");
             packer.AddImage(new Bitmap(80, 100), "b");
             packer.AddImage(new Bitmap(32, 32), "c");

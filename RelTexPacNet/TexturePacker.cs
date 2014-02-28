@@ -34,12 +34,12 @@ namespace RelTexPacNet
         {
             try
             {
-                _calculator.Render();
+                var result = _calculator.Render();
 
                 return new Result<TextureAtlas> { 
                     WasSuccessful = true,
                     ErrorMessage = "",
-                    Value = null,
+                    Value = result,
                 };
             }
             catch (Exception ex)
