@@ -11,12 +11,6 @@ namespace RelTexPacNet
 
     // TODO: TAC exception types
 
-    public interface ITextureAtlasCalculator
-    {
-        void Add(Image image, string reference);
-        TextureAtlas Calculate();
-    }
-
     public class TextureAtlasCalculator : ITextureAtlasCalculator
     {
         public Size Size { get; set; }
@@ -46,19 +40,14 @@ namespace RelTexPacNet
 
             var texture = new Bitmap(Size.Width, Size.Height);
             var nodes = _nodes.Values.ToList();
-
-            var g = Graphics.FromImage(texture);
-            g.Clear(Color.FromArgb(0,255,0,255));
-
-            // Draw textures on appropriate places on bitmap
-            nodes.ForEach(n => { 
-                g.DrawImageUnscaled(n.Texture,n.X,n.Y);
-            });
+            
+            // work out where they all go
 
             return new TextureAtlas
             {
-                Texture = texture,
                 Nodes = nodes,
+                MatteColor = Color.Transparent, //TODO
+                Size = new Size(), //TODO
             };
         }
     }

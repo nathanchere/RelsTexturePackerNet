@@ -53,10 +53,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TextureAtlasTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TextureAtlasRendererTests.cs" />
     <Compile Include="TextureAtlasCalculatorTests.cs" />
     <Compile Include="TexturePackerTests.cs" />
+    <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

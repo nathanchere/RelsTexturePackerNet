@@ -23,9 +23,8 @@ namespace RelTexPacNet
                 .Callback((Image image, string reference) =>
                     nodes.Add(new TextureAtlasNode{Reference = reference, Texture = image})
                 );
-            result.Setup(x => x.Render())
+            result.Setup(x => x.Calculate())
                 .Returns(new TextureAtlas {
-                        Texture = null,
                         Nodes = nodes,
                         });
 

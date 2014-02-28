@@ -31,7 +31,7 @@ namespace RelTexPacNet
                 foreach (var item in _sourceImages)
                     _calculator.Add(item.Value, item.Key);    
 
-                var result = _calculator.Render();
+                var result = _calculator.Calculate();
 
                 return new Result<TextureAtlas> { 
                     WasSuccessful = true,
