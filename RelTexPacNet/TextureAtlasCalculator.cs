@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -13,7 +14,7 @@ namespace RelTexPacNet
     public interface ITextureAtlasCalculator
     {
         void Add(Image image, string reference);
-        TextureAtlas Render();
+        TextureAtlas Calculate();
     }
 
     public class TextureAtlasCalculator : ITextureAtlasCalculator
@@ -39,9 +40,9 @@ namespace RelTexPacNet
             // TODO: calculate X Y
         }
 
-        public TextureAtlas Render()
+        public TextureAtlas Calculate()
         {
-            if (!_nodes.Any()) throw new Exception("No input textures provided");
+            if (!_nodes.Any()) throw new InvalidDataException("No input textures provided");
 
             var texture = new Bitmap(Size.Width, Size.Height);
             var nodes = _nodes.Values.ToList();

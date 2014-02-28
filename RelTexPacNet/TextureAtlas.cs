@@ -5,10 +5,8 @@ namespace RelTexPacNet
 {
     public class TextureAtlas
     {
+        public Color MatteColor { get; set; }
+        public Size Size { get; set; }
         public IEnumerable<TextureAtlasNode> Nodes { get; set; }
-
-        public Image Texture { get; set; }
-
-        //TODO: report method used, free space stats etc
     }
 }

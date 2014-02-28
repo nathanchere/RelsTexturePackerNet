@@ -66,6 +66,7 @@
     </Compile>
     <Compile Include="Result.cs" />
     <Compile Include="TextureAtlas.cs" />
+    <Compile Include="TextureAtlasRenderer.cs" />
     <Compile Include="TextureAtlasCalculator.cs" />
     <Compile Include="TextureAtlasNode.cs" />
     <Compile Include="TextureAtlasSettings.cs" />
