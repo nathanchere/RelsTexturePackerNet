@@ -49,22 +49,18 @@ namespace RelTexPacNet
         [Fact]
         public void Add_throws_on_bad_image()
         {
-            var packer = new TexturePacker();
-            packer.AddImage(null, "");
-            var result = packer.Run();
-
-            Assert.False(result.WasSuccessful);
+            var packer = new TexturePacker();            
+            Assert.Throws<ArgumentNullException>(() => packer.AddImage(null, "test"));
         }
 
         [Fact]
         public void Add_throws_on_bad_reference()
         {
             var packer = new TexturePacker();
-            var image = MockImage(1,1);
-            Assert.Throws<Exception>(() => packer.AddImage(null, "test"));
-            Assert.Throws<Exception>(() => packer.AddImage(image, ""));
-            Assert.Throws<Exception>(() => packer.AddImage(image, " "));
-            Assert.Throws<Exception>(() => packer.AddImage(image, null));
+            var image = MockImage(1,1);            
+            Assert.Throws<ArgumentException>(() => packer.AddImage(image, ""));
+            Assert.Throws<ArgumentException>(() => packer.AddImage(image, " "));
+            Assert.Throws<ArgumentException>(() => packer.AddImage(image, null));            
         }
 
         [Fact]

@@ -22,7 +22,10 @@ namespace RelTexPacNet
 
         public void AddImage(Image image, string reference)
         {
-            if(string.IsNullOrWhitespace()
+            if (string.IsNullOrWhiteSpace(reference))
+                throw new ArgumentException("Invalid reference: " + reference ?? "{null}");
+            if(image == null)
+                throw new ArgumentNullException("Image cannot be null");
             _sourceImages.Add(reference,image);
         }
 
