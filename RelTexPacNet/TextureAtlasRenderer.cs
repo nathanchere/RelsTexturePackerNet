@@ -26,8 +26,9 @@ namespace RelTexPacNet
                 g.Clear(atlas.MatteColor);
 
                 atlas.Nodes.ToList().ForEach(n => {
-                    // Rotate image if required
-                    // if(condition) n.Texture.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    
+                    if(n.IsRotated) n.Texture.RotateFlip(RotateFlipType.Rotate90FlipNone);
+
                     if (n.Reference == null) ;
                     g.DrawImage(n.Texture, n.X, n.Y);
                 });

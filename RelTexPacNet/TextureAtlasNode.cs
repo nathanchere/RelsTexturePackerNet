@@ -8,5 +8,6 @@ namespace RelTexPacNet
         public Image Texture;
         public int X;
         public int Y;
+        public bool IsRotated;
     }
 }
