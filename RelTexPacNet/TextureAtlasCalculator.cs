@@ -80,7 +80,7 @@ namespace RelTexPacNet
 
             while (nodes.Any())
             {
-                nodes.ForEach(n=>Score());
+                nodes.ForEach(n=> Score(n, freeSpace));
                 var best = nodes
                     .OrderByDescending(n => n.Score1)
                     .OrderByDescending(n => n.Score2)
@@ -103,5 +103,41 @@ namespace RelTexPacNet
 
         }
 
+        private void Score(Node node, List<Rectangle> freeSpace)
+        {
+            node.Score1 = int.MaxValue;
+            node.Score2 = int.MaxValue;   
+
+            freeSpace.ForEach(r => {
+                if (r.Width >= node.Width && r.Height >= node.Height)
+                {
+                    int freeSpaceX = r.Width - node.Width;
+                    int freeSpaceY = r.Height - node.Height;
+                    int shortSideFit = Math.Min(freeSpaceX,freeSpaceY);
+                    int longSideFit = Math.Max(freeSpaceX,freeSpaceY);
+
+                    if (shortSideFit < node.Score1 || (shortSideFit == node.Score1 && longSideFit < node.Score2))
+                    {
+                        node.Score1 = shortSideFit;
+                        node.Score2 = longSideFit;
+                    }
+                }
+
+                if (_settings.IsRotationEnabled && r.Width >= node.Height && r.Height >= node.Width)
+                {
+                    int freeSpaceX = r.Width - node.Height;
+                    int freeSpaceY = r.Height - node.Width;
+                    int shortSideFit = Math.Min(freeSpaceX, freeSpaceY);
+                    int longSideFit = Math.Max(freeSpaceX, freeSpaceY);
+
+                    if (shortSideFit < node.Score1 || (shortSideFit == node.Score1 && longSideFit < node.Score2))
+                    {
+                        node.Score1 = shortSideFit;
+                        node.Score2 = longSideFit;
+                    }
+                }
+            });                    
+        }
+        
     }
 }
