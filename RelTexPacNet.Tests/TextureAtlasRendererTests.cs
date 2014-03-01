@@ -11,7 +11,7 @@ namespace RelTexPacNet
     public class TextureAtlasRendererTests
     {
         [Fact]
-        private void Render_output_matches_input_size()
+        public void Render_output_matches_input_size()
         {
             const int width = 512;
             const int height = 256;
@@ -26,7 +26,7 @@ namespace RelTexPacNet
         }
 
         [Fact]
-        private void Render_output_uses_matte_color()
+        public void Render_output_uses_matte_color()
         {
             var color = Color.FromArgb(255,192,127,90);
             var renderer = new TextureAtlasRenderer();
@@ -37,17 +37,10 @@ namespace RelTexPacNet
 
             Assert.Equal(color, result.GetPixel(0, 0));
             Assert.Equal(color, result.GetPixel(result.Width - 1, result.Height -1));
-        }        
-
-        [Fact(Skip="No reference images yet")]
-        private void Render_produces_expected_output()
-        {            
-            Assert.True(false);
-            //TODO: needs reference images to compare
         }
 
         [Fact]
-        private void Render_with_valid_input_produces_expected_output()
+        public void Render_with_valid_input_produces_expected_output()
         {
             var atlas = new TextureAtlas
             {
@@ -84,7 +77,6 @@ namespace RelTexPacNet
             var result = renderer.Render(atlas);
 
             Assert.True(Util.AreEqual(Properties.Resources.renderer_expected_1, result));
-            
         }
     }
 }
