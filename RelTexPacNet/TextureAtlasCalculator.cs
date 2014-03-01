@@ -28,6 +28,19 @@ namespace RelTexPacNet
 
         public void Add(Image image, string reference)
         {
+            if (image == null) throw new ArgumentNullException("Cannot add null images");
+            if (string.IsNullOrWhiteSpace(reference)) throw new ArgumentNullException("reference cannot be empty");
+            
+            int maxLength = Math.Max(
+                _settings.Size.Width - _settings.Padding * 2,
+                _settings.Size.Height - _settings.Padding * 2
+                );
+
+            if(image.Width > maxLength)
+                throw new ArgumentOutOfRangeException("Image width excees atlas working area");
+            if (image.Height > maxLength)
+                throw new ArgumentOutOfRangeException("Image height excees atlas working area");
+
             _nodes.Add(reference, new TextureAtlasNode
             {
                 Texture = image,
