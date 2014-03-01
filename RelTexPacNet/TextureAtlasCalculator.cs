@@ -21,25 +21,28 @@ namespace RelTexPacNet
 
         private class Node
         {
-            public int X,Y;
-            public int Score1, Score2;
+            public int X,Y;            
             public int Width, Height;
+            public string Reference;
+
+            public int Score1, Score2;
+            public Rectangle FreeSpace;
         }
 
         private Settings _settings;
-        private Dictionary<string, TextureAtlasNode> _nodes;
+        private Dictionary<string, TextureAtlasNode> _inputNodes;
 
         public TextureAtlasCalculator(Settings settings)
         {
             _settings = settings;
-            _nodes = new Dictionary<string, TextureAtlasNode>();
+            _inputNodes = new Dictionary<string, TextureAtlasNode>();
         }
 
         public void Add(Image image, string reference)
         {
             ValidateInput(image, reference);
 
-            _nodes.Add(reference, new TextureAtlasNode
+            _inputNodes.Add(reference, new TextureAtlasNode
             {
                 Texture = image,
                 Reference = reference,
@@ -64,29 +67,29 @@ namespace RelTexPacNet
 
         public TextureAtlas Calculate()
         {
-            if (!_nodes.Any()) throw new InvalidOperationException("No input textures provided");
+            if (!_inputNodes.Any()) throw new InvalidOperationException("No input textures provided");
             
-            var usedSpace = new List<Rectangle>();
             var freeSpace = new List<Rectangle>{
                 new Rectangle(Point.Empty,_settings.Size)
             };
 
-            var nodes = _nodes.Select(n=>new Node {
+            var nodes = _inputNodes.Select(n=>new Node {
                 X = 0, Y = 0,
                 Score1 = 0, Score2 = 0,
                 Width = n.Value.Texture.Width,
                 Height = n.Value.Texture.Height,
+                Reference = n.Key,
             }).ToList();
 
             while (nodes.Any())
             {
                 nodes.ForEach(n=> Score(n, freeSpace));
                 var best = nodes
-                    .OrderByDescending(n => n.Score1)
-                    .OrderByDescending(n => n.Score2)
+                    .OrderBy(n => n.Score1)
+                    .ThenBy(n => n.Score2)
                     .First();
 
-                // TODO: place the node
+                PlaceNode(best, freeSpace);
 
                 nodes.Remove(best);
             }
@@ -98,15 +101,16 @@ namespace RelTexPacNet
             };
         }
 
-        private void PlaceNode(Node node)
+        private void PlaceNode(Node node, List<Rectangle> freeSpace)
         {
-
+            
         }
 
         private void Score(Node node, List<Rectangle> freeSpace)
         {
             node.Score1 = int.MaxValue;
-            node.Score2 = int.MaxValue;   
+            node.Score2 = int.MaxValue;
+            node.FreeSpace = Rectangle.Empty;
 
             freeSpace.ForEach(r => {
                 if (r.Width >= node.Width && r.Height >= node.Height)
@@ -120,6 +124,7 @@ namespace RelTexPacNet
                     {
                         node.Score1 = shortSideFit;
                         node.Score2 = longSideFit;
+                        node.FreeSpace = r;
                     }
                 }
 
@@ -134,6 +139,7 @@ namespace RelTexPacNet
                     {
                         node.Score1 = shortSideFit;
                         node.Score2 = longSideFit;
+                        node.FreeSpace = r;
                     }
                 }
             });                    
