@@ -1,7 +1,7 @@
 RelTexPacNet - Texture Atlas Generator
 ======================================
 
-This started out as a simple GUI for Rel's Texture Packer since the official GUI was done in VB6 and a pain in the ass to run on any remotely current operating system. After trying to work around numerous bugs and limitations of the underlying texture packer I decided it was easier to just rewrite the entire thing and ditch the RTP dependency completely.
+This started out as a simple GUI for Rel's Texture Packer since the official GUI was done in VB6 and a pain in the ass to run on any remotely current operating system. After trying to work around numerous bugs and limitations of the underlying texture packer (eg imposing directory structure, no PNG output, no notification or output of any kind on error) I decided it was easier to just rewrite the entire thing and ditch the RTP dependency completely.
 
 Build status
 --------
@@ -11,12 +11,6 @@ Branch | Status
 master | [![Build status](https://ci-beta.appveyor.com/api/projects/status/51gsvoo39q01abmo/branch/master)](https://ci-beta.appveyor.com/project/nathanchere/relstexturepackernet)
 stable | [![Build status](https://ci-beta.appveyor.com/api/projects/status/51gsvoo39q01abmo/branch/stable)](https://ci-beta.appveyor.com/project/nathanchere/relstexturepackernet)
 
-Idealistic but highly unlikely to-do:
-------------------
-
-* Implement texture_packer logic in .Net (remove dependency on external EXE)
-* Fix minor bugs like no output when target output directory doesn't exist
-* More configuration options like input/output path and what file types to output (eg code headers, index images)
 
 Credits / thanks
 ------
