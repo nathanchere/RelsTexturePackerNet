@@ -19,8 +19,8 @@ namespace RelTexPacNet
         {
             InitializeComponent();
 
-            cboOutputBPP.DataSource = Enum.GetValues(typeof(TextureAtlasSettings.BitsPerPixel));
-            cboOutputFormat.DataSource = Enum.GetValues(typeof(TextureAtlasSettings.FileFormat));
+            cboOutputBPP.DataSource = Enum.GetValues(typeof(TextureAtlasRendererSettings.BitsPerPixel));
+            cboOutputFormat.DataSource = Enum.GetValues(typeof(TextureAtlasRendererSettings.FileFormat));
 
             cboOutputBPP.SelectedIndex = 5; //TODO
         }
@@ -44,12 +44,12 @@ namespace RelTexPacNet
             MessageBox.Show("Complete\n\n" + result.ErrorMessage);
         }
 
-        private TextureAtlasSettings GetSettings()
+        private TextureAtlasRendererSettings GetSettings()
         {
-            return new TextureAtlasSettings
+            return new TextureAtlasRendererSettings
             {
-                OutputBitsPerPixel = (TextureAtlasSettings.BitsPerPixel)cboOutputBPP.SelectedValue,
-                OutputFileFormat = (TextureAtlasSettings.FileFormat)cboOutputFormat.SelectedValue,
+                OutputBitsPerPixel = (TextureAtlasRendererSettings.BitsPerPixel)cboOutputBPP.SelectedValue,
+                OutputFileFormat = (TextureAtlasRendererSettings.FileFormat)cboOutputFormat.SelectedValue,
                 OutputFileName = txtOutputFilename.Text,
                 TexturePadding = Convert.ToInt32(numOutputMargin.Value),
                 OutputPath = txtOutputPath.Text,

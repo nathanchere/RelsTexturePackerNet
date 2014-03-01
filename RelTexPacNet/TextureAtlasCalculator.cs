@@ -13,12 +13,17 @@ namespace RelTexPacNet
 
     public class TextureAtlasCalculator : ITextureAtlasCalculator
     {
-        public Size Size { get; set; }
-        public int Padding { get; set; }
+        public class Settings
+        {
+            public Size MaximumSize { get; set; }
+            public int Padding { get; set; }
+        }
+
+        public Settings Settings { get; set; }
         private Dictionary<string, TextureAtlasNode> _nodes;
 
 
-        public TextureAtlasCalculator()
+        public TextureAtlasCalculator(int width, int height, int padding)
         {
             _nodes = new Dictionary<string, TextureAtlasNode>();
         }
@@ -36,7 +41,7 @@ namespace RelTexPacNet
 
         public TextureAtlas Calculate()
         {
-            if (!_nodes.Any()) throw new InvalidDataException("No input textures provided");
+            if (!_nodes.Any()) throw new InvalidOperationException("No input textures provided");
 
             var texture = new Bitmap(Size.Width, Size.Height);
             var nodes = _nodes.Values.ToList();

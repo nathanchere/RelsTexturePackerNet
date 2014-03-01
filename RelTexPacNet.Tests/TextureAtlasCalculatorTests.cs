@@ -10,18 +10,18 @@ namespace RelTexPacNet
 {
     public class TextureAtlasCalculatorTests
     {
-        private TextureAtlasNode MockNode(int width, int height, string reference)
-        {
-            return new TextureAtlasNode { 
-                Texture = new Bitmap(width,height),
-                Reference = reference,
-            };
-        }
-
         [Fact]
         public void Calculate_throws_when_no_images_added()
         {
             var calc = new TextureAtlasCalculator();
+            Assert.Throws<InvalidOperationException>(() => calc.Calculate());
+        }
+
+        [Fact]
+        public void Calculate_throws_when_any_input_image_exceeds_output_size()
+        {
+            var calc = new TextureAtlasCalculator();
+            calc.Add(new Bitmap(513,10), "invalid");
             Assert.Throws<InvalidOperationException>(() => calc.Calculate());
         }
     }
