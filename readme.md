@@ -6,10 +6,10 @@ This started out as a simple GUI for Rel's Texture Packer since the official GUI
 Build status
 --------
 
-Branch | Status
-------|-----
-master | [![Build status](https://ci-beta.appveyor.com/api/projects/status/51gsvoo39q01abmo/branch/master)](https://ci-beta.appveyor.com/project/nathanchere/relstexturepackernet)
-stable | [![Build status](https://ci-beta.appveyor.com/api/projects/status/51gsvoo39q01abmo/branch/stable)](https://ci-beta.appveyor.com/project/nathanchere/relstexturepackernet)
+Branch | Status | Download
+------|-----|------
+master | [![Build status](https://ci-beta.appveyor.com/api/projects/status/51gsvoo39q01abmo/branch/master)](https://ci-beta.appveyor.com/project/nathanchere/relstexturepackernet) | [.zip](https://github.com/nathanchere/RelsTexturePackerNet/archive/master.zip)
+stable | [![Build status](https://ci-beta.appveyor.com/api/projects/status/51gsvoo39q01abmo/branch/stable)](https://ci-beta.appveyor.com/project/nathanchere/relstexturepackernet) | [.zip](https://github.com/nathanchere/RelsTexturePackerNet/archive/stable.zip)
 
 
 Credits / thanks
