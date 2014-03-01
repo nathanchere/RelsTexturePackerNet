@@ -51,5 +51,19 @@ namespace RelTexPacNet
                 calc.Add(null, "invalid")
             );
         }
+
+        [Fact]
+        public void Calculate_returns_all_added_references() {
+            var calc = new TextureAtlasCalculator(GetSettings(256, 256, 1));
+            calc.Add(new Bitmap(10, 10), "a");
+            calc.Add(new Bitmap(10, 10), "b");
+            calc.Add(new Bitmap(10, 10), "c");
+
+            var result = calc.Calculate();
+
+            Assert.NotNull(result.Nodes.SingleOrDefault(n => n.Reference == "a"));
+            Assert.NotNull(result.Nodes.SingleOrDefault(n => n.Reference == "b"));
+            Assert.NotNull(result.Nodes.SingleOrDefault(n => n.Reference == "c"));
+        }
     }
 }
