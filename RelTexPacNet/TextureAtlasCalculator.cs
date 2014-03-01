@@ -71,14 +71,17 @@ namespace RelTexPacNet
             if (!_inputNodes.Any()) throw new InvalidOperationException("No input textures provided");
             
             var freeSpace = new List<Rectangle>{
-                new Rectangle(Point.Empty,_settings.Size)
+                new Rectangle(0,0,
+                     _settings.Size.Width - _settings.Padding,
+                     _settings.Size.Height - _settings.Padding
+                     )
             };
 
             var nodes = _inputNodes.Select(n=>new Node {
                 X = 0, Y = 0,
                 Score1 = 0, Score2 = 0,
-                Width = n.Value.Texture.Width,
-                Height = n.Value.Texture.Height,
+                Width = n.Value.Texture.Width + _settings.Padding,
+                Height = n.Value.Texture.Height + _settings.Padding,
                 Reference = n.Key,
             }).ToList();
 
@@ -90,6 +93,9 @@ namespace RelTexPacNet
                     .ThenBy(n => n.Score2)
                     .First();
 
+                if(best.Score1 == int.MaxValue)
+                    throw new InvalidDataException("Insufficient free space available");
+
                 PlaceNode(best, freeSpace);
 
                 nodes.Remove(best);
@@ -97,7 +103,13 @@ namespace RelTexPacNet
 
             return new TextureAtlas
             {
-                //Nodes = nodes,
+                Nodes = nodes.Select(n=>new TextureAtlasNode{
+                    X = n.X + _settings.Padding,
+                    Y = n.Y = _settings.Padding,
+                    Texture = _inputNodes[n.Reference].Texture,
+                    Reference = n.Reference,
+                    IsRotated = n.IsRotated,
+                }),
                 Size = _settings.Size,
             };
         }
