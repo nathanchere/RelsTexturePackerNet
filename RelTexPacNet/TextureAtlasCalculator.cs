@@ -85,6 +85,8 @@ namespace RelTexPacNet
                 Reference = n.Key,
             }).ToList();
 
+            var result = new List<TextureAtlasNode>();
+
             while (nodes.Any())
             {
                 nodes.ForEach(n=> Score(n, freeSpace));
@@ -97,19 +99,20 @@ namespace RelTexPacNet
                     throw new InvalidDataException("Insufficient free space available");
 
                 PlaceNode(best, freeSpace);
-
+                result.Add(new TextureAtlasNode
+                {
+                    X = best.X + _settings.Padding,
+                    Y = best.Y = _settings.Padding,
+                    Texture = _inputNodes[best.Reference].Texture,
+                    Reference = best.Reference,
+                    IsRotated = best.IsRotated,
+                });
                 nodes.Remove(best);
             }
 
             return new TextureAtlas
             {
-                Nodes = nodes.Select(n=>new TextureAtlasNode{
-                    X = n.X + _settings.Padding,
-                    Y = n.Y = _settings.Padding,
-                    Texture = _inputNodes[n.Reference].Texture,
-                    Reference = n.Reference,
-                    IsRotated = n.IsRotated,
-                }),
+                Nodes = result,
                 Size = _settings.Size,
             };
         }
@@ -118,8 +121,8 @@ namespace RelTexPacNet
         {
             node.X = node.FreeSpace.X;
             node.Y = node.FreeSpace.Y;
-            node.Width = node.IsRotated ? node.FreeSpace.Height : node.FreeSpace.Width;
-            node.Height = node.IsRotated ? node.FreeSpace.Width : node.FreeSpace.Height;
+            node.Width = node.IsRotated ? node.Height : node.Width;
+            node.Height = node.IsRotated ? node.Width : node.Height;
 
             if (node.FreeSpace.Width > node.Width)
             {
