@@ -7,7 +7,7 @@ Build status
 --------
 
 Branch | Status
--|
+------|-----
 master | [![Build status](https://ci-beta.appveyor.com/api/projects/status/51gsvoo39q01abmo/branch/master)](https://ci-beta.appveyor.com/project/nathanchere/relstexturepackernet)
 stable | [![Build status](https://ci-beta.appveyor.com/api/projects/status/51gsvoo39q01abmo/branch/stable)](https://ci-beta.appveyor.com/project/nathanchere/relstexturepackernet)
 
