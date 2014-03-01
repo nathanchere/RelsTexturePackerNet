@@ -27,6 +27,7 @@ namespace RelTexPacNet
 
             public int Score1, Score2;
             public Rectangle FreeSpace;
+            public bool IsRotated;
         }
 
         private Settings _settings;
@@ -103,7 +104,32 @@ namespace RelTexPacNet
 
         private void PlaceNode(Node node, List<Rectangle> freeSpace)
         {
+            node.X = node.FreeSpace.X;
+            node.Y = node.FreeSpace.Y;
+            node.Width = node.IsRotated ? node.FreeSpace.Height : node.FreeSpace.Width;
+            node.Height = node.IsRotated ? node.FreeSpace.Width : node.FreeSpace.Height;
+
+            if (node.FreeSpace.Width > node.Width)
+            {
+                freeSpace.Add(new Rectangle(
+                    node.FreeSpace.X + node.Width,
+                    node.FreeSpace.Y,
+                    node.FreeSpace.Width - node.Width,
+                    node.FreeSpace.Height));
+                node.FreeSpace.Width = node.Width;
+            }
             
+            if (node.FreeSpace.Height > node.Height)
+            {
+                freeSpace.Add(new Rectangle(
+                    node.FreeSpace.X,
+                    node.FreeSpace.Y + node.Height,
+                    node.FreeSpace.Width,
+                    node.FreeSpace.Height - node.Height));
+                node.FreeSpace.Width = node.Width;
+            }
+
+            freeSpace.Remove(node.FreeSpace);
         }
 
         private void Score(Node node, List<Rectangle> freeSpace)
@@ -125,6 +151,7 @@ namespace RelTexPacNet
                         node.Score1 = shortSideFit;
                         node.Score2 = longSideFit;
                         node.FreeSpace = r;
+                        node.IsRotated = false;
                     }
                 }
 
@@ -140,6 +167,7 @@ namespace RelTexPacNet
                         node.Score1 = shortSideFit;
                         node.Score2 = longSideFit;
                         node.FreeSpace = r;
+                        node.IsRotated = true;
                     }
                 }
             });                    
