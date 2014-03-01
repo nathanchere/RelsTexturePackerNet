@@ -3,7 +3,7 @@ RelTexPacNet - Texture Atlas Generator
 
 This started out as a simple GUI for Rel's Texture Packer since the official GUI was done in VB6 and a pain in the ass to run on any remotely current operating system. After trying to work around numerous bugs and limitations of the underlying texture packer I decided it was easier to just rewrite the entire thing and ditch the RTP dependency completely.
 
-Branches
+Build status
 --------
 **master:**
 [![Build status](https://ci-beta.appveyor.com/api/projects/status/51gsvoo39q01abmo/branch/master)](https://ci-beta.appveyor.com/project/nathanchere/relstexturepackernet)
