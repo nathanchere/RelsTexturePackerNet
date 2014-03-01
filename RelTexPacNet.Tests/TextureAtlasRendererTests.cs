@@ -47,7 +47,7 @@ namespace RelTexPacNet
         }
 
         [Fact]
-        private void Render_produces_expected_output_2()
+        private void Render_with_valid_input_produces_expected_output()
         {
             var atlas = new TextureAtlas
             {
@@ -82,6 +82,8 @@ namespace RelTexPacNet
 
             var renderer = new TextureAtlasRenderer();
             var result = renderer.Render(atlas);
+
+            Assert.True(Util.AreEqual(Properties.Resources.renderer_expected_1, result));
             
         }
 
