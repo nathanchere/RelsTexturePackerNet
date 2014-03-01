@@ -19,7 +19,6 @@ namespace RelTexPacNet
         private Settings _settings;
         private Dictionary<string, TextureAtlasNode> _nodes;
 
-
         public TextureAtlasCalculator(Settings settings)
         {
             _settings = settings;
