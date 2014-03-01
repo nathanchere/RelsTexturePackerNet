@@ -3,13 +3,13 @@ RelTexPacNet - Texture Atlas Generator
 
 This started out as a simple GUI for Rel's Texture Packer since the official GUI was done in VB6 and a pain in the ass to run on any remotely current operating system. After trying to work around numerous bugs and limitations of the underlying texture packer I decided it was easier to just rewrite the entire thing and ditch the RTP dependency completely.
 
+Branches
+--------
+**master:**
+[![Build status](https://ci-beta.appveyor.com/api/projects/status/51gsvoo39q01abmo)](https://ci-beta.appveyor.com/project/nathanchere/relstexturepackernet/branch/master)
 
-**master** branch is the most current code at any given time
-**stable** branch is updated with each release.
-
-If you want the most current *stable* code at any given point in time, use the **stable** branch.
-
-If you want to live on the bleeding edge and don't mind things potentially being broken, use **master**.
+**stable:**
+[![Build status](https://ci-beta.appveyor.com/api/projects/status/51gsvoo39q01abmo)](https://ci-beta.appveyor.com/project/nathanchere/relstexturepackernet/branch/stable)
 
 Idealistic but highly unlikely to-do:
 ------------------
@@ -25,4 +25,4 @@ Credits / thanks
 
 [BlackPawn](http://www.blackpawn.com/texts/lightmaps/default.html) - texture atlas algorithms
 
-[![Send me a tweet](http://nathanchere.github.io/twitter_tweet.png)](https://twitter.com/intent/user?screen_name=nathanchere "Send me a tweet") [![Follow me](http://nathanchere.github.io/twitter_follow.png)](https://twitter.com/intent/user?screen_name=nathanchere "Follow me") [![Build status](https://ci-beta.appveyor.com/api/projects/status/51gsvoo39q01abmo)](https://ci-beta.appveyor.com/project/nathanchere/relstexturepackernet)
+[![Send me a tweet](http://nathanchere.github.io/twitter_tweet.png)](https://twitter.com/intent/user?screen_name=nathanchere "Send me a tweet") [![Follow me](http://nathanchere.github.io/twitter_follow.png)](https://twitter.com/intent/user?screen_name=nathanchere "Follow me") 
