@@ -86,10 +86,5 @@ namespace RelTexPacNet
             Assert.True(Util.AreEqual(Properties.Resources.renderer_expected_1, result));
             
         }
-
-        private void Dump(Bitmap bitmap)
-        {
-            bitmap.Save("C:\\" + DateTime.Now.Ticks + ".png");
-        }
     }
 }
