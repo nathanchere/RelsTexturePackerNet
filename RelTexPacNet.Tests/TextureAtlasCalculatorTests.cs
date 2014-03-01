@@ -22,7 +22,7 @@ namespace RelTexPacNet
         public void Calculate_throws_when_no_images_added()
         {
             var calc = new TextureAtlasCalculator();
-            //Assert.Throws<InvalidOperationException>(() => calc.Calculate());
+            Assert.Throws<InvalidOperationException>(() => calc.Calculate());
         }
     }
 }
