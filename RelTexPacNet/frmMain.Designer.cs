@@ -126,7 +126,7 @@
             this.numOutputHeight.Size = new System.Drawing.Size(62, 20);
             this.numOutputHeight.TabIndex = 3;
             this.numOutputHeight.Value = new decimal(new int[] {
-            256,
+            512,
             0,
             0,
             0});

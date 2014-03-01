@@ -37,8 +37,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FerretLib.WinForms">
-      <HintPath>..\packages\FerretLib.WinForms.0.2\lib\FerretLib.WinForms.dll</HintPath>
+    <Reference Include="FerretLib.WinForms, Version=1.0.0.4572, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\FerretLib.WinForms.0.3\lib\FerretLib.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

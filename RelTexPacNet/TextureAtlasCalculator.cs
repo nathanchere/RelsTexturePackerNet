@@ -102,7 +102,7 @@ namespace RelTexPacNet
                 result.Add(new TextureAtlasNode
                 {
                     X = best.X + _settings.Padding,
-                    Y = best.Y = _settings.Padding,
+                    Y = best.Y + _settings.Padding,
                     Texture = _inputNodes[best.Reference].Texture,
                     Reference = best.Reference,
                     IsRotated = best.IsRotated,
