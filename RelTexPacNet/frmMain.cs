@@ -19,8 +19,8 @@ namespace RelTexPacNet
         {
             InitializeComponent();
 
-            cboOutputBPP.DataSource = Enum.GetValues(typeof(TextureAtlasRendererSettings.BitsPerPixel));
-            cboOutputFormat.DataSource = Enum.GetValues(typeof(TextureAtlasRendererSettings.FileFormat));
+            //cboOutputBPP.DataSource = Enum.GetValues(typeof(TextureAtlasRendererSettings.BitsPerPixel));
+            //cboOutputFormat.DataSource = Enum.GetValues(typeof(TextureAtlasRendererSettings.FileFormat));
 
             cboOutputBPP.SelectedIndex = 5; //TODO
         }
@@ -38,25 +38,25 @@ namespace RelTexPacNet
         private void btnRun_Click(object sender, EventArgs e)
         {
             var settings = GetSettings();
-            var packer = new TexturePacker();
+            var packer = new TexturePacker(settings);
             var result = packer.Run();
 
             MessageBox.Show("Complete\n\n" + result.ErrorMessage);
         }
 
-        private TextureAtlasRendererSettings GetSettings()
+        private TexturePacker.Settings GetSettings()
         {
-            return new TextureAtlasRendererSettings
+            return new TexturePacker.Settings
             {
-                OutputBitsPerPixel = (TextureAtlasRendererSettings.BitsPerPixel)cboOutputBPP.SelectedValue,
-                OutputFileFormat = (TextureAtlasRendererSettings.FileFormat)cboOutputFormat.SelectedValue,
-                OutputFileName = txtOutputFilename.Text,
-                TexturePadding = Convert.ToInt32(numOutputMargin.Value),
-                OutputPath = txtOutputPath.Text,
-                MaximumSize = new Size(
-                    Convert.ToInt32(numOutputWidth.Value),
-                    Convert.ToInt32(numOutputHeight.Value)
-                    ),
+                //OutputBitsPerPixel = (TextureAtlasRendererSettings.BitsPerPixel)cboOutputBPP.SelectedValue,
+                //OutputFileFormat = (TextureAtlasRendererSettings.FileFormat)cboOutputFormat.SelectedValue,
+                //OutputFileName = txtOutputFilename.Text,
+                //TexturePadding = Convert.ToInt32(numOutputMargin.Value),
+                //OutputPath = txtOutputPath.Text,
+                //Size = new Size(
+                //    Convert.ToInt32(numOutputWidth.Value),
+                //    Convert.ToInt32(numOutputHeight.Value)
+                //    ),
             };
         }
 

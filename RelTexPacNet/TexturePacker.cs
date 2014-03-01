@@ -6,13 +6,34 @@ namespace RelTexPacNet
 {
     public class TexturePacker
     {
+        public class Settings
+        {
+            public Settings()
+            {
+                CalculatorSettings = new TextureAtlasCalculator.Settings();
+                RendererSettings = new TextureAtlasRenderer.Settings();
+            }
+
+            public TextureAtlasCalculator.Settings CalculatorSettings;
+            public TextureAtlasRenderer.Settings RendererSettings;
+
+            // output settings
+            // file format
+            // file name
+            // etc            
+        }
+
         private readonly ITextureAtlasCalculator _calculator;
+        private readonly ITextureAtlasRenderer _renderer;
         private readonly Dictionary<string, Image> _sourceImages; 
 
-        public TexturePacker(ITextureAtlasCalculator calculator = null)
+        public TexturePacker(Settings settings,
+            ITextureAtlasCalculator calculator = null,
+            ITextureAtlasRenderer renderer = null)
         {
             _sourceImages = new Dictionary<string, Image>();
-            _calculator = calculator ?? new TextureAtlasCalculator();
+            _renderer = renderer ?? new TextureAtlasRenderer(settings.RendererSettings);
+            _calculator = calculator ?? new TextureAtlasCalculator(settings.CalculatorSettings);
         }
 
         public void AddImage(Image image, string reference)

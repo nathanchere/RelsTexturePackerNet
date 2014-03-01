@@ -34,14 +34,14 @@ namespace RelTexPacNet
         [Fact]
         public void Add_throws_on_bad_image()
         {
-            var packer = new TexturePacker();            
+            var packer = new TexturePacker(new TexturePacker.Settings());            
             Assert.Throws<ArgumentNullException>(() => packer.AddImage(null, "test"));
         }
 
         [Fact]
         public void Add_throws_on_bad_reference()
         {
-            var packer = new TexturePacker();
+            var packer = new TexturePacker(new TexturePacker.Settings());
             var image = MockImage(1,1);            
             Assert.Throws<ArgumentException>(() => packer.AddImage(image, ""));
             Assert.Throws<ArgumentException>(() => packer.AddImage(image, " "));
@@ -51,7 +51,7 @@ namespace RelTexPacNet
         [Fact]
         public void Run_with_no_input_returns_appropriate_error_message()
         {
-            var packer = new TexturePacker();
+            var packer = new TexturePacker(new TexturePacker.Settings());
             var result = packer.Run();
 
             Assert.Equal(result.ErrorMessage, "No input textures provided");
@@ -60,7 +60,7 @@ namespace RelTexPacNet
         [Fact]
         public void Run_with_no_input_returns_WasSuccessful_false()
         {
-            var packer = new TexturePacker();
+            var packer = new TexturePacker(new TexturePacker.Settings());
             var result = packer.Run();
 
             Assert.False(result.WasSuccessful);
@@ -69,7 +69,7 @@ namespace RelTexPacNet
         [Fact]
         public void Run_with_valid_input_returns_no_error_message()
         {
-            var packer = new TexturePacker(MockTextureAtlasCalculator());
+            var packer = new TexturePacker(new TexturePacker.Settings(), MockTextureAtlasCalculator());
             packer.AddImage(new Bitmap(120, 60), "a");
             packer.AddImage(new Bitmap(80, 100), "b");
             packer.AddImage(new Bitmap(32, 32), "c");
@@ -82,7 +82,7 @@ namespace RelTexPacNet
         [Fact]
         public void Run_with_valid_input_returns_WasSuccessful_true()
         {
-            var packer = new TexturePacker(MockTextureAtlasCalculator());
+            var packer = new TexturePacker(new TexturePacker.Settings(), MockTextureAtlasCalculator());
             packer.AddImage(new Bitmap(120, 60), "a");
             packer.AddImage(new Bitmap(80, 100), "b");
             packer.AddImage(new Bitmap(32, 32), "c");
@@ -95,7 +95,7 @@ namespace RelTexPacNet
         [Fact]
         public void Run_success_result_includes_all_added_textures()
         {
-            var packer = new TexturePacker(MockTextureAtlasCalculator());
+            var packer = new TexturePacker(new TexturePacker.Settings(), MockTextureAtlasCalculator());
             packer.AddImage(new Bitmap(120, 60), "a");
             packer.AddImage(new Bitmap(80, 100), "b");
             packer.AddImage(new Bitmap(32, 32), "c");
@@ -111,7 +111,7 @@ namespace RelTexPacNet
         [Fact]
         public void Run_success_result_only_contains_explicitly_added_node_references()
         {
-            var packer = new TexturePacker(MockTextureAtlasCalculator());
+            var packer = new TexturePacker(new TexturePacker.Settings(), MockTextureAtlasCalculator());
             packer.AddImage(new Bitmap(120, 60), "a");
             packer.AddImage(new Bitmap(80, 100), "b");
             packer.AddImage(new Bitmap(32, 32), "c");

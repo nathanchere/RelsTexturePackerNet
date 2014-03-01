@@ -13,6 +13,21 @@ namespace RelTexPacNet
 {
     public class TextureAtlasRenderer : ITextureAtlasRenderer
     {
+        public class Settings
+        {
+            //// NOTE: unless there's a specific need, am assuming always 32bit PNG
+            //public PixelFormat PixelFormat { get; set; }
+            //public FileFormat OutputFileFormat { get; set; }
+            public Color MatteColor { get; set; }
+        }
+
+        private readonly Settings _settings;
+
+        public TextureAtlasRenderer(Settings settings)
+        {
+            _settings = settings;
+        }
+
         public Bitmap Render(TextureAtlas atlas)
         {
             var result = new Bitmap(
@@ -23,7 +38,7 @@ namespace RelTexPacNet
 
             using (var g = Graphics.FromImage(result))
             {
-                g.Clear(atlas.MatteColor);
+                g.Clear(_settings.MatteColor);
 
                 atlas.Nodes.ToList().ForEach(n => {
                     
