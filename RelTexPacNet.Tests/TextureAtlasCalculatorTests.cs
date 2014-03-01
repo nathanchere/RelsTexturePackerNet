@@ -33,5 +33,23 @@ namespace RelTexPacNet
                 calc.Add(new Bitmap(256, 10), "invalid")
             );
         }
+
+        [Fact]
+        public void Add_throws_on_empty_reference()
+        {
+            var calc = new TextureAtlasCalculator(GetSettings(256, 256, 1));
+            Assert.Throws<ArgumentNullException>(() =>
+                calc.Add(new Bitmap(10, 10), "")
+            );
+        }
+
+        [Fact]
+        public void Add_throws_on_null_image()
+        {
+            var calc = new TextureAtlasCalculator(GetSettings(256, 256, 1));
+            Assert.Throws<ArgumentNullException>(() =>
+                calc.Add(null, "invalid")
+            );
+        }
     }
 }
