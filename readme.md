@@ -24,3 +24,5 @@ Credits / thanks
 [Relminator](http://rel.phatcode.net) - original texture packer which was the inspiration for this project
 
 [BlackPawn](http://www.blackpawn.com/texts/lightmaps/default.html) - texture atlas algorithms
+
+[![Send me a tweet](http://nathanchere.github.io/twitter_tweet.png)](https://twitter.com/intent/user?screen_name=nathanchere "Send me a tweet") [![Follow me](http://nathanchere.github.io/twitter_follow.png)](https://twitter.com/intent/user?screen_name=nathanchere "Follow me") [![Build status](https://ci-beta.appveyor.com/api/projects/status/51gsvoo39q01abmo)](https://ci-beta.appveyor.com/project/nathanchere/relstexturepackernet)
