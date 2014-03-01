@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -22,7 +23,7 @@ namespace RelTexPacNet
             //cboOutputBPP.DataSource = Enum.GetValues(typeof(TextureAtlasRendererSettings.BitsPerPixel));
             //cboOutputFormat.DataSource = Enum.GetValues(typeof(TextureAtlasRendererSettings.FileFormat));
 
-            cboOutputBPP.SelectedIndex = 5; //TODO
+            //cboOutputBPP.SelectedIndex = 5; //TODO
         }
 
         private void btnTweet_Click(object sender, EventArgs e)
@@ -39,9 +40,15 @@ namespace RelTexPacNet
         {
             var settings = GetSettings();
             var packer = new TexturePacker(settings);
-            var result = packer.Run();
+            foreach (var file in Directory.GetFiles(txtInputPath.Text))
+            {
+                packer.AddImage(Bitmap.FromFile(file), file);
+            }
+            var atlas = packer.Run();
+            var result = (new TextureAtlasRenderer(settings.RendererSettings)).Render(atlas.Value);
+            result.Save("C:\\ttt.png");
 
-            MessageBox.Show("Complete\n\n" + result.ErrorMessage);
+            MessageBox.Show("Complete\n\n" + atlas.ErrorMessage);
         }
 
         private TexturePacker.Settings GetSettings()
@@ -51,18 +58,34 @@ namespace RelTexPacNet
                 //OutputBitsPerPixel = (TextureAtlasRendererSettings.BitsPerPixel)cboOutputBPP.SelectedValue,
                 //OutputFileFormat = (TextureAtlasRendererSettings.FileFormat)cboOutputFormat.SelectedValue,
                 //OutputFileName = txtOutputFilename.Text,
-                //TexturePadding = Convert.ToInt32(numOutputMargin.Value),
-                //OutputPath = txtOutputPath.Text,
-                //Size = new Size(
-                //    Convert.ToInt32(numOutputWidth.Value),
-                //    Convert.ToInt32(numOutputHeight.Value)
-                //    ),
+                CalculatorSettings = new TextureAtlasCalculator.Settings
+                {
+                    Padding = Convert.ToInt32(numOutputMargin.Value),
+                    Size = new Size(
+                    Convert.ToInt32(numOutputWidth.Value),
+                    Convert.ToInt32(numOutputHeight.Value)
+                    ),
+                },
+                RendererSettings = new TextureAtlasRenderer.Settings
+                {
+                    MatteColor = colorPicker1.Value,
+                },
             };
         }
 
         private void btnDebug_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(GetSettings().ToString());
+        }
+
+        private void btnInputPath_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new FolderBrowserDialog())
+            {
+                var result = dialog.ShowDialog();
+                if (result == DialogResult.OK)
+                    txtInputPath.Text = dialog.SelectedPath;
+            }                        
         }
     }
 }

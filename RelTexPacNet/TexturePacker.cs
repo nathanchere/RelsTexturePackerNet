@@ -52,12 +52,12 @@ namespace RelTexPacNet
                 foreach (var item in _sourceImages)
                     _calculator.Add(item.Value, item.Key);    
 
-                var result = _calculator.Calculate();
+                var atlas = _calculator.Calculate();
 
                 return new Result<TextureAtlas> { 
                     WasSuccessful = true,
                     ErrorMessage = "",
-                    Value = result,
+                    Value = atlas,
                 };
             }
             catch (Exception ex)

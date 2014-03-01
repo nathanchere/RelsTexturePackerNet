@@ -235,9 +235,9 @@
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(8, 76);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(45, 13);
+            this.label6.Size = new System.Drawing.Size(53, 13);
             this.label6.TabIndex = 12;
-            this.label6.Text = "Margin";
+            this.label6.Text = "Padding";
             // 
             // numOutputMargin
             // 
@@ -343,6 +343,7 @@
             this.btnInputPath.TabIndex = 9;
             this.btnInputPath.Text = "...";
             this.btnInputPath.UseVisualStyleBackColor = true;
+            this.btnInputPath.Click += new System.EventHandler(this.btnInputPath_Click);
             // 
             // label7
             // 
@@ -357,10 +358,9 @@
             // 
             this.txtInputPath.Location = new System.Drawing.Point(64, 19);
             this.txtInputPath.Name = "txtInputPath";
-            this.txtInputPath.ReadOnly = true;
             this.txtInputPath.Size = new System.Drawing.Size(109, 20);
             this.txtInputPath.TabIndex = 7;
-            this.txtInputPath.Text = "images\\";
+            this.txtInputPath.Text = "c:\\temp\\sprites";
             // 
             // label8
             // 
