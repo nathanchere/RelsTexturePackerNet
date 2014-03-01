@@ -19,6 +19,13 @@ namespace RelTexPacNet
             // TODO: other options like pre-sort by longest side
         }
 
+        private class Node
+        {
+            public int X,Y;
+            public int Score1, Score2;
+            public int Width, Height;
+        }
+
         private Settings _settings;
         private Dictionary<string, TextureAtlasNode> _nodes;
 
@@ -59,16 +66,42 @@ namespace RelTexPacNet
         {
             if (!_nodes.Any()) throw new InvalidOperationException("No input textures provided");
             
-            var nodes = _nodes.Values.ToList();
-            
-            
+            var usedSpace = new List<Rectangle>();
+            var freeSpace = new List<Rectangle>{
+                new Rectangle(Point.Empty,_settings.Size)
+            };
 
+            var nodes = _nodes.Select(n=>new Node {
+                X = 0, Y = 0,
+                Score1 = 0, Score2 = 0,
+                Width = n.Value.Texture.Width,
+                Height = n.Value.Texture.Height,
+            }).ToList();
+
+            while (nodes.Any())
+            {
+                nodes.ForEach(n=>Score());
+                var best = nodes
+                    .OrderByDescending(n => n.Score1)
+                    .OrderByDescending(n => n.Score2)
+                    .First();
+
+                // TODO: place the node
+
+                nodes.Remove(best);
+            }
 
             return new TextureAtlas
             {
-                Nodes = nodes,
+                //Nodes = nodes,
                 Size = _settings.Size,
             };
         }
+
+        private void PlaceNode(Node node)
+        {
+
+        }
+
     }
 }
