@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -69,6 +70,7 @@ namespace RelTexPacNet
                 RendererSettings = new TextureAtlasRenderer.Settings
                 {
                     MatteColor = colorPicker1.Value,
+                    PixelFormat = PixelFormat.Format32bppPArgb
                 },
             };
         }
