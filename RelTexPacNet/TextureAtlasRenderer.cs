@@ -18,6 +18,7 @@ namespace RelTexPacNet
             //// NOTE: unless there's a specific need, am assuming always 32bit PNG
             //public PixelFormat PixelFormat { get; set; }
             //public FileFormat OutputFileFormat { get; set; }
+            public PixelFormat PixelFormat { get; set; }
             public Color MatteColor { get; set; }
         }
 
@@ -33,7 +34,7 @@ namespace RelTexPacNet
             var result = new Bitmap(
                 atlas.Size.Width,
                 atlas.Size.Height,
-                PixelFormat.Format32bppArgb
+                _settings.PixelFormat
             );            
 
             using (var g = Graphics.FromImage(result))
