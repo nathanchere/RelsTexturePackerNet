@@ -87,6 +87,7 @@ namespace RelTexPacNet
             });
             Assert.Equal(0, failures.Count);
         }
+
         [Fact]
         public void Calculate_does_not_produce_textures_that_overlap()
         {

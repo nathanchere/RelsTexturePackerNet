@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -99,14 +100,22 @@ namespace RelTexPacNet
                     throw new InvalidDataException("Insufficient free space available");
 
                 PlaceNode(best, freeSpace);
-                result.Add(new TextureAtlasNode
+                
+                var newNode = new TextureAtlasNode
                 {
                     X = best.X + _settings.Padding,
                     Y = best.Y + _settings.Padding,
                     Texture = _inputNodes[best.Reference].Texture,
                     Reference = best.Reference,
                     IsRotated = best.IsRotated,
+                };
+
+                //Sanity check - because output is not what expected
+                result.ForEach(n => { 
+                    if(newNode.GetBounds().IntersectsWith(n.GetBounds())) Debugger.Break();
                 });
+
+                result.Add(newNode);
                 nodes.Remove(best);
             }
 
@@ -123,6 +132,8 @@ namespace RelTexPacNet
             node.Y = node.FreeSpace.Y;
             node.Width = node.IsRotated ? node.Height : node.Width;
             node.Height = node.IsRotated ? node.Width : node.Height;
+
+            freeSpace.Remove(node.FreeSpace);
 
             if (node.FreeSpace.Width > node.Width)
             {
@@ -144,7 +155,7 @@ namespace RelTexPacNet
                 node.FreeSpace.Width = node.Width;
             }
 
-            freeSpace.Remove(node.FreeSpace);
+            
         }
 
         private void Score(Node node, List<Rectangle> freeSpace)
