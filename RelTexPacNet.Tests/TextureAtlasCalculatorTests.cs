@@ -108,7 +108,8 @@ namespace RelTexPacNet
                 {
                     if (nodes[i].GetBounds().IntersectsWith(nodes[j].GetBounds()))
                     {
-                        failures.Add(nodes[i]);                        
+                        failures.Add(nodes[i]);
+                        j = nodes.Count;
                     }
                 }
 
