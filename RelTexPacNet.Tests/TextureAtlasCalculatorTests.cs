@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using Moq;
 using Xunit;
@@ -52,7 +53,7 @@ namespace RelTexPacNet
             calc.Add(new Bitmap(50, 50), "b");
             calc.Add(new Bitmap(50, 50), "c");
             calc.Add(new Bitmap(50, 51), "d");
-            Assert.Throws<InvalidOperationException>(() => calc.Calculate());
+            Assert.Throws<InvalidDataException>(() => calc.Calculate());
         }
 
         [Fact]
@@ -67,7 +68,7 @@ namespace RelTexPacNet
             calc.Add(new Bitmap(50, 50), "b");
             calc.Add(new Bitmap(50, 50), "c");
             calc.Add(new Bitmap(50, 50), "d");
-            Assert.Throws<InvalidOperationException>(() => calc.Calculate());
+            Assert.Throws<InvalidDataException>(() => calc.Calculate());
         }
 
         [Fact]
