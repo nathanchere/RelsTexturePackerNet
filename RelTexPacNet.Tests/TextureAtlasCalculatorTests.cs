@@ -26,6 +26,51 @@ namespace RelTexPacNet
         }
 
         [Fact]
+        public void Calculate_does_not_throw_when_images_fit_within_output()
+        {
+            var calc = new TextureAtlasCalculator(new TextureAtlasCalculator.Settings
+            {
+                Size = new Size(100, 100),
+                Padding = 0,
+            });
+            calc.Add(new Bitmap(50, 50), "a");
+            calc.Add(new Bitmap(50, 50), "b");
+            calc.Add(new Bitmap(50, 50), "c");
+            calc.Add(new Bitmap(50, 50), "d");
+            calc.Calculate();
+        }
+
+        [Fact]
+        public void Calculate_throws_when_no_insufficient_output_size_to_fit_all_images()
+        {
+            var calc = new TextureAtlasCalculator(new TextureAtlasCalculator.Settings
+            {
+                Size = new Size(100, 100),
+                Padding = 0,
+            });
+            calc.Add(new Bitmap(50, 50), "a");
+            calc.Add(new Bitmap(50, 50), "b");
+            calc.Add(new Bitmap(50, 50), "c");
+            calc.Add(new Bitmap(50, 51), "d");
+            Assert.Throws<InvalidOperationException>(() => calc.Calculate());
+        }
+
+        [Fact]
+        public void Calculate_throws_when_no_insufficient_output_size_to_fit_all_images_with_padding()
+        {
+            var calc = new TextureAtlasCalculator(new TextureAtlasCalculator.Settings
+            {
+                Size = new Size(100, 100),
+                Padding = 1,
+            });
+            calc.Add(new Bitmap(50, 50), "a");
+            calc.Add(new Bitmap(50, 50), "b");
+            calc.Add(new Bitmap(50, 50), "c");
+            calc.Add(new Bitmap(50, 50), "d");
+            Assert.Throws<InvalidOperationException>(() => calc.Calculate());
+        }
+
+        [Fact]
         public void Add_throws_when_any_input_image_exceeds_output_size()
         {
             var calc = new TextureAtlasCalculator(GetSettings(256, 256, 1));
@@ -104,6 +149,37 @@ namespace RelTexPacNet
             var nodes = result.Nodes.ToList();
             var failures = new List<TextureAtlasNode>();
             
+            for (int i = 0; i < nodes.Count(); i++)
+                for (int j = i + 1; j < nodes.Count(); j++)
+                {
+                    if (nodes[i].GetBounds().IntersectsWith(nodes[j].GetBounds()))
+                    {
+                        failures.Add(nodes[i]);
+                        j = nodes.Count;
+                    }
+                }
+
+            Assert.Equal(0, failures.Count);
+        }
+
+        [Fact]
+        public void Calculate_does_not_produce_textures_that_overlap_2()
+        {
+            var WIDTH = 200;
+            var HEIGHT = 200;
+            var calc = new TextureAtlasCalculator(GetSettings(WIDTH, HEIGHT, 0));
+
+            calc.Add(new Bitmap(100, 50), "a");
+            calc.Add(new Bitmap(80, 80), "c1");
+            calc.Add(new Bitmap(100, 50), "b");            
+            calc.Add(new Bitmap(80, 80), "c3");
+            calc.Add(new Bitmap(80, 80), "c4");
+            calc.Add(new Bitmap(80, 80), "c2");
+            var result = calc.Calculate();
+
+            var nodes = result.Nodes.ToList();
+            var failures = new List<TextureAtlasNode>();
+
             for (int i = 0; i < nodes.Count(); i++)
                 for (int j = i + 1; j < nodes.Count(); j++)
                 {

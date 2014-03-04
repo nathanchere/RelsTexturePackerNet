@@ -78,6 +78,8 @@ namespace RelTexPacNet
                      )
             };
 
+            var totalSpace = (_settings.Size.Width - _settings.Padding) * (_settings.Size.Height - _settings.Padding);
+
             var nodes = _inputNodes.Select(n=>new Node {
                 X = 0, Y = 0,
                 Score1 = 0, Score2 = 0,
@@ -99,8 +101,9 @@ namespace RelTexPacNet
                 if(best.Score1 == int.MaxValue)
                     throw new InvalidDataException("Insufficient free space available");
 
-                PlaceNode(best, freeSpace);
-                
+                VerifySpace(totalSpace, result, freeSpace);
+                PlaceNode(best, freeSpace);                
+               
                 var newNode = new TextureAtlasNode
                 {
                     X = best.X + _settings.Padding,
@@ -117,6 +120,8 @@ namespace RelTexPacNet
 
                 result.Add(newNode);
                 nodes.Remove(best);
+
+                VerifySpace(totalSpace, result, freeSpace);
             }
 
             return new TextureAtlas
@@ -124,6 +129,15 @@ namespace RelTexPacNet
                 Nodes = result,
                 Size = _settings.Size,
             };
+        }
+
+        private void VerifySpace(int totalSpace, List<TextureAtlasNode> nodes, List<Rectangle> freeSpace)
+        {
+            int nodeTotal = 0;
+            int freeSpaceTotal = 0;
+            nodes.ForEach(n => nodeTotal += n.Texture.Height * n.Texture.Width);
+            freeSpace.ForEach(n => freeSpaceTotal += (n.Height * n.Width));
+            if (nodeTotal + freeSpaceTotal != totalSpace) Debugger.Break();
         }
 
         private void PlaceNode(Node node, List<Rectangle> freeSpace)
@@ -142,7 +156,6 @@ namespace RelTexPacNet
                     node.FreeSpace.Y,
                     node.FreeSpace.Width - node.Width,
                     node.FreeSpace.Height));
-                node.FreeSpace.Width = node.Width;
             }
             
             if (node.FreeSpace.Height > node.Height)
@@ -150,12 +163,9 @@ namespace RelTexPacNet
                 freeSpace.Add(new Rectangle(
                     node.FreeSpace.X,
                     node.FreeSpace.Y + node.Height,
-                    node.FreeSpace.Width,
+                    node.Width,
                     node.FreeSpace.Height - node.Height));
-                node.FreeSpace.Width = node.Width;
             }
-
-            
         }
 
         private void Score(Node node, List<Rectangle> freeSpace)

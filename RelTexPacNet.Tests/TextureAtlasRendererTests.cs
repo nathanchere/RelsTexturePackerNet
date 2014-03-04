@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using Moq;
 using Xunit;
@@ -16,9 +17,9 @@ namespace RelTexPacNet
             const int width = 512;
             const int height = 256;
 
-            var renderer = new TextureAtlasRenderer(new TextureAtlasRenderer.Settings{MatteColor = Color.Black,});
+            var renderer = new TextureAtlasRenderer(new TextureAtlasRenderer.Settings{MatteColor = Color.Black,PixelFormat = PixelFormat.Format32bppPArgb,});
             var result = renderer.Render(new TextureAtlas {                 
-                Size = new Size(width,height),
+                Size = new Size(width,height),               
             });
 
             Assert.Equal(width, result.Width);
@@ -29,7 +30,7 @@ namespace RelTexPacNet
         public void Render_output_uses_matte_color()
         {
             var color = Color.FromArgb(255,192,127,90);
-            var renderer = new TextureAtlasRenderer(new TextureAtlasRenderer.Settings { MatteColor = color });
+            var renderer = new TextureAtlasRenderer(new TextureAtlasRenderer.Settings { MatteColor = color, PixelFormat = PixelFormat.Format32bppPArgb, });
             var result = renderer.Render(new TextureAtlas
             {
                 Size = new Size(512,512),
@@ -72,7 +73,7 @@ namespace RelTexPacNet
                 },
             };
 
-            var renderer = new TextureAtlasRenderer(new TextureAtlasRenderer.Settings { MatteColor = Color.Fuchsia });
+            var renderer = new TextureAtlasRenderer(new TextureAtlasRenderer.Settings { MatteColor = Color.Fuchsia, PixelFormat = PixelFormat.Format32bppPArgb, });
             var result = renderer.Render(atlas);
 
             Assert.True(Util.AreEqual(Properties.Resources.renderer_expected_1, result));
@@ -111,7 +112,7 @@ namespace RelTexPacNet
                 },
             };
 
-            var renderer = new TextureAtlasRenderer(new TextureAtlasRenderer.Settings { MatteColor = Color.Fuchsia });
+            var renderer = new TextureAtlasRenderer(new TextureAtlasRenderer.Settings { MatteColor = Color.Fuchsia, PixelFormat = PixelFormat.Format32bppPArgb, });
             var result = renderer.Render(atlas);    
 
             Assert.True(Util.AreEqual(Properties.Resources.renderer_expected_1, result));
