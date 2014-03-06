@@ -166,8 +166,8 @@ namespace RelTexPacNet
         [Fact]
         public void Calculate_does_not_produce_textures_that_overlap_2()
         {
-            var WIDTH = 200;
-            var HEIGHT = 200;
+            var WIDTH = 512;
+            var HEIGHT = 512;
             var calc = new TextureAtlasCalculator(GetSettings(WIDTH, HEIGHT, 0));
 
             calc.Add(new Bitmap(100, 50), "a");
@@ -176,6 +176,8 @@ namespace RelTexPacNet
             calc.Add(new Bitmap(80, 80), "c3");
             calc.Add(new Bitmap(80, 80), "c4");
             calc.Add(new Bitmap(80, 80), "c2");
+            for (int i = 0; i < 40; i++) calc.Add(new Bitmap(20, 20), "a" + i);
+            for (int i = 0; i < 10; i++) calc.Add(new Bitmap(80 + 10 * i, 40), "b" + i);
             var result = calc.Calculate();
 
             var nodes = result.Nodes.ToList();

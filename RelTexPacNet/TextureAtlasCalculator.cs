@@ -102,8 +102,11 @@ namespace RelTexPacNet
                     throw new InvalidDataException("Insufficient free space available");
 
                 VerifySpace(totalSpace, result, freeSpace);
-                PlaceNode(best, freeSpace);                
-               
+                PlaceNode(best, freeSpace);
+
+                if(best.Reference.Contains("gif")) Debugger.Break();
+                VerifyNode(best, result);
+
                 var newNode = new TextureAtlasNode
                 {
                     X = best.X + _settings.Padding,
@@ -129,16 +132,7 @@ namespace RelTexPacNet
                 Nodes = result,
                 Size = _settings.Size,
             };
-        }
-
-        private void VerifySpace(int totalSpace, List<TextureAtlasNode> nodes, List<Rectangle> freeSpace)
-        {
-            int nodeTotal = 0;
-            int freeSpaceTotal = 0;
-            nodes.ForEach(n => nodeTotal += n.Texture.Height * n.Texture.Width);
-            freeSpace.ForEach(n => freeSpaceTotal += (n.Height * n.Width));
-            if (nodeTotal + freeSpaceTotal != totalSpace) Debugger.Break();
-        }
+        }        
 
         private void PlaceNode(Node node, List<Rectangle> freeSpace)
         {
@@ -208,6 +202,29 @@ namespace RelTexPacNet
                 }
             });                    
         }
-        
+
+        #region Crap to be removed
+        private void VerifyNode(Node best, List<TextureAtlasNode> result)
+        {
+            var bestRect = new Rectangle(best.X, best.Y, best.Width, best.Height);
+            var clashes = new List<TextureAtlasNode>();
+            result.ForEach(n =>
+            {
+                if (n.GetBounds().IntersectsWith(bestRect)) clashes.Add(n);
+            });
+
+            if (clashes.Any()) Debugger.Break();
+        }
+
+        private void VerifySpace(int totalSpace, List<TextureAtlasNode> nodes, List<Rectangle> freeSpace)
+        {
+            int nodeTotal = 0;
+            int freeSpaceTotal = 0;
+            nodes.ForEach(n => nodeTotal += (n.Texture.Height + _settings.Padding) * (n.Texture.Width + _settings.Padding));
+            freeSpace.ForEach(n => freeSpaceTotal += (n.Height * n.Width));
+            if (nodeTotal + freeSpaceTotal != totalSpace) Debugger.Break();
+        }
+        #endregion
+
     }
 }
