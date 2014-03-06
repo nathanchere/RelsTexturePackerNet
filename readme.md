@@ -3,6 +3,12 @@ RelTexPacNet - Texture Atlas Generator
 
 This started out as a simple GUI for Rel's Texture Packer since the official GUI was done in VB6 and a pain in the ass to run on any remotely current operating system. After trying to work around numerous bugs and limitations of the underlying texture packer (eg imposing directory structure, no PNG output, no notification or output of any kind on error) I decided it was easier to just rewrite the entire thing and ditch the RTP dependency completely.
 
+Features
+--------
+
+* Accepts BMP, PNG, GIF, JPG input
+* Output 32bit PNG (use something else to reduce to a fixed palette if needed)
+
 Build status
 --------
 
