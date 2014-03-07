@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using Moq;
@@ -10,7 +11,7 @@ using Xunit;
 namespace RelTexPacNet
 {
     public class TextureAtlasCalculatorTests
-    {
+    {        
         private TextureAtlasCalculator.Settings GetSettings(int width, int height, int padding)
         {
             return new TextureAtlasCalculator.Settings { 
@@ -161,6 +162,8 @@ namespace RelTexPacNet
                 }
 
             Assert.Equal(0, failures.Count);
+
+            Render(result);
         }
 
         [Fact]
@@ -170,12 +173,12 @@ namespace RelTexPacNet
             var HEIGHT = 512;
             var calc = new TextureAtlasCalculator(GetSettings(WIDTH, HEIGHT, 0));
 
-            calc.Add(new Bitmap(100, 50), "a");
-            calc.Add(new Bitmap(80, 80), "c1");
-            calc.Add(new Bitmap(100, 50), "b");            
-            calc.Add(new Bitmap(80, 80), "c3");
-            calc.Add(new Bitmap(80, 80), "c4");
-            calc.Add(new Bitmap(80, 80), "c2");
+            calc.Add(GetBitmap(100, 50), "a");
+            calc.Add(GetBitmap(80, 80), "c1");
+            calc.Add(GetBitmap(100, 50), "b");
+            calc.Add(GetBitmap(80, 80), "c3");
+            calc.Add(GetBitmap(80, 80), "c4");
+            calc.Add(GetBitmap(80, 80), "c2");
             for (int i = 0; i < 40; i++) calc.Add(new Bitmap(20, 20), "a" + i);
             for (int i = 0; i < 10; i++) calc.Add(new Bitmap(80 + 10 * i, 40), "b" + i);
             var result = calc.Calculate();
@@ -192,8 +195,45 @@ namespace RelTexPacNet
                         j = nodes.Count;
                     }
                 }
-
+           
             Assert.Equal(0, failures.Count);
+
+            Render(result);
         }
+
+        #region Visualisation aids
+
+        private void Render(TextureAtlas atlas)
+        {
+            var renderer = new TextureAtlasRenderer(new TextureAtlasRenderer.Settings { 
+                MatteColor = Color.FromArgb(128,255,0,255),
+                PixelFormat = PixelFormat.Format32bppArgb,
+            });
+            var result = renderer.Render(atlas);
+            result.Dump();
+        }
+
+        private Random rnd = new Random();
+
+        private Image GetBitmap(int width, int height)        
+        {
+            const float shadeRatio = 0.5f;
+            const int border = 2; 
+
+            var result = new Bitmap(width, height);
+            int r = rnd.Next(64,255),
+                g = rnd.Next(64,255),
+                b = rnd.Next(64,255);
+            using (var canvas = Graphics.FromImage(result))
+            {
+                
+                var borderColor = Color.FromArgb(r, g, b);
+                var fillColor = Color.FromArgb((int)(r * shadeRatio), (int)(g * shadeRatio), (int)(b * shadeRatio));
+                canvas.Clear(borderColor);
+                canvas.FillRectangle(new SolidBrush(fillColor), border, border, width - (border*2), height - (border*2));
+            }
+            return result;
+        }
+        #endregion
     }
 }
