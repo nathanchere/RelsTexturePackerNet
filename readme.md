@@ -16,6 +16,7 @@ Branch | Status | Download
 ------|-----|------
 master | [![Build status](https://ci-beta.appveyor.com/api/projects/status/51gsvoo39q01abmo/branch/master)](https://ci-beta.appveyor.com/project/nathanchere/relstexturepackernet) | [.zip](https://github.com/nathanchere/RelsTexturePackerNet/archive/master.zip)
 stable | [![Build status](https://ci-beta.appveyor.com/api/projects/status/51gsvoo39q01abmo/branch/stable)](https://ci-beta.appveyor.com/project/nathanchere/relstexturepackernet) | [.zip](https://github.com/nathanchere/RelsTexturePackerNet/archive/stable.zip)
+experimental | [![Build status](https://ci-beta.appveyor.com/api/projects/status/51gsvoo39q01abmo/branch/experimental)](https://ci-beta.appveyor.com/project/nathanchere/relstexturepackernet) | [.zip](https://github.com/nathanchere/RelsTexturePackerNet/archive/experimental.zip)
 
 
 Credits / thanks
