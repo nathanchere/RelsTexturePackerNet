@@ -11,11 +11,12 @@ using Xunit;
 namespace RelTexPacNet
 {
     public class TextureAtlasCalculatorTests
-    {        
+    {
         private TextureAtlasCalculator.Settings GetSettings(int width, int height, int padding)
         {
-            return new TextureAtlasCalculator.Settings { 
-                Size = new Size(width,height),
+            return new TextureAtlasCalculator.Settings
+            {
+                Size = new Size(width, height),
                 Padding = padding,
             };
         }
@@ -35,10 +36,10 @@ namespace RelTexPacNet
                 Size = new Size(100, 100),
                 Padding = 0,
             });
-            calc.Add(new Bitmap(50, 50), "a");
-            calc.Add(new Bitmap(50, 50), "b");
-            calc.Add(new Bitmap(50, 50), "c");
-            calc.Add(new Bitmap(50, 50), "d");
+            AddTexture(calc, 50, 50, "a");
+            AddTexture(calc, 50, 50, "b");
+            AddTexture(calc, 50, 50, "c");
+            AddTexture(calc, 50, 50, "d");
             calc.Calculate();
         }
 
@@ -50,10 +51,10 @@ namespace RelTexPacNet
                 Size = new Size(100, 100),
                 Padding = 0,
             });
-            calc.Add(new Bitmap(50, 50), "a");
-            calc.Add(new Bitmap(50, 50), "b");
-            calc.Add(new Bitmap(50, 50), "c");
-            calc.Add(new Bitmap(50, 51), "d");
+            AddTexture(calc, 50, 50, "a");
+            AddTexture(calc, 50, 50, "b");
+            AddTexture(calc, 50, 50, "c");
+            AddTexture(calc, 50, 51, "d");
             Assert.Throws<InvalidDataException>(() => calc.Calculate());
         }
 
@@ -65,10 +66,10 @@ namespace RelTexPacNet
                 Size = new Size(100, 100),
                 Padding = 1,
             });
-            calc.Add(new Bitmap(50, 50), "a");
-            calc.Add(new Bitmap(50, 50), "b");
-            calc.Add(new Bitmap(50, 50), "c");
-            calc.Add(new Bitmap(50, 50), "d");
+            AddTexture(calc, 50, 50, "a");
+            AddTexture(calc, 50, 50, "b");
+            AddTexture(calc, 50, 50, "c");
+            AddTexture(calc, 50, 50, "d");
             Assert.Throws<InvalidDataException>(() => calc.Calculate());
         }
 
@@ -77,7 +78,7 @@ namespace RelTexPacNet
         {
             var calc = new TextureAtlasCalculator(GetSettings(256, 256, 1));
             Assert.Throws<ArgumentOutOfRangeException>(() =>
-                calc.Add(new Bitmap(256, 10), "invalid")
+                AddTexture(calc, 256, 10, "invalid")
             );
         }
 
@@ -86,7 +87,7 @@ namespace RelTexPacNet
         {
             var calc = new TextureAtlasCalculator(GetSettings(256, 256, 1));
             Assert.Throws<ArgumentNullException>(() =>
-                calc.Add(new Bitmap(10, 10), "")
+                AddTexture(calc, 10, 10, "")
             );
         }
 
@@ -103,9 +104,9 @@ namespace RelTexPacNet
         public void Calculate_returns_all_added_references()
         {
             var calc = new TextureAtlasCalculator(GetSettings(256, 256, 1));
-            calc.Add(new Bitmap(10, 10), "a");
-            calc.Add(new Bitmap(10, 10), "b");
-            calc.Add(new Bitmap(10, 10), "c");
+            AddTexture(calc, 10, 10, "a");
+            AddTexture(calc, 10, 10, "b");
+            AddTexture(calc, 10, 10, "c");
 
             var result = calc.Calculate();
 
@@ -121,15 +122,16 @@ namespace RelTexPacNet
             var HEIGHT = 512;
             var calc = new TextureAtlasCalculator(GetSettings(WIDTH, HEIGHT, 1));
 
-            for (int i = 0; i < 40; i++) calc.Add(new Bitmap(20, 20), "a" + i);
-            for (int i = 0; i < 10; i++) calc.Add(new Bitmap(80 + 10*i, 40), "b" + i);
-            for (int i = 0; i < 40; i++) calc.Add(new Bitmap(40+i, 10), "c" + i);
+            for (int i = 0; i < 40; i++) AddTexture(calc, 20, 20, "a" + i);
+            for (int i = 0; i < 10; i++) AddTexture(calc, 80 + 10 * i, 40, "b" + i);
+            for (int i = 0; i < 40; i++) AddTexture(calc, 40 + i, 10, "c" + i);
 
             var result = calc.Calculate();
 
             var failures = new List<TextureAtlasNode>();
-            result.Nodes.ToList().ForEach(n => { 
-                if(n.X < 0 || n.Y < 0 || n.X > WIDTH-n.Texture.Width || n.Y > HEIGHT - n.Texture.Height)
+            result.Nodes.ToList().ForEach(n =>
+            {
+                if (n.X < 0 || n.Y < 0 || n.X > WIDTH - n.Texture.Width || n.Y > HEIGHT - n.Texture.Height)
                     failures.Add(n);
             });
             Assert.Equal(0, failures.Count);
@@ -142,15 +144,15 @@ namespace RelTexPacNet
             var HEIGHT = 512;
             var calc = new TextureAtlasCalculator(GetSettings(WIDTH, HEIGHT, 1));
 
-            for (int i = 0; i < 40; i++) calc.Add(GetBitmap(20, 20), "a" + i);
-            for (int i = 0; i < 10; i++) calc.Add(GetBitmap(80 + 10*i, 40), "b" + i);
-            for (int i = 0; i < 40; i++) calc.Add(GetBitmap(40+i, 10), "c" + i);
+            for (int i = 0; i < 40; i++) AddTexture(calc, 20, 20, "a" + i);
+            for (int i = 0; i < 10; i++) AddTexture(calc, 80 + 10 * i, 40, "b" + i);
+            for (int i = 0; i < 40; i++) AddTexture(calc, 40 + i, 10, "c" + i);
 
             var result = calc.Calculate();
 
             var nodes = result.Nodes.ToList();
             var failures = new List<TextureAtlasNode>();
-            
+
             for (int i = 0; i < nodes.Count(); i++)
                 for (int j = i + 1; j < nodes.Count(); j++)
                 {
@@ -173,14 +175,14 @@ namespace RelTexPacNet
             var HEIGHT = 512;
             var calc = new TextureAtlasCalculator(GetSettings(WIDTH, HEIGHT, 0));
 
-            calc.Add(GetBitmap(100, 50), "a");
-            calc.Add(GetBitmap(80, 80), "c1");
-            calc.Add(GetBitmap(100, 50), "b");
-            calc.Add(GetBitmap(80, 80), "c3");
-            calc.Add(GetBitmap(80, 80), "c4");
-            calc.Add(GetBitmap(80, 80), "c2");
-            for (int i = 0; i < 40; i++) calc.Add(new Bitmap(20, 20), "a" + i);
-            for (int i = 0; i < 10; i++) calc.Add(new Bitmap(80 + 10 * i, 40), "b" + i);
+            AddTexture(calc, 100, 50, "a");
+            AddTexture(calc, 80, 80, "c1");
+            AddTexture(calc, 100, 50, "b");
+            AddTexture(calc, 80, 80, "c3");
+            AddTexture(calc, 80, 80, "c4");
+            AddTexture(calc, 80, 80, "c2");
+            for (int i = 0; i < 40; i++) AddTexture(calc, 20, 20, "a" + i);
+            for (int i = 0; i < 10; i++) AddTexture(calc, 80 + 10 * i, 40, "b" + i);
             var result = calc.Calculate();
 
             var nodes = result.Nodes.ToList();
@@ -208,14 +210,14 @@ namespace RelTexPacNet
             var HEIGHT = 512;
             var calc = new TextureAtlasCalculator(GetSettings(WIDTH, HEIGHT, 0));
 
-            for (int i = 0; i < 40; i++) calc.Add(GetBitmap(20, 20), "a" + i);
-            for (int i = 0; i < 10; i++) calc.Add(GetBitmap(80 + 10 * i, 40), "b" + i);
-            for (int i = 0; i < 40; i++) calc.Add(GetBitmap(40 + i, 10), "c" + i);
-            calc.Add(GetBitmap(300, 40), "a");
-            calc.Add(GetBitmap(50, 400), "d");            
-            calc.Add(GetBitmap(80, 80), "d2");
-            for (int i = 0; i < 40; i++) calc.Add(new Bitmap(20, 20), "e" + i);
-            for (int i = 0; i < 10; i++) calc.Add(new Bitmap(80 + 10 * i, 40), "f" + i);
+            for (int i = 0; i < 40; i++) AddTexture(calc, 20, 20, "a" + i);
+            for (int i = 0; i < 10; i++) AddTexture(calc, 80 + 10 * i, 40, "b" + i);
+            for (int i = 0; i < 40; i++) AddTexture(calc, 40 + i, 10, "c" + i);
+            AddTexture(calc, 300, 40, "a");
+            AddTexture(calc, 50, 400, "d");
+            AddTexture(calc, 80, 80, "d2");
+            for (int i = 0; i < 40; i++) AddTexture(calc, 20, 20, "e" + i);
+            for (int i = 0; i < 10; i++) AddTexture(calc, 80 + 10 * i, 40, "f" + i);
             var result = calc.Calculate();
 
             Render(result);
@@ -225,8 +227,9 @@ namespace RelTexPacNet
 
         private void Render(TextureAtlas atlas)
         {
-            var renderer = new TextureAtlasRenderer(new TextureAtlasRenderer.Settings { 
-                MatteColor = Color.FromArgb(128,255,0,255),
+            var renderer = new TextureAtlasRenderer(new TextureAtlasRenderer.Settings
+            {
+                MatteColor = Color.FromArgb(128, 255, 0, 255),
                 PixelFormat = PixelFormat.Format32bppArgb,
             });
             var result = renderer.Render(atlas);
@@ -234,23 +237,31 @@ namespace RelTexPacNet
         }
 
         private Random rnd = new Random();
+        private Font font = new Font("Source Code Pro",8);
 
-        private Image GetBitmap(int width, int height)        
+        private void AddTexture(TextureAtlasCalculator calc, int width, int height, string reference)
+        {
+            calc.Add(GetBitmap(width,height,reference),reference);
+        }
+
+        private Image GetBitmap(int width, int height, string reference)
         {
             const float shadeRatio = 0.5f;
-            const int border = 2; 
+            const int border = 2;
 
             var result = new Bitmap(width, height);
-            int r = rnd.Next(64,255),
-                g = rnd.Next(64,255),
-                b = rnd.Next(64,255);
+            int r = rnd.Next(64, 255),
+                g = rnd.Next(64, 255),
+                b = rnd.Next(64, 255);
             using (var canvas = Graphics.FromImage(result))
             {
-                
+
                 var borderColor = Color.FromArgb(r, g, b);
                 var fillColor = Color.FromArgb((int)(r * shadeRatio), (int)(g * shadeRatio), (int)(b * shadeRatio));
                 canvas.Clear(borderColor);
-                canvas.FillRectangle(new SolidBrush(fillColor), border, border, width - (border*2), height - (border*2));
+                canvas.FillRectangle(new SolidBrush(fillColor), border, border, width - (border * 2), height - (border * 2));
+
+                canvas.DrawString(reference,font,Brushes.White, 1, 1);
             }
             return result;
         }
