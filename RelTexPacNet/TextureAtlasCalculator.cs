@@ -24,20 +24,42 @@ namespace RelTexPacNet
         {
             public int X,Y;            
             public int Width, Height;
+            public Rectangle UsedSpace { get { return new Rectangle(X,Y,Width,Height);} }
+
             public string Reference;
 
             public int Score1, Score2;
-            public Rectangle FreeSpace;
-            public bool IsRotated;
+            public Rectangle FreeSpace; // Which free space the node is assigned to
+            public bool IsRotated;            
         }
 
         private Settings _settings;
         private Dictionary<string, TextureAtlasNode> _inputNodes;
+        private List<Rectangle> freeSpace;
+        private List<Node> nodes;
 
         public TextureAtlasCalculator(Settings settings)
         {
             _settings = settings;
             _inputNodes = new Dictionary<string, TextureAtlasNode>();
+
+            freeSpace = new List<Rectangle>{
+                new Rectangle(0,0,
+                     _settings.Size.Width - _settings.Padding,
+                     _settings.Size.Height - _settings.Padding
+                )
+            };
+
+            nodes = _inputNodes.Select(n => new Node
+            {
+                X = 0,
+                Y = 0,
+                Score1 = 0,
+                Score2 = 0,
+                Width = n.Value.Texture.Width + _settings.Padding,
+                Height = n.Value.Texture.Height + _settings.Padding,
+                Reference = n.Key,
+            }).ToList();
         }
 
         public void Add(Image image, string reference)
@@ -70,23 +92,6 @@ namespace RelTexPacNet
         public TextureAtlas Calculate()
         {
             if (!_inputNodes.Any()) throw new InvalidOperationException("No input textures provided");
-            
-            var freeSpace = new List<Rectangle>{
-                new Rectangle(0,0,
-                     _settings.Size.Width - _settings.Padding,
-                     _settings.Size.Height - _settings.Padding
-                     )
-            };
-
-            var totalSpace = (_settings.Size.Width - _settings.Padding) * (_settings.Size.Height - _settings.Padding);
-
-            var nodes = _inputNodes.Select(n=>new Node {
-                X = 0, Y = 0,
-                Score1 = 0, Score2 = 0,
-                Width = n.Value.Texture.Width + _settings.Padding,
-                Height = n.Value.Texture.Height + _settings.Padding,
-                Reference = n.Key,
-            }).ToList();
 
             var result = new List<TextureAtlasNode>();
 
