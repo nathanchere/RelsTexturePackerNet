@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using RelTexPacNet.Calculators;
 
 namespace RelTexPacNet
 {
@@ -59,7 +60,7 @@ namespace RelTexPacNet
                 //OutputBitsPerPixel = (TextureAtlasRendererSettings.BitsPerPixel)cboOutputBPP.SelectedValue,
                 //OutputFileFormat = (TextureAtlasRendererSettings.FileFormat)cboOutputFormat.SelectedValue,
                 //OutputFileName = txtOutputFilename.Text,
-                CalculatorSettings = new TextureAtlasCalculator.Settings
+                CalculatorSettings = new MaxBinRect.Settings
                 {
                     Padding = Convert.ToInt32(numOutputMargin.Value),
                     Size = new Size(

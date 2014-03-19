@@ -52,6 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calculators\Corners.cs" />
+    <Compile Include="Calculators\Settings.cs" />
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,7 +72,7 @@
     <Compile Include="Result.cs" />
     <Compile Include="TextureAtlas.cs" />
     <Compile Include="TextureAtlasRenderer.cs" />
-    <Compile Include="TextureAtlasCalculator.cs" />
+    <Compile Include="Calculators\MaxBinRect.cs" />
     <Compile Include="TextureAtlasNode.cs" />
     <Compile Include="TexturePacker.cs" />
     <EmbeddedResource Include="frmMain.resx">
