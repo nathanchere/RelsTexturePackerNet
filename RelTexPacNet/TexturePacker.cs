@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using RelTexPacNet.Calculators;
 
 namespace RelTexPacNet
 {
@@ -10,11 +11,11 @@ namespace RelTexPacNet
         {
             public Settings()
             {
-                CalculatorSettings = new TextureAtlasCalculator.Settings();
+                CalculatorSettings = new MaxBinRect.Settings();
                 RendererSettings = new TextureAtlasRenderer.Settings();
             }
 
-            public TextureAtlasCalculator.Settings CalculatorSettings;
+            public MaxBinRect.Settings CalculatorSettings;
             public TextureAtlasRenderer.Settings RendererSettings;
 
             // output settings
@@ -33,7 +34,7 @@ namespace RelTexPacNet
         {
             _sourceImages = new Dictionary<string, Image>();
             _renderer = renderer ?? new TextureAtlasRenderer(settings.RendererSettings);
-            _calculator = calculator ?? new TextureAtlasCalculator(settings.CalculatorSettings);
+            _calculator = calculator ?? new MaxBinRect(settings.CalculatorSettings);
         }
 
         public void AddImage(Image image, string reference)
