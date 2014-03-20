@@ -72,8 +72,7 @@ namespace RelTexPacNet.Calculators
         {
             if (!_inputNodes.Any()) throw new InvalidOperationException("No input textures provided");
             
-            var nodes = _inputNodes.Select(n=>new PlacementNode() { SourceNode = n})
-            }).ToList();
+            var nodes = _inputNodes.Select(n=>new PlacementNode() { SourceNode = n.Value}).ToList();
 
             var usedSpace = new List<Rectangle> { // default for boundaries
                 new Rectangle(0,-1,_settings.Size.Width -_settings.Padding, 1), //top
@@ -88,11 +87,12 @@ namespace RelTexPacNet.Calculators
             {
                 nodes.ForEach(n => Score(n, usedSpace));
                 var best = nodes
-                    .OrderBy(n => n.Score1) // edge waste
-                    .ThenByDescending(n => n.Score2) // edge utilisation
-                    .First();
+                    .Where(n=>n.IsVaildPlacement)
+                    .OrderBy(n => n.WastageScore)
+                    .ThenByDescending(n => n.UtilizationScore)
+                    .FirstOrDefault();
 
-                if (best.Score1 == int.MaxValue) throw new InvalidDataException("Insufficient free space available");
+                if (best == null) throw new InvalidDataException("Insufficient free space available after " + result.Count + " textures placed");
 
                 usedSpace.Add(new Rectangle(best.X, best.Y,
                     best.IsRotated ? best.Height : best.Width,
