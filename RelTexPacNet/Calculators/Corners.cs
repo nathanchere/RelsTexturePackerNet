@@ -9,16 +9,28 @@ namespace RelTexPacNet.Calculators
 {
     public class Corners : ITextureAtlasCalculator
     {
-        private class Node
+        private class PlacementNode
         {
-            public int X,Y;            
-            public int Width, Height;
-            public string Reference;
-
-            public int Score1; // unutilized edges - lower is better
-            public int Score2; // utilized edges - higher is better
+            public int X,Y;                        
             public bool IsRotated;
-        }
+
+            public TextureAtlasNode SourceNode;
+
+            public bool IsVaildPlacement;
+
+            public int WastageScore; // unutilized edges - lower is better
+            public int UtilizationScore; // utilized edges - higher is better
+
+            public void Reset()
+            {
+                X=0;
+                Y=0;
+                IsRotated=false;
+                IsVaildPlacement = false;
+                WastageScore = int.MaxValue;
+                UtilizationScore = 0;
+            }
+        }       
 
         private Settings _settings;
         private Dictionary<string, TextureAtlasNode> _inputNodes;
@@ -42,8 +54,8 @@ namespace RelTexPacNet.Calculators
 
         private void ValidateInput(Image image, string reference)
         {
-            if (image == null) throw new ArgumentNullException("Cannot add null images");
-            if (string.IsNullOrWhiteSpace(reference)) throw new ArgumentNullException("reference cannot be empty");
+            if (image == null) throw new ArgumentNullException("image", @"Cannot add null images");
+            if (string.IsNullOrWhiteSpace(reference)) throw new ArgumentNullException("reference", @"reference cannot be empty");
 
             int maxLength = Math.Max(
                 _settings.Size.Width - _settings.Padding * 2,
@@ -51,21 +63,16 @@ namespace RelTexPacNet.Calculators
                 );
 
             if (image.Width > maxLength)
-                throw new ArgumentOutOfRangeException("Image width excees atlas working area");
+                throw new ArgumentOutOfRangeException("image",@"Image width excees atlas working area");
             if (image.Height > maxLength)
-                throw new ArgumentOutOfRangeException("Image height excees atlas working area");
+                throw new ArgumentOutOfRangeException("image",@"Image height excees atlas working area");
         }
 
         public TextureAtlas Calculate()
         {
             if (!_inputNodes.Any()) throw new InvalidOperationException("No input textures provided");
             
-            var nodes = _inputNodes.Select(n=>new Node {
-                X = 0, Y = 0,
-                Score1 = 0, Score2 = 0,
-                Width = n.Value.Texture.Width + _settings.Padding,
-                Height = n.Value.Texture.Height + _settings.Padding,
-                Reference = n.Key,
+            var nodes = _inputNodes.Select(n=>new PlacementNode() { SourceNode = n})
             }).ToList();
 
             var usedSpace = new List<Rectangle> { // default for boundaries
@@ -75,7 +82,7 @@ namespace RelTexPacNet.Calculators
                 new Rectangle(_settings.Size.Width - _settings.Padding, 0, 1, _settings.Size.Height - _settings.Padding), //right
             };
 
-            var result = new List<TextureAtlasNode>();   
+            var result = new List<TextureAtlasNode>();
 
             while (nodes.Any())
             {
@@ -87,7 +94,10 @@ namespace RelTexPacNet.Calculators
 
                 if (best.Score1 == int.MaxValue) throw new InvalidDataException("Insufficient free space available");
 
-                usedSpace.Add(new Rectangle(best.X,best.Y,best.Width,best.Height));
+                usedSpace.Add(new Rectangle(best.X, best.Y,
+                    best.IsRotated ? best.Height : best.Width,
+                    best.IsRotated ? best.Width : best.Height));
+
                 result.Add(new TextureAtlasNode
                 {
                     X = best.X + _settings.Padding,
