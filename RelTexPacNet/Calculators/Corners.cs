@@ -11,24 +11,28 @@ namespace RelTexPacNet.Calculators
     {
         private class PlacementNode
         {
-            public int X,Y;                        
+            public int X,Y;
+            public int Width, Height;
             public bool IsRotated;
 
             public TextureAtlasNode SourceNode;
 
-            public bool IsVaildPlacement;
+            public bool IsVaildPlacement = false;
 
             public int WastageScore; // unutilized edges - lower is better
             public int UtilizationScore; // utilized edges - higher is better
 
-            public void Reset()
+            public PlacementNode(TextureAtlasNode sourceNode)
             {
+                SourceNode = sourceNode;
                 X=0;
                 Y=0;
                 IsRotated=false;
                 IsVaildPlacement = false;
                 WastageScore = int.MaxValue;
                 UtilizationScore = 0;
+                Width = 0;
+                Height = 0;
             }
         }       
 
@@ -72,41 +76,33 @@ namespace RelTexPacNet.Calculators
         {
             if (!_inputNodes.Any()) throw new InvalidOperationException("No input textures provided");
             
-            var nodes = _inputNodes.Select(n=>new PlacementNode() { SourceNode = n.Value}).ToList();
-
-            var usedSpace = new List<Rectangle> { // default for boundaries
-                new Rectangle(0,-1,_settings.Size.Width -_settings.Padding, 1), //top
-                new Rectangle(0,_settings.Size.Height - _settings.Padding, _settings.Size.Width -_settings.Padding, 1), //bottom
-                new Rectangle(-1,0,1,_settings.Size.Height - _settings.Padding), //left
-                new Rectangle(_settings.Size.Width - _settings.Padding, 0, 1, _settings.Size.Height - _settings.Padding), //right
-            };
-
+            var nodes = _inputNodes.Select(n=>n).ToList();
             var result = new List<TextureAtlasNode>();
 
             while (nodes.Any())
             {
-                nodes.ForEach(n => Score(n, usedSpace));
-                var best = nodes
+                var validPlacements = nodes.Select(n => Score(n.Value, result)).ToList();
+                var best = validPlacements
                     .Where(n=>n.IsVaildPlacement)
                     .OrderBy(n => n.WastageScore)
                     .ThenByDescending(n => n.UtilizationScore)
                     .FirstOrDefault();
 
-                if (best == null) throw new InvalidDataException("Insufficient free space available after " + result.Count + " textures placed");
+                //if (best == null) throw new InvalidDataException("Insufficient free space available after " + result.Count + " textures placed");
 
-                usedSpace.Add(new Rectangle(best.X, best.Y,
-                    best.IsRotated ? best.Height : best.Width,
-                    best.IsRotated ? best.Width : best.Height));
+                //usedSpace.Add(new Rectangle(best.X, best.Y,
+                //    best.IsRotated ? best.Height : best.Width,
+                //    best.IsRotated ? best.Width : best.Height));
 
-                result.Add(new TextureAtlasNode
-                {
-                    X = best.X + _settings.Padding,
-                    Y = best.Y + _settings.Padding,
-                    Texture = _inputNodes[best.Reference].Texture,
-                    Reference = best.Reference,
-                    IsRotated = best.IsRotated,
-                });
-                nodes.Remove(best);
+                //result.Add(new TextureAtlasNode
+                //{
+                //    X = best.X + _settings.Padding,
+                //    Y = best.Y + _settings.Padding,
+                //    Texture = _inputNodes[best.Reference].Texture,
+                //    Reference = best.Reference,
+                //    IsRotated = best.IsRotated,
+                //});
+                //nodes.Remove(best);
             }
 
             return new TextureAtlas
@@ -116,10 +112,9 @@ namespace RelTexPacNet.Calculators
             };
         }        
 
-        private void Score(Node node, List<Rectangle> placedNodes)
+        private PlacementNode Score(TextureAtlasNode node, List<TextureAtlasNode> placedNodes)
         {
-            node.Score1 = int.MaxValue;
-            node.Score2 = 0;
+            var result = new PlacementNode(node);
 
             foreach (var plcaedNode in placedNodes)
             {
@@ -127,6 +122,7 @@ namespace RelTexPacNet.Calculators
             }
 
             if (_settings.IsRotationEnabled);
+            return null;
         }
 
     }
