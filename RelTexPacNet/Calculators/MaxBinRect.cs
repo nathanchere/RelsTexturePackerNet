@@ -102,7 +102,7 @@ namespace RelTexPacNet.Calculators
                 VerifySpace(totalSpace, result, freeSpace);
                 PlaceNode(best, freeSpace);
 
-                if(best.Reference.Contains("gif")) Debugger.Break();
+                if (best.Reference.Contains("gif")) ;// Debugger.Break();
                 VerifyNode(best, result);
 
                 var newNode = new TextureAtlasNode
@@ -136,8 +136,13 @@ namespace RelTexPacNet.Calculators
         {
             node.X = node.FreeSpace.X;
             node.Y = node.FreeSpace.Y;
-            node.Width = node.IsRotated ? node.Height : node.Width;
-            node.Height = node.IsRotated ? node.Width : node.Height;
+
+            if (node.IsRotated)
+            {
+                var temp = node.Height;
+                node.Height = node.Width;
+                node.Width = temp;
+            }            
 
             freeSpace.Remove(node.FreeSpace);
 
