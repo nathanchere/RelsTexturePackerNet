@@ -34,6 +34,16 @@ namespace RelTexPacNet.Calculators
                 Width = 0;
                 Height = 0;
             }
+
+            /// <summary>
+            /// Persist the placement information to the actual texture atlas node
+            /// </summary>
+            public void PlaceNode()
+            {
+                SourceNode.IsRotated = IsRotated;
+                SourceNode.X = X;
+                SourceNode.Y = Y;
+            }
         }       
 
         private Settings _settings;
@@ -76,33 +86,25 @@ namespace RelTexPacNet.Calculators
         {
             if (!_inputNodes.Any()) throw new InvalidOperationException("No input textures provided");
             
-            var nodes = _inputNodes.Select(n=>n).ToList();
+            var unplacedNodes = _inputNodes.Values.Select(n=>n).ToList();
             var result = new List<TextureAtlasNode>();
 
-            while (nodes.Any())
+            while (unplacedNodes.Any())
             {
-                var validPlacements = nodes.Select(n => Score(n.Value, result)).ToList();
-                var best = validPlacements
+                var validPlacements = unplacedNodes
+                    .Select(n => Score(n, result))
                     .Where(n=>n.IsVaildPlacement)
+                    .ToList();
+                var best = validPlacements                    
                     .OrderBy(n => n.WastageScore)
                     .ThenByDescending(n => n.UtilizationScore)
                     .FirstOrDefault();
 
-                //if (best == null) throw new InvalidDataException("Insufficient free space available after " + result.Count + " textures placed");
+                if (best == null) throw new InvalidDataException("Insufficient free space available after " + result.Count + " textures placed");
 
-                //usedSpace.Add(new Rectangle(best.X, best.Y,
-                //    best.IsRotated ? best.Height : best.Width,
-                //    best.IsRotated ? best.Width : best.Height));
-
-                //result.Add(new TextureAtlasNode
-                //{
-                //    X = best.X + _settings.Padding,
-                //    Y = best.Y + _settings.Padding,
-                //    Texture = _inputNodes[best.Reference].Texture,
-                //    Reference = best.Reference,
-                //    IsRotated = best.IsRotated,
-                //});
-                //nodes.Remove(best);
+                best.PlaceNode();
+                result.Add(best.SourceNode);
+                unplacedNodes.Remove(best.SourceNode);
             }
 
             return new TextureAtlas
