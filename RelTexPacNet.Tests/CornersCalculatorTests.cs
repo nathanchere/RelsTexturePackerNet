@@ -226,7 +226,7 @@ namespace RelTexPacNet
 
         private void Render(TextureAtlas atlas)
         {
-            var renderer = new TextureAtlasRenderer(new TextureAtlasRenderer.Settings
+            var renderer = new TextureAtlasRenderer(new TextureAtlasRendererSettings
             {
                 MatteColor = Color.FromArgb(128, 255, 0, 255),
                 PixelFormat = PixelFormat.Format32bppArgb,
