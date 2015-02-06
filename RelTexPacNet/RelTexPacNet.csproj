@@ -52,7 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Calculators\Corners.cs" />
+    <Compile Include="Calculators\CornersPacker.cs" />
     <Compile Include="Calculators\Settings.cs" />
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>

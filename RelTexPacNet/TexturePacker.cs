@@ -11,11 +11,11 @@ namespace RelTexPacNet
         {
             public Settings()
             {
-                CalculatorSettings = new MaxBinRect.Settings();
+                CalculatorSettings = new Calculators.Settings();
                 RendererSettings = new TextureAtlasRenderer.Settings();
             }
 
-            public MaxBinRect.Settings CalculatorSettings;
+            public Calculators.Settings CalculatorSettings;
             public TextureAtlasRenderer.Settings RendererSettings;
 
             // output settings
@@ -34,7 +34,7 @@ namespace RelTexPacNet
         {
             _sourceImages = new Dictionary<string, Image>();
             _renderer = renderer ?? new TextureAtlasRenderer(settings.RendererSettings);
-            _calculator = calculator ?? new MaxBinRect(settings.CalculatorSettings);
+            _calculator = calculator ?? new CornersPacker(settings.CalculatorSettings);
         }
 
         public void AddImage(Image image, string reference)

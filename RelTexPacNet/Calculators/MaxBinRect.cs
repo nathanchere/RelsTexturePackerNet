@@ -7,17 +7,8 @@ using System.Linq;
 
 namespace RelTexPacNet.Calculators
 {
-    public class MaxBinRect : ITextureAtlasCalculator
+    public class MaxBinRect 
     {
-        public class Settings
-        {
-            public Size Size { get; set; }
-            public int Padding { get; set; }
-            public bool IsRotationEnabled { get; set; }
-
-            // TODO: other options like pre-sort by longest side
-        }
-
         private class Node
         {
             public int X,Y;            
@@ -76,7 +67,7 @@ namespace RelTexPacNet.Calculators
                      )
             };
 
-            var totalSpace = (_settings.Size.Width - _settings.Padding) * (_settings.Size.Height - _settings.Padding);
+            var totalSpace = (_settings.Size.Width - _settings.Padding*2) * (_settings.Size.Height - _settings.Padding*2);
 
             var nodes = _inputNodes.Select(n=>new Node {
                 X = 0, Y = 0,

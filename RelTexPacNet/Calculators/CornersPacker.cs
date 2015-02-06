@@ -7,12 +7,23 @@ using System.Linq;
 
 namespace RelTexPacNet.Calculators
 {
-    public class Corners : ITextureAtlasCalculator
+    public class FreeSpaceCalculator
+    {
+        
+    }
+
+    public class CornersPacker : ITextureAtlasCalculator
     {
         private class PlacementNode
         {
-            public int X,Y;
+            public int X, Y;
             public int Width, Height;
+
+            public int TotalEdgeLength
+            {
+                get { return 2 * (Width + Height); }
+            }
+
             public bool IsRotated;
 
             public TextureAtlasNode SourceNode;
@@ -25,9 +36,9 @@ namespace RelTexPacNet.Calculators
             public PlacementNode(TextureAtlasNode sourceNode)
             {
                 SourceNode = sourceNode;
-                X=0;
-                Y=0;
-                IsRotated=false;
+                X = 0;
+                Y = 0;
+                IsRotated = false;
                 IsVaildPlacement = false;
                 WastageScore = int.MaxValue;
                 UtilizationScore = 0;
@@ -44,17 +55,18 @@ namespace RelTexPacNet.Calculators
                 SourceNode.X = X;
                 SourceNode.Y = Y;
             }
-        }       
+        }
 
-        private Settings _settings;
-        private Dictionary<string, TextureAtlasNode> _inputNodes;
+        private CalculatorSettings _settings;
+        private readonly Dictionary<string, TextureAtlasNode> _inputNodes;
 
-        public Corners(Settings settings)
+        public CornersPacker(CalculatorSettings settings)
         {
             _settings = settings;
             _inputNodes = new Dictionary<string, TextureAtlasNode>();
         }
 
+        #region Adding images
         public void Add(Image image, string reference)
         {
             ValidateInput(image, reference);
@@ -63,7 +75,12 @@ namespace RelTexPacNet.Calculators
             {
                 Texture = image,
                 Reference = reference,
-            } );
+            });
+        }
+
+        public void Clear()
+        {
+            _inputNodes.Clear();
         }
 
         private void ValidateInput(Image image, string reference)
@@ -77,25 +94,26 @@ namespace RelTexPacNet.Calculators
                 );
 
             if (image.Width > maxLength)
-                throw new ArgumentOutOfRangeException("image",@"Image width excees atlas working area");
+                throw new ArgumentOutOfRangeException("image", @"Image width excees atlas working area");
             if (image.Height > maxLength)
-                throw new ArgumentOutOfRangeException("image",@"Image height excees atlas working area");
+                throw new ArgumentOutOfRangeException("image", @"Image height excees atlas working area");
         }
+        #endregion
 
         public TextureAtlas Calculate()
         {
             if (!_inputNodes.Any()) throw new InvalidOperationException("No input textures provided");
-            
-            var unplacedNodes = _inputNodes.Values.Select(n=>n).ToList();
+
+            var unplacedNodes = _inputNodes.Values.Select(n => n).ToList();
             var result = new List<TextureAtlasNode>();
 
             while (unplacedNodes.Any())
             {
                 var validPlacements = unplacedNodes
                     .Select(n => Score(n, result))
-                    .Where(n=>n.IsVaildPlacement)
+                    .Where(n => n.IsVaildPlacement)
                     .ToList();
-                var best = validPlacements                    
+                var best = validPlacements
                     .OrderBy(n => n.WastageScore)
                     .ThenByDescending(n => n.UtilizationScore)
                     .FirstOrDefault();
@@ -112,7 +130,7 @@ namespace RelTexPacNet.Calculators
                 Nodes = result,
                 Size = _settings.Size,
             };
-        }        
+        }
 
         private PlacementNode Score(TextureAtlasNode node, List<TextureAtlasNode> placedNodes)
         {
@@ -123,7 +141,7 @@ namespace RelTexPacNet.Calculators
                 // 
             }
 
-            if (_settings.IsRotationEnabled);
+            if (_settings.IsRotationEnabled) ;
             return null;
         }
 

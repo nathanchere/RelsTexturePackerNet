@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
@@ -12,19 +11,10 @@ using System.Text;
 namespace RelTexPacNet
 {
     public class TextureAtlasRenderer : ITextureAtlasRenderer
-    {
-        public class Settings
-        {
-            //// NOTE: unless there's a specific need, am assuming always 32bit PNG
-            //public PixelFormat PixelFormat { get; set; }
-            //public FileFormat OutputFileFormat { get; set; }
-            public PixelFormat PixelFormat { get; set; }
-            public Color MatteColor { get; set; }
-        }
+    {       
+        private readonly TextureAtlasRendererSettings _settings;
 
-        private readonly Settings _settings;
-
-        public TextureAtlasRenderer(Settings settings)
+        public TextureAtlasRenderer(TextureAtlasRendererSettings settings)
         {
             _settings = settings;
         }

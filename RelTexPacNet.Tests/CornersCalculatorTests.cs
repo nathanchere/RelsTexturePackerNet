@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using Moq;
 using RelTexPacNet.Calculators;
 using Xunit;
 
 namespace RelTexPacNet
 {
-    public class TextureAtlasCalculatorTests
+    public class CornersCalculatorTests
     {
-        private MaxBinRect.Settings GetSettings(int width, int height, int padding)
+        private Settings GetSettings(int width, int height, int padding)
         {
-            return new MaxBinRect.Settings
+            return new Settings
             {
                 Size = new Size(width, height),
                 Padding = padding,
@@ -25,14 +23,14 @@ namespace RelTexPacNet
         [Fact]
         public void Calculate_throws_when_no_images_added()
         {
-            var calc = new MaxBinRect(null);
+            var calc = new CornersPacker(null);
             Assert.Throws<InvalidOperationException>(() => calc.Calculate());
         }
 
         [Fact]
         public void Calculate_does_not_throw_when_images_fit_within_output()
         {
-            var calc = new MaxBinRect(new MaxBinRect.Settings
+            var calc = new CornersPacker(new Settings
             {
                 Size = new Size(100, 100),
                 Padding = 0,
@@ -47,7 +45,7 @@ namespace RelTexPacNet
         [Fact]
         public void Calculate_throws_when_no_insufficient_output_size_to_fit_all_images()
         {
-            var calc = new MaxBinRect(new MaxBinRect.Settings
+            var calc = new CornersPacker(new Settings
             {
                 Size = new Size(100, 100),
                 Padding = 0,
@@ -62,7 +60,7 @@ namespace RelTexPacNet
         [Fact]
         public void Calculate_throws_when_no_insufficient_output_size_to_fit_all_images_with_padding()
         {
-            var calc = new MaxBinRect(new MaxBinRect.Settings
+            var calc = new CornersPacker(new Settings
             {
                 Size = new Size(100, 100),
                 Padding = 1,
@@ -77,34 +75,34 @@ namespace RelTexPacNet
         [Fact]
         public void Add_throws_when_any_input_image_exceeds_output_size()
         {
-            var calc = new MaxBinRect(GetSettings(256, 256, 1));
+            var calc = new CornersPacker(GetSettings(256, 256, 1));
             Assert.Throws<ArgumentOutOfRangeException>(() =>
                 AddTexture(calc, 256, 10, "invalid")
-            );
+                );
         }
 
         [Fact]
         public void Add_throws_on_empty_reference()
         {
-            var calc = new MaxBinRect(GetSettings(256, 256, 1));
+            var calc = new CornersPacker(GetSettings(256, 256, 1));
             Assert.Throws<ArgumentNullException>(() =>
                 AddTexture(calc, 10, 10, "")
-            );
+                );
         }
 
         [Fact]
         public void Add_throws_on_null_image()
         {
-            var calc = new MaxBinRect(GetSettings(256, 256, 1));
+            var calc = new CornersPacker(GetSettings(256, 256, 1));
             Assert.Throws<ArgumentNullException>(() =>
                 calc.Add(null, "invalid")
-            );
+                );
         }
 
         [Fact]
         public void Calculate_returns_all_added_references()
         {
-            var calc = new MaxBinRect(GetSettings(256, 256, 1));
+            var calc = new CornersPacker(GetSettings(256, 256, 1));
             AddTexture(calc, 10, 10, "a");
             AddTexture(calc, 10, 10, "b");
             AddTexture(calc, 10, 10, "c");
@@ -121,7 +119,7 @@ namespace RelTexPacNet
         {
             var WIDTH = 512;
             var HEIGHT = 512;
-            var calc = new MaxBinRect(GetSettings(WIDTH, HEIGHT, 1));
+            var calc = new CornersPacker(GetSettings(WIDTH, HEIGHT, 1));
 
             for (int i = 0; i < 40; i++) AddTexture(calc, 20, 20, "a" + i);
             for (int i = 0; i < 10; i++) AddTexture(calc, 80 + 10 * i, 40, "b" + i);
@@ -143,7 +141,7 @@ namespace RelTexPacNet
         {
             var WIDTH = 512;
             var HEIGHT = 512;
-            var calc = new MaxBinRect(GetSettings(WIDTH, HEIGHT, 1));
+            var calc = new CornersPacker(GetSettings(WIDTH, HEIGHT, 1));
 
             for (int i = 0; i < 40; i++) AddTexture(calc, 20, 20, "a" + i);
             for (int i = 0; i < 10; i++) AddTexture(calc, 80 + 10 * i, 40, "b" + i);
@@ -174,7 +172,7 @@ namespace RelTexPacNet
         {
             var WIDTH = 512;
             var HEIGHT = 512;
-            var calc = new MaxBinRect(GetSettings(WIDTH, HEIGHT, 0));
+            var calc = new CornersPacker(GetSettings(WIDTH, HEIGHT, 0));
 
             AddTexture(calc, 100, 50, "a");
             AddTexture(calc, 80, 80, "c1");
@@ -209,7 +207,7 @@ namespace RelTexPacNet
         {
             var WIDTH = 512;
             var HEIGHT = 512;
-            var calc = new MaxBinRect(GetSettings(WIDTH, HEIGHT, 0));
+            var calc = new CornersPacker(GetSettings(WIDTH, HEIGHT, 0));
 
             for (int i = 0; i < 40; i++) AddTexture(calc, 20, 20, "a" + i);
             for (int i = 0; i < 10; i++) AddTexture(calc, 80 + 10 * i, 40, "b" + i);
@@ -240,7 +238,7 @@ namespace RelTexPacNet
         private Random rnd = new Random();
         private Font font = new Font("Source Code Pro",8);
 
-        private void AddTexture(MaxBinRect calc, int width, int height, string reference)
+        private void AddTexture(CornersPacker calc, int width, int height, string reference)
         {
             calc.Add(GetBitmap(width,height,reference),reference);
         }
