@@ -20,10 +20,10 @@ namespace RelTexPacNet.Calculators
             public bool IsRotated;
         }
 
-        private Settings _settings;
+        private CalculatorSettings _settings;
         private Dictionary<string, TextureAtlasNode> _inputNodes;
 
-        public MaxBinRect(Settings settings)
+        public MaxBinRect(CalculatorSettings settings)
         {
             _settings = settings;
             _inputNodes = new Dictionary<string, TextureAtlasNode>();

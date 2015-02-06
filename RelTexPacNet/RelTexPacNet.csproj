@@ -53,7 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculators\CornersPacker.cs" />
-    <Compile Include="Calculators\Settings.cs" />
+    <Compile Include="Calculators\CalculatorSettings.cs" />
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,6 +74,7 @@
     <Compile Include="TextureAtlasRenderer.cs" />
     <Compile Include="Calculators\MaxBinRect.cs" />
     <Compile Include="TextureAtlasNode.cs" />
+    <Compile Include="TextureAtlasRendererSettings.cs" />
     <Compile Include="TexturePacker.cs" />
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>

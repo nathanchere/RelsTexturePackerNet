@@ -60,7 +60,7 @@ namespace RelTexPacNet
                 //OutputBitsPerPixel = (TextureAtlasRendererSettings.BitsPerPixel)cboOutputBPP.SelectedValue,
                 //OutputFileFormat = (TextureAtlasRendererSettings.FileFormat)cboOutputFormat.SelectedValue,
                 //OutputFileName = txtOutputFilename.Text,
-                CalculatorSettings = new Settings
+                CalculatorSettings = new CalculatorSettings
                 {
                     Padding = Convert.ToInt32(numOutputMargin.Value),
                     Size = new Size(
@@ -68,7 +68,7 @@ namespace RelTexPacNet
                     Convert.ToInt32(numOutputHeight.Value)
                     ),
                 },
-                RendererSettings = new TextureAtlasRenderer.Settings
+                RendererSettings = new TextureAtlasRendererSettings
                 {
                     MatteColor = colorPicker1.Value,
                     PixelFormat = PixelFormat.Format32bppPArgb

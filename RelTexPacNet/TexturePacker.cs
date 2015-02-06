@@ -11,12 +11,12 @@ namespace RelTexPacNet
         {
             public Settings()
             {
-                CalculatorSettings = new Calculators.Settings();
-                RendererSettings = new TextureAtlasRenderer.Settings();
+                CalculatorSettings = new CalculatorSettings();
+                RendererSettings = new TextureAtlasRendererSettings();
             }
 
-            public Calculators.Settings CalculatorSettings;
-            public TextureAtlasRenderer.Settings RendererSettings;
+            public Calculators.CalculatorSettings CalculatorSettings;
+            public TextureAtlasRendererSettings RendererSettings;
 
             // output settings
             // file format

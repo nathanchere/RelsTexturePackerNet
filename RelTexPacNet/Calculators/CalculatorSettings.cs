@@ -2,7 +2,7 @@ using System.Drawing;
 
 namespace RelTexPacNet.Calculators
 {
-    public class Settings
+    public class CalculatorSettings
     {
         /// <summary>
         /// Max output texture size to use

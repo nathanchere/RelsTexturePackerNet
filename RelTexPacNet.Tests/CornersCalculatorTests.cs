@@ -11,9 +11,9 @@ namespace RelTexPacNet
 {
     public class CornersCalculatorTests
     {
-        private Settings GetSettings(int width, int height, int padding)
+        private CalculatorSettings GetSettings(int width, int height, int padding)
         {
-            return new Settings
+            return new CalculatorSettings
             {
                 Size = new Size(width, height),
                 Padding = padding,
@@ -30,7 +30,7 @@ namespace RelTexPacNet
         [Fact]
         public void Calculate_does_not_throw_when_images_fit_within_output()
         {
-            var calc = new CornersPacker(new Settings
+            var calc = new CornersPacker(new CalculatorSettings
             {
                 Size = new Size(100, 100),
                 Padding = 0,
@@ -45,7 +45,7 @@ namespace RelTexPacNet
         [Fact]
         public void Calculate_throws_when_no_insufficient_output_size_to_fit_all_images()
         {
-            var calc = new CornersPacker(new Settings
+            var calc = new CornersPacker(new CalculatorSettings
             {
                 Size = new Size(100, 100),
                 Padding = 0,
@@ -60,7 +60,7 @@ namespace RelTexPacNet
         [Fact]
         public void Calculate_throws_when_no_insufficient_output_size_to_fit_all_images_with_padding()
         {
-            var calc = new CornersPacker(new Settings
+            var calc = new CornersPacker(new CalculatorSettings
             {
                 Size = new Size(100, 100),
                 Padding = 1,
