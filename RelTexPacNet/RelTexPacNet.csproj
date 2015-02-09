@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Calculators\CornersPacker.cs" />
     <Compile Include="Calculators\CalculatorSettings.cs" />
+    <Compile Include="Calculators\TextureAtlasInput.cs" />
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>

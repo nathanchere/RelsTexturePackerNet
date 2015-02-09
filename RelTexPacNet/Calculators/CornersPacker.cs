@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 
 namespace RelTexPacNet.Calculators
 {
-    public class FreeSpaceCalculator
-    {
-        
-    }
-
     public class CornersPacker : ITextureAtlasCalculator
     {
         private class PlacementNode
@@ -57,52 +51,9 @@ namespace RelTexPacNet.Calculators
             }
         }
 
-        private CalculatorSettings _settings;
-        private readonly Dictionary<string, TextureAtlasNode> _inputNodes;
-
-        public CornersPacker(CalculatorSettings settings)
+        public TextureAtlas Calculate(TextureAtlasInput settings)
         {
-            _settings = settings;
-            _inputNodes = new Dictionary<string, TextureAtlasNode>();
-        }
-
-        #region Adding images
-        public void Add(Image image, string reference)
-        {
-            ValidateInput(image, reference);
-
-            _inputNodes.Add(reference, new TextureAtlasNode
-            {
-                Texture = image,
-                Reference = reference,
-            });
-        }
-
-        public void Clear()
-        {
-            _inputNodes.Clear();
-        }
-
-        private void ValidateInput(Image image, string reference)
-        {
-            if (image == null) throw new ArgumentNullException("image", @"Cannot add null images");
-            if (string.IsNullOrWhiteSpace(reference)) throw new ArgumentNullException("reference", @"reference cannot be empty");
-
-            int maxLength = Math.Max(
-                _settings.Size.Width - _settings.Padding * 2,
-                _settings.Size.Height - _settings.Padding * 2
-                );
-
-            if (image.Width > maxLength)
-                throw new ArgumentOutOfRangeException("image", @"Image width excees atlas working area");
-            if (image.Height > maxLength)
-                throw new ArgumentOutOfRangeException("image", @"Image height excees atlas working area");
-        }
-        #endregion
-
-        public TextureAtlas Calculate()
-        {
-            if (!_inputNodes.Any()) throw new InvalidOperationException("No input textures provided");
+            if (!settings.Nodes.Any()) throw new InvalidOperationException("No input textures provided");
 
             var unplacedNodes = _inputNodes.Values.Select(n => n).ToList();
             var placedNodes = new List<TextureAtlasNode>();
@@ -148,7 +99,6 @@ namespace RelTexPacNet.Calculators
 
             if (_settings.IsRotationEnabled) ;
             return null;
-        }
-
+        }               
     }
 }

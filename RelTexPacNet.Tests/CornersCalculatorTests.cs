@@ -23,8 +23,9 @@ namespace RelTexPacNet
         [Fact]
         public void Calculate_throws_when_no_images_added()
         {
-            var calc = new CornersPacker(null);
-            Assert.Throws<InvalidOperationException>(() => calc.Calculate());
+            var input = new TextureAtlasInput(null);
+            var calc = new CornersPacker();
+            Assert.Throws<InvalidOperationException>(() => calc.Calculate(input));
         }
 
         [Fact]
@@ -60,22 +61,19 @@ namespace RelTexPacNet
         [Fact]
         public void Calculate_throws_when_no_insufficient_output_size_to_fit_all_images_with_padding()
         {
-            var calc = new CornersPacker(new CalculatorSettings
-            {
-                Size = new Size(100, 100),
-                Padding = 1,
-            });
+            var settings = GetSettings(100, 100, 1);
+            var calc = new CornersPacker();
             AddTexture(calc, 50, 50, "a");
             AddTexture(calc, 50, 50, "b");
             AddTexture(calc, 50, 50, "c");
             AddTexture(calc, 50, 50, "d");
-            Assert.Throws<InvalidDataException>(() => calc.Calculate());
+            Assert.Throws<InvalidDataException>(() => calc.Calculate(settings));
         }
 
         [Fact]
         public void Add_throws_when_any_input_image_exceeds_output_size()
         {
-            var calc = new CornersPacker(GetSettings(256, 256, 1));
+            var calc = new CornersPacker();
             Assert.Throws<ArgumentOutOfRangeException>(() =>
                 AddTexture(calc, 256, 10, "invalid")
                 );
