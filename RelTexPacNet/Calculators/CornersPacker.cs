@@ -105,29 +105,34 @@ namespace RelTexPacNet.Calculators
             if (!_inputNodes.Any()) throw new InvalidOperationException("No input textures provided");
 
             var unplacedNodes = _inputNodes.Values.Select(n => n).ToList();
-            var result = new List<TextureAtlasNode>();
+            var placedNodes = new List<TextureAtlasNode>();
 
             while (unplacedNodes.Any())
             {
-                var validPlacements = unplacedNodes
-                    .Select(n => Score(n, result))
-                    .Where(n => n.IsVaildPlacement)
-                    .ToList();
-                var best = validPlacements
-                    .OrderBy(n => n.WastageScore)
-                    .ThenByDescending(n => n.UtilizationScore)
-                    .FirstOrDefault();
+                //var validPlacements = unplacedNodes
+                //    .Select(n => Score(n, result))
+                //    .Where(n => n.IsVaildPlacement)
+                //    .ToList();
+                //var best = validPlacements
+                //    .OrderBy(n => n.WastageScore)
+                //    .ThenByDescending(n => n.UtilizationScore)
+                //    .FirstOrDefault();
 
-                if (best == null) throw new InvalidDataException("Insufficient free space available after " + result.Count + " textures placed");
+                var best = unplacedNodes.First();
 
-                best.PlaceNode();
-                result.Add(best.SourceNode);
-                unplacedNodes.Remove(best.SourceNode);
+                //if (best == null) throw new InvalidDataException("Insufficient free space available after " + result.Count + " textures placed");
+
+                //best.PlaceNode();
+                //result.Add(best.SourceNode);
+                //unplacedNodes.Remove(best.SourceNode);
+
+                placedNodes.Add(best);
+                unplacedNodes.Remove(best);
             }
 
             return new TextureAtlas
             {
-                Nodes = result,
+                Nodes = placedNodes,
                 Size = _settings.Size,
             };
         }
