@@ -53,8 +53,9 @@ namespace RelTexPacNet.Calculators
 
         public TextureAtlas Calculate(TextureAtlasInput input)
         {
-            if (!input.Nodes.Any()) throw new InvalidOperationException("No input textures provided");
+            ValidateInput(input);
 
+            
             var unplacedNodes = input.Nodes.Values.Select(n => n).ToList();
             var placedNodes = new List<TextureAtlasNode>();
 
@@ -86,6 +87,13 @@ namespace RelTexPacNet.Calculators
                 Nodes = placedNodes,
                 Size = input.Settings.Size,
             };
+        }
+
+        private static void ValidateInput(TextureAtlasInput input)
+        {
+            if (!input.Nodes.Any()) throw new InvalidOperationException("No input textures provided");
+
+            var totalOutputArea = input.Settings.Size.Height * input.Settings.Size.Width;
         }
 
         private PlacementNode Score(TextureAtlasNode node, List<TextureAtlasNode> placedNodes, bool isRotationEnabled)

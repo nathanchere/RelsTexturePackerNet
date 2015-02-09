@@ -76,7 +76,7 @@ namespace RelTexPacNet
             var renderer = new TextureAtlasRenderer(new TextureAtlasRendererSettings { MatteColor = Color.Fuchsia, PixelFormat = PixelFormat.Format32bppPArgb, });
             var result = renderer.Render(atlas);
 
-            Assert.True(Util.AreEqual(Properties.Resources.renderer_expected_1, result));
+            Assert.True(TestExtensions.AreEqual(Properties.Resources.renderer_expected_1, result));
         }
 
         [Fact]
@@ -115,7 +115,7 @@ namespace RelTexPacNet
             var renderer = new TextureAtlasRenderer(new TextureAtlasRendererSettings { MatteColor = Color.Fuchsia, PixelFormat = PixelFormat.Format32bppPArgb, });
             var result = renderer.Render(atlas);    
 
-            Assert.True(Util.AreEqual(Properties.Resources.renderer_expected_1, result));
+            Assert.True(TestExtensions.AreEqual(Properties.Resources.renderer_expected_1, result));
         }
     }
 }

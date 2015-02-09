@@ -18,7 +18,6 @@ namespace RelTexPacNet
             };
         }
 
-
         [Theory]
         [InlineData(0, 0)]
         [InlineData(100, 0)]

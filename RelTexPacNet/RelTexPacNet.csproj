@@ -61,6 +61,7 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Util.cs" />
     <Compile Include="ITextureAtlasCalculator.cs" />
     <Compile Include="ITextureAtlasRenderer.cs" />
     <Compile Include="Program.cs" />

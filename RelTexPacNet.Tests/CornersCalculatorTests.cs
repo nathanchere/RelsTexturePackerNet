@@ -11,7 +11,7 @@ namespace RelTexPacNet
 {
     public class CornersCalculatorTests : TestBase
     {
-        private CalculatorSettings GetSettings(int width, int height, int padding)
+        private CalculatorSettings GetSettings(int width = 100, int height = 100, int padding = 0)
         {
             return new CalculatorSettings
             {
@@ -23,7 +23,7 @@ namespace RelTexPacNet
         [Fact]
         public void Calculate_throws_when_no_images_added()
         {
-            var input = new TextureAtlasInput(null);
+            var input = new TextureAtlasInput(GetSettings());
             var calc = new CornersPacker();
             Assert.Throws<InvalidOperationException>(() => calc.Calculate(input));
         }
@@ -31,7 +31,7 @@ namespace RelTexPacNet
         [Fact]
         public void Calculate_does_not_throw_when_images_fit_within_output()
         {
-            var input = new TextureAtlasInput(GetSettings(100,100,1));
+            var input = new TextureAtlasInput(GetSettings());
             var calc = new CornersPacker();
             AddTexture(input, 50, 50, "a");
             AddTexture(input, 50, 50, "b");
@@ -39,11 +39,11 @@ namespace RelTexPacNet
             AddTexture(input, 50, 50, "d");
             calc.Calculate(input);
         }
-
+        
         [Fact]
-        public void Calculate_throws_when_no_insufficient_output_size_to_fit_all_images()
+        public void Calculate_throws_when_insufficient_output_size_to_fit_all_images()
         {
-            var input = new TextureAtlasInput(GetSettings(100, 100, 0));
+            var input = new TextureAtlasInput(GetSettings());
             var calc = new CornersPacker();
 
             AddTexture(input, 50, 50, "a");
@@ -54,7 +54,7 @@ namespace RelTexPacNet
         }
 
         [Fact]
-        public void Calculate_throws_when_no_insufficient_output_size_to_fit_all_images_with_padding()
+        public void Calculate_throws_when_insufficient_output_size_to_fit_all_images_with_padding()
         {
             var input = new TextureAtlasInput(GetSettings(100, 100, 1));
             var calc = new CornersPacker();
