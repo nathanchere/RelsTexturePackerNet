@@ -10,6 +10,12 @@ namespace RelTexPacNet
         public int Y;
         public bool IsRotated;
 
+        public Size Size {
+            get {
+                return Texture.Size;
+            }
+        }
+
         public Rectangle GetBounds()
         {
             return new Rectangle(X,Y,Texture.Width,Texture.Height);
