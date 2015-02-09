@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using RelTexPacNet.Calculators;
 using Xunit;
 
@@ -80,119 +81,129 @@ namespace RelTexPacNet
             Assert.NotNull(result.Nodes.SingleOrDefault(n => n.Reference == "a"));
             Assert.NotNull(result.Nodes.SingleOrDefault(n => n.Reference == "b"));
             Assert.NotNull(result.Nodes.SingleOrDefault(n => n.Reference == "c"));
+
+            Render(result);
         }
 
-        //[Fact]
-        //public void Calculate_does_not_produce_textures_outside_atlas_bounds()
-        //{
-        //    var WIDTH = 512;
-        //    var HEIGHT = 512;
-        //    var calc = new CornersPacker(GetSettings(WIDTH, HEIGHT, 1));
-
-        //    for (int i = 0; i < 40; i++) AddTexture(calc, 20, 20, "a" + i);
-        //    for (int i = 0; i < 10; i++) AddTexture(calc, 80 + 10 * i, 40, "b" + i);
-        //    for (int i = 0; i < 40; i++) AddTexture(calc, 40 + i, 10, "c" + i);
-
-        //    var result = calc.Calculate();
-
-        //    var failures = new List<TextureAtlasNode>();
-        //    result.Nodes.ToList().ForEach(n =>
-        //    {
-        //        if (n.X < 0 || n.Y < 0 || n.X > WIDTH - n.Texture.Width || n.Y > HEIGHT - n.Texture.Height)
-        //            failures.Add(n);
-        //    });
-        //    Assert.Equal(0, failures.Count);
-        //}
-
-        //[Fact]
-        //public void Calculate_does_not_produce_textures_that_overlap()
-        //{
-        //    var WIDTH = 512;
-        //    var HEIGHT = 512;
-        //    var calc = new CornersPacker(GetSettings(WIDTH, HEIGHT, 1));
-
-        //    for (int i = 0; i < 40; i++) AddTexture(calc, 20, 20, "a" + i);
-        //    for (int i = 0; i < 10; i++) AddTexture(calc, 80 + 10 * i, 40, "b" + i);
-        //    for (int i = 0; i < 40; i++) AddTexture(calc, 40 + i, 10, "c" + i);
-
-        //    var result = calc.Calculate();
-
-        //    var nodes = result.Nodes.ToList();
-        //    var failures = new List<TextureAtlasNode>();
-
-        //    for (int i = 0; i < nodes.Count(); i++)
-        //        for (int j = i + 1; j < nodes.Count(); j++)
-        //        {
-        //            if (nodes[i].GetBounds().IntersectsWith(nodes[j].GetBounds()))
-        //            {
-        //                failures.Add(nodes[i]);
-        //                j = nodes.Count;
-        //            }
-        //        }
-
-        //    Assert.Equal(0, failures.Count);
-
-        //    Render(result);
-        //}
-
-        //[Fact]
-        //public void Calculate_does_not_produce_textures_that_overlap_2()
-        //{
-        //    var WIDTH = 512;
-        //    var HEIGHT = 512;
-        //    var calc = new CornersPacker(GetSettings(WIDTH, HEIGHT, 0));
-
-        //    AddTexture(calc, 100, 50, "a");
-        //    AddTexture(calc, 80, 80, "c1");
-        //    AddTexture(calc, 100, 50, "b");
-        //    AddTexture(calc, 80, 80, "c3");
-        //    AddTexture(calc, 80, 80, "c4");
-        //    AddTexture(calc, 80, 80, "c2");
-        //    for (int i = 0; i < 40; i++) AddTexture(calc, 20, 20, "a" + i);
-        //    for (int i = 0; i < 10; i++) AddTexture(calc, 80 + 10 * i, 40, "b" + i);
-        //    var result = calc.Calculate();
-
-        //    var nodes = result.Nodes.ToList();
-        //    var failures = new List<TextureAtlasNode>();
-
-        //    for (int i = 0; i < nodes.Count(); i++)
-        //        for (int j = i + 1; j < nodes.Count(); j++)
-        //        {
-        //            if (nodes[i].GetBounds().IntersectsWith(nodes[j].GetBounds()))
-        //            {
-        //                failures.Add(nodes[i]);
-        //                j = nodes.Count;
-        //            }
-        //        }
-
-        //    Assert.Equal(0, failures.Count);
-
-        //    Render(result);
-        //}
+        //[Fact] public void Calculate_outputs_nodes_with_correct_padding() { }
 
         [Fact]
-        //public void Calculate_non_test()
-        //{
-        //    var WIDTH = 512;
-        //    var HEIGHT = 512;
-        //    var calc = new CornersPacker(GetSettings(WIDTH, HEIGHT, 0));
+        public void Calculate_does_not_produce_textures_outside_atlas_bounds()
+        {
+            var WIDTH = 512;
+            var HEIGHT = 512;
+            var input = new TextureAtlasInput(GetSettings(WIDTH, HEIGHT,1));
+            var calc = new CornersPacker();
 
-        //    for (int i = 0; i < 40; i++) AddTexture(calc, 20, 20, "a" + i);
-        //    for (int i = 0; i < 10; i++) AddTexture(calc, 80 + 10 * i, 40, "b" + i);
-        //    for (int i = 0; i < 40; i++) AddTexture(calc, 40 + i, 10, "c" + i);
-        //    AddTexture(calc, 300, 40, "a");
-        //    AddTexture(calc, 50, 400, "d");
-        //    AddTexture(calc, 80, 80, "d2");
-        //    for (int i = 0; i < 40; i++) AddTexture(calc, 20, 20, "e" + i);
-        //    for (int i = 0; i < 10; i++) AddTexture(calc, 80 + 10 * i, 40, "f" + i);
-        //    var result = calc.Calculate();
+            for (int i = 0; i < 40; i++) AddTexture(input, 20, 20, "a" + i);
+            for (int i = 0; i < 10; i++) AddTexture(input, 80 + 10 * i, 40, "b" + i);
+            for (int i = 0; i < 40; i++) AddTexture(input, 40 + i, 10, "c" + i);
 
-        //    Render(result);
-        //}
+            var result = calc.Calculate(input);
+
+            var failures = new List<TextureAtlasNode>();
+            result.Nodes.ToList().ForEach(n =>
+            {
+                if (n.X < 0 || n.Y < 0 || n.X > WIDTH - n.Texture.Width || n.Y > HEIGHT - n.Texture.Height)
+                    failures.Add(n);
+            });
+            Assert.Equal(0, failures.Count);
+
+            Render(result);
+        }
+
+        [Fact]
+        public void Calculate_does_not_produce_textures_that_overlap()
+        {
+            var WIDTH = 512;
+            var HEIGHT = 512;
+            var input = new TextureAtlasInput(GetSettings(WIDTH, HEIGHT, 1));
+            var calc = new CornersPacker();
+
+            for (int i = 0; i < 40; i++) AddTexture(input, 20, 20, "a" + i);
+            for (int i = 0; i < 10; i++) AddTexture(input, 80 + 10 * i, 40, "b" + i);
+            for (int i = 0; i < 40; i++) AddTexture(input, 40 + i, 10, "c" + i);
+
+            var result = calc.Calculate(input);
+
+            var nodes = result.Nodes.ToList();
+            var failures = new List<TextureAtlasNode>();
+
+            for (int i = 0; i < nodes.Count(); i++)
+                for (int j = i + 1; j < nodes.Count(); j++)
+                {
+                    if (nodes[i].GetBounds().IntersectsWith(nodes[j].GetBounds()))
+                    {
+                        failures.Add(nodes[i]);
+                        j = nodes.Count;
+                    }
+                }
+
+            Assert.Equal(0, failures.Count);
+
+            Render(result);
+        }
+
+        [Fact]
+        public void Calculate_does_not_produce_textures_that_overlap_2()
+        {
+            var WIDTH = 512;
+            var HEIGHT = 512;
+            var input = new TextureAtlasInput(GetSettings(WIDTH, HEIGHT, 1));
+            var calc = new CornersPacker();
+
+            AddTexture(input, 100, 50, "a");
+            AddTexture(input, 80, 80, "c1");
+            AddTexture(input, 100, 50, "b");
+            AddTexture(input, 80, 80, "c3");
+            AddTexture(input, 80, 80, "c4");
+            AddTexture(input, 80, 80, "c2");
+            for (int i = 0; i < 40; i++) AddTexture(input, 20, 20, "a" + i);
+            for (int i = 0; i < 10; i++) AddTexture(input, 80 + 10 * i, 40, "b" + i);
+            var result = calc.Calculate(input);
+
+            var nodes = result.Nodes.ToList();
+            var failures = new List<TextureAtlasNode>();
+
+            for (int i = 0; i < nodes.Count(); i++)
+                for (int j = i + 1; j < nodes.Count(); j++)
+                {
+                    if (nodes[i].GetBounds().IntersectsWith(nodes[j].GetBounds()))
+                    {
+                        failures.Add(nodes[i]);
+                        j = nodes.Count;
+                    }
+                }
+
+            Assert.Equal(0, failures.Count);
+
+            Render(result);
+        }
+
+        [Fact]
+        public void Calculate_non_test()
+        {
+            var WIDTH = 512;
+            var HEIGHT = 512;
+            var input = new TextureAtlasInput(GetSettings(WIDTH, HEIGHT, 1));
+            var calc = new CornersPacker();
+
+            for (int i = 0; i < 40; i++) AddTexture(input, 20, 20, "a" + i);
+            for (int i = 0; i < 10; i++) AddTexture(input, 80 + 10 * i, 40, "b" + i);
+            for (int i = 0; i < 40; i++) AddTexture(input, 40 + i, 10, "c" + i);
+            AddTexture(input, 300, 40, "a");
+            AddTexture(input, 50, 400, "d");
+            AddTexture(input, 80, 80, "d2");
+            for (int i = 0; i < 40; i++) AddTexture(input, 20, 20, "e" + i);
+            for (int i = 0; i < 10; i++) AddTexture(input, 80 + 10 * i, 40, "f" + i);
+            var result = calc.Calculate(input);
+
+            Render(result);
+        }
 
         #region Visualisation aids        
 
-        private void Render(TextureAtlas atlas)
+        private void Render(TextureAtlas atlas, [CallerMemberName]string memberName = "")
         {
             var renderer = new TextureAtlasRenderer(new TextureAtlasRendererSettings
             {
@@ -200,7 +211,7 @@ namespace RelTexPacNet
                 PixelFormat = PixelFormat.Format32bppArgb,
             });
             var result = renderer.Render(atlas);
-            result.Dump();
+            result.Dump(@"C:\" + memberName + "___");
         }        
 
         private void AddTexture(TextureAtlasInput input, int width, int height, string reference)

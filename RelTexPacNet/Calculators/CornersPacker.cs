@@ -102,7 +102,7 @@ namespace RelTexPacNet.Calculators
         {
             var result = new PlacementNode(node);
 
-            foreach (var plcaedNode in placedNodes)
+            foreach (var placedNode in placedNodes)
             {
                 // 
             }

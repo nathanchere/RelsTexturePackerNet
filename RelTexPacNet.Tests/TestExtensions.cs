@@ -11,8 +11,11 @@ namespace RelTexPacNet
     {        
         public static void Dump(this Bitmap bitmap, string path = @"C:\")
         {
-            if (path.EndsWith(@"\"))
-                path = Path.Combine(path, DateTime.Now.Ticks + ".png");
+            var ending = DateTime.Now.Ticks + ".png";
+            if (path.EndsWith(@"\")) // TODO: yes I know this is pointless right now
+                path = Path.Combine(path, ending);
+            else
+                path += ending;
 
             bitmap.Save(path, ImageFormat.Png);
         }
