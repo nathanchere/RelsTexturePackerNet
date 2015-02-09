@@ -15,7 +15,7 @@ namespace RelTexPacNet
                 RendererSettings = new TextureAtlasRendererSettings();
             }
 
-            public Calculators.CalculatorSettings CalculatorSettings;
+            public CalculatorSettings CalculatorSettings;
             public TextureAtlasRendererSettings RendererSettings;
 
             // output settings
