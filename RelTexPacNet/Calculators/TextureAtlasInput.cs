@@ -13,8 +13,17 @@ namespace RelTexPacNet.Calculators
 
         public TextureAtlasInput(CalculatorSettings settings)
         {
+            ValidateSettings(settings);
+
             Settings = settings;
             Nodes = new Dictionary<string, TextureAtlasNode>();
+        }
+
+        private void ValidateSettings(CalculatorSettings settings)
+        {
+            if (settings.Size.Height <= 0) throw new ArgumentOutOfRangeException("Size.Height", settings.Size.Height, "Output texture height cannot be 0 or less");
+            if (settings.Size.Width <= 0) throw new ArgumentOutOfRangeException("Size.Width", settings.Size.Width, "Output texture width cannot be 0 or less");
+            if (settings.Padding < 0) throw new ArgumentOutOfRangeException("Padding", settings.Padding, "Output texture padding cannot be less than 0");
         }
 
         public void AddSprite(Image image, string reference)
@@ -31,7 +40,8 @@ namespace RelTexPacNet.Calculators
         private void ValidateInput(Image image, string reference)
         {
             if (image == null) throw new ArgumentNullException("image", @"Cannot add null images");
-            if (string.IsNullOrWhiteSpace(reference)) throw new ArgumentNullException("reference", @"reference cannot be empty");
+            if (reference == null) throw new ArgumentNullException("reference", @"Cannot add null references");
+            if (string.IsNullOrWhiteSpace(reference)) throw new ArgumentOutOfRangeException("reference", @"reference cannot be empty");
 
             int maxLength = Math.Max(
                 Settings.Size.Width - Settings.Padding * 2,

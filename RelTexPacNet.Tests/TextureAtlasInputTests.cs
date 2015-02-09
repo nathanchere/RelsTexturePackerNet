@@ -19,7 +19,7 @@ namespace RelTexPacNet
         }
 
 
-        [Fact]
+        [Theory]
         [InlineData(0, 0)]
         [InlineData(100, 0)]
         [InlineData(100, -100)]
@@ -29,10 +29,10 @@ namespace RelTexPacNet
         public void Add_throws_on_invalid_output_texture_size(int width, int height)
         {
             var settings = GetCalculatorSettings(width, height, 0);
-            Assert.Throws<ArgumentNullException>(() => new TextureAtlasInput(settings));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new TextureAtlasInput(settings));
         }
 
-        [Fact]
+        [Theory]
         [InlineData(100, 100, 50)]
         [InlineData(100, 100, 100)]
         [InlineData(100, 50, 25)]
@@ -41,7 +41,7 @@ namespace RelTexPacNet
         public void Add_throws_on_invalid_output_texture_padding(int width, int height, int padding)
         {
             var settings = GetCalculatorSettings(width, height, padding);
-            Assert.Throws<ArgumentNullException>(() => new TextureAtlasInput(settings));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new TextureAtlasInput(settings));
         }
 
         [Fact]
@@ -54,15 +54,22 @@ namespace RelTexPacNet
                 );                
         }
 
-        [Fact]
-        [InlineData(null)]
+        [Theory]
         [InlineData("")]
         [InlineData(" ")]
         public void Add_throws_on_empty_reference(string reference)
         {
             var settings = GetCalculatorSettings(100, 100, 0);
             var input = new TextureAtlasInput(settings);
-            Assert.Throws<ArgumentNullException>(() => input.AddSprite(GetBitmap(10, 10, "a"), reference));
+            Assert.Throws<ArgumentOutOfRangeException>(() => input.AddSprite(GetBitmap(10, 10, "a"), reference));
+        }
+
+        [Fact]
+        public void Add_throws_on_null_reference()
+        {
+            var settings = GetCalculatorSettings(100, 100, 0);
+            var input = new TextureAtlasInput(settings);
+            Assert.Throws<ArgumentNullException>(() => input.AddSprite(GetBitmap(10, 10, "a"), null));
         }
 
         [Fact]
