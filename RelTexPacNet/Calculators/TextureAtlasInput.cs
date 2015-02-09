@@ -2,21 +2,26 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
+using System.Linq;
 
 namespace RelTexPacNet.Calculators
 {
     public class TextureAtlasInput
     {
         public CalculatorSettings Settings { get; private set; }
-        public Dictionary<string, TextureAtlasNode> Nodes { get; private set; }
-        
+
+        private readonly Dictionary<string, TextureAtlasNode> _nodes;
+        public TextureAtlasNode[] Nodes
+        {
+            get { return _nodes.Values.ToArray(); }
+        }
 
         public TextureAtlasInput(CalculatorSettings settings)
         {
             ValidateSettings(settings);
 
             Settings = settings;
-            Nodes = new Dictionary<string, TextureAtlasNode>();
+            _nodes = new Dictionary<string, TextureAtlasNode>();
         }
 
         private void ValidateSettings(CalculatorSettings settings)
@@ -32,7 +37,7 @@ namespace RelTexPacNet.Calculators
         {
             ValidateInput(image, reference);
 
-            Nodes.Add(reference, new TextureAtlasNode
+            _nodes.Add(reference, new TextureAtlasNode
             {
                 Texture = image,
                 Reference = reference,
