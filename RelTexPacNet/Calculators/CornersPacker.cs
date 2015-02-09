@@ -93,7 +93,9 @@ namespace RelTexPacNet.Calculators
         {
             if (!input.Nodes.Any()) throw new InvalidOperationException("No input textures provided");
 
-            var totalInputArea = input.Nodes.Sum(x => x.Area());
+            var totalInputArea = input.Nodes.Sum(x => x.Size.Pad(input.Settings.Padding).Area());
+            var totalOutputArea = input.Settings.Size.Pad(-input.Settings.Padding).Area();
+            if(totalInputArea > totalOutputArea) throw new ArgumentException("Input images (and padding) exceed the maximum total output area");
         }
 
         private PlacementNode Score(TextureAtlasNode node, List<TextureAtlasNode> placedNodes, bool isRotationEnabled)

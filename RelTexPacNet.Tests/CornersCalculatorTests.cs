@@ -50,7 +50,7 @@ namespace RelTexPacNet
             AddTexture(input, 50, 50, "b");
             AddTexture(input, 50, 50, "c");
             AddTexture(input, 50, 51, "d");
-            Assert.Throws<InvalidDataException>(() => calc.Calculate(input));
+            Assert.Throws<ArgumentException>(() => calc.Calculate(input));
         }
 
         [Fact]
@@ -62,10 +62,8 @@ namespace RelTexPacNet
             AddTexture(input, 50, 50, "b");
             AddTexture(input, 50, 50, "c");
             AddTexture(input, 50, 50, "d");
-            Assert.Throws<InvalidDataException>(() => calc.Calculate(input));
+            Assert.Throws<ArgumentException>(() => calc.Calculate(input));
         }
-
-       
 
         [Fact]
         public void Calculate_returns_all_added_references()

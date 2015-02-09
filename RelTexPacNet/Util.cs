@@ -16,12 +16,17 @@ namespace RelTexPacNet
             return rectangle.Height * rectangle.Width;
         }
 
-        public static Size Pad(this Size size)
+        public static Size Pad(this Size size, int padding)
         {
-            return new Size(size.Width + 1, size.Height + 1);
+            return new Size(size.Width + padding, size.Height + padding);
         }
 
-        //TODO: intersects, toRectangle, pad, unpad etc
+        public static Size Pad(this Size size, int x, int y)
+        {
+            return new Size(size.Width + x, size.Height + y);
+        }
+
+        //TODO: intersects, toRectangle
         ////public static Rectangle ToRectangle(this Size size)
         ////{
         ////    return size.Height * size.Width;
