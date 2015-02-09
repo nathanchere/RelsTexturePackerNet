@@ -51,11 +51,11 @@ namespace RelTexPacNet.Calculators
             }
         }
 
-        public TextureAtlas Calculate(TextureAtlasInput settings)
+        public TextureAtlas Calculate(TextureAtlasInput input)
         {
-            if (!settings.Nodes.Any()) throw new InvalidOperationException("No input textures provided");
+            if (!input.Nodes.Any()) throw new InvalidOperationException("No input textures provided");
 
-            var unplacedNodes = _inputNodes.Values.Select(n => n).ToList();
+            var unplacedNodes = input.Nodes.Values.Select(n => n).ToList();
             var placedNodes = new List<TextureAtlasNode>();
 
             while (unplacedNodes.Any())
@@ -84,11 +84,11 @@ namespace RelTexPacNet.Calculators
             return new TextureAtlas
             {
                 Nodes = placedNodes,
-                Size = _settings.Size,
+                Size = input.Settings.Size,
             };
         }
 
-        private PlacementNode Score(TextureAtlasNode node, List<TextureAtlasNode> placedNodes)
+        private PlacementNode Score(TextureAtlasNode node, List<TextureAtlasNode> placedNodes, bool isRotationEnabled)
         {
             var result = new PlacementNode(node);
 
@@ -97,7 +97,7 @@ namespace RelTexPacNet.Calculators
                 // 
             }
 
-            if (_settings.IsRotationEnabled) ;
+            if (isRotationEnabled) ;
             return null;
         }               
     }

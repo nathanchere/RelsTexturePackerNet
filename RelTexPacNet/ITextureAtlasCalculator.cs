@@ -5,6 +5,6 @@ namespace RelTexPacNet
 {
     public interface ITextureAtlasCalculator
     {
-        TextureAtlas Calculate(TextureAtlasInput settings);
+        TextureAtlas Calculate(TextureAtlasInput input);
     }
 }

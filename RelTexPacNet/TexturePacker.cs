@@ -34,7 +34,7 @@ namespace RelTexPacNet
         {
             _sourceImages = new Dictionary<string, Image>();
             _renderer = renderer ?? new TextureAtlasRenderer(settings.RendererSettings);
-            _calculator = calculator ?? new CornersPacker(settings.CalculatorSettings);
+            _calculator = calculator ?? new CornersPacker();
         }
 
         public void AddImage(Image image, string reference)
@@ -50,15 +50,17 @@ namespace RelTexPacNet
         {
             try
             {
-                foreach (var item in _sourceImages)
-                    _calculator.Add(item.Value, item.Key);    
+                //foreach (var item in _sourceImages)
+                //    _calculator.AddSp(item.Value, item.Key);    
 
-                var atlas = _calculator.Calculate();
+                //new TextureAtlasInput()
+                //settings.CalculatorSettings
+                //var atlas = _calculator.Calculate();
 
                 return new Result<TextureAtlas> { 
                     WasSuccessful = true,
                     ErrorMessage = "",
-                    Value = atlas,
+                    //Value = atlas,
                 };
             }
             catch (Exception ex)
