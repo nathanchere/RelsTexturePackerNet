@@ -24,6 +24,8 @@ namespace RelTexPacNet.Calculators
             if (settings.Size.Height <= 0) throw new ArgumentOutOfRangeException("Size.Height", settings.Size.Height, "Output texture height cannot be 0 or less");
             if (settings.Size.Width <= 0) throw new ArgumentOutOfRangeException("Size.Width", settings.Size.Width, "Output texture width cannot be 0 or less");
             if (settings.Padding < 0) throw new ArgumentOutOfRangeException("Padding", settings.Padding, "Output texture padding cannot be less than 0");
+            if ((settings.Padding * 2 >= settings.Size.Height) || (settings.Padding * 2 >= settings.Size.Width)) 
+                throw new ArgumentOutOfRangeException("Padding", settings.Padding, "Padding cannot be more than half of the output texture height and/or width");
         }
 
         public void AddSprite(Image image, string reference)
