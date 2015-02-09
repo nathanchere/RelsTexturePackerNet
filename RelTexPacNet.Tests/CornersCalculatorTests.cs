@@ -70,12 +70,14 @@ namespace RelTexPacNet
         [Fact]
         public void Calculate_returns_all_added_references()
         {
-            var calc = new CornersPacker(GetSettings(256, 256, 1));
-            AddTexture(calc, 10, 10, "a");
-            AddTexture(calc, 10, 10, "b");
-            AddTexture(calc, 10, 10, "c");
+            var input = new TextureAtlasInput(GetSettings(100, 100, 1));
+            var calc = new CornersPacker();
 
-            var result = calc.Calculate();
+            AddTexture(input, 10, 10, "a");
+            AddTexture(input, 10, 10, "b");
+            AddTexture(input, 10, 10, "c");
+
+            var result = calc.Calculate(input);
 
             Assert.NotNull(result.Nodes.SingleOrDefault(n => n.Reference == "a"));
             Assert.NotNull(result.Nodes.SingleOrDefault(n => n.Reference == "b"));

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using Moq;
+using RelTexPacNet.Calculators;
 using Xunit;
 
 namespace RelTexPacNet
@@ -19,11 +20,11 @@ namespace RelTexPacNet
         {
             var nodes = new List<TextureAtlasNode>();
             var result = new Mock<ITextureAtlasCalculator>();
-            result.Setup(x => x.Add(It.IsAny<Image>(), It.IsAny<string>()))
-                .Callback((Image image, string reference) =>
-                    nodes.Add(new TextureAtlasNode{Reference = reference, Texture = image})
-                );
-            result.Setup(x => x.Calculate())
+            //result.Setup(x => x.AddSprite(It.IsAny<Image>(), It.IsAny<string>()))
+            //    .Callback((Image image, string reference) =>
+            //        nodes.Add(new TextureAtlasNode{Reference = reference, Texture = image})
+            //    );
+            result.Setup(x => x.Calculate(It.IsAny<TextureAtlasInput>()))
                 .Returns(new TextureAtlas {
                         Nodes = nodes,
                         });
