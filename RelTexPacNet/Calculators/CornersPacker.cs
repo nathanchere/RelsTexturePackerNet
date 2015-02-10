@@ -66,19 +66,21 @@ namespace RelTexPacNet.Calculators
         }
 
         private PlacementNode Score(TextureAtlasNode node, List<TextureAtlasNode> placedNodes, CalculatorSettings settings)
-        {            
+        {       
             var result = new PlacementNode(node);
-            result.Score.IsVaildPlacement = true;
 
             if (!placedNodes.Any())
-            {
+            {                
                 result.Score.IsVaildPlacement = true;
                 result.Score.UtilizationScore = node.Size.Width + node.Size.Height;
                 result.Score.WastageScore = 0;
                 return result;
             }
 
-            var corners = GetCorners(settings.Size, placedNodes);
+            var usedSpace = placedNodes.Select(n=>n.GetBounds()).ToArray();
+            var corners = GetCorners(settings.Size, placedNodes)
+                .Where(c => !c.IsSurroundedBy(usedSpace));
+                
             foreach (var corner in corners)
             {
                 // if it shares a corner

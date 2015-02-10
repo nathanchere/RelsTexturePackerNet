@@ -41,5 +41,19 @@ namespace RelTexPacNet
                 new Point(rectangle.Left, rectangle.Bottom), 
             };
         }
+
+        public static bool SharesEdge(this Rectangle rectangle, Point point)
+        {
+            return false;
+        }
+
+        public static bool IsSurroundedBy(this Point point, Rectangle[] usedSpace)
+        {
+            if (!usedSpace.Any()) return false;
+
+            return true;
+            //var relevantSpace = usedSpace.Where(r => r.Contains(point) || r.SharesEdge(point));
+//            if(relevantSpace.Any
+        }
     }
 }
