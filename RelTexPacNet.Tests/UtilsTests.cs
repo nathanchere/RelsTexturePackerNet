@@ -87,6 +87,14 @@ namespace RelTexPacNet
         }
 
         [Fact]
+        public void Normalize_corrects_negative_dimensions_and_translates_origin_on_rectangle()
+        {
+            var rect1 = new Rectangle(-10, -10, 10, 10);
+            var rect2 = new Rectangle(0, 0, -10, -10).Normalize();
+            Assert.Equal(rect1, rect2);
+        }
+
+        [Fact]
         public void IsSurroundedBy_detects_when_surrounded_by_four_corners()
         {
             var rectangles = new[]

@@ -62,6 +62,25 @@ namespace RelTexPacNet
             return false;
         }
 
+        public static Rectangle Normalize(this Rectangle rect)
+        {
+            var result = rect;
+
+            if (result.Height < 0)
+            {
+                result.Y += result.Height;
+                result.Height = -result.Height;
+            }
+
+            if (result.Width < 0)
+            {
+                result.X += result.Width;
+                result.Width = -result.Width;
+            }
+
+            return result;
+        }
+
         // Assumes no rectangles are overlapping beyond their edges
         public static bool IsSurroundedBy(this Point point, Rectangle[] usedSpace)
         {

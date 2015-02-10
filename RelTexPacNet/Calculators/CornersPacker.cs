@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -83,15 +84,41 @@ namespace RelTexPacNet.Calculators
             var usedSpace = placedNodes.Select(n=>n.GetBounds()).ToArray();
             var availableCorners = GetCorners(settings.Size, placedNodes)
                 .Where(c => !c.IsSurroundedBy(usedSpace));
-                
+
             foreach (var corner in availableCorners)
             {
+                var score = new PlacementScore();
+                var position = new PlacementPosition(corner.X, corner.Y, false, node.Size.Width, node.Size.Height);
 
-                // if it shares a corner
+                foreach (var placement in GetPossibleNodePlacementsForCorner(corner, node.Size, placedNodes, settings))
+                {
+                }                                
+                
+                //if (usedSpace.Where(r => r.IntersectsWith(placement)).Any()) continue;
+                
+                //position 
+                
             }
 
             if (settings.IsRotationEnabled) ;
             return result;
-        }               
+        }
+       
+        private IEnumerable<PlacementNode> GetPossibleNodePlacementsForCorner(Point corner, Size nodeSize, List<TextureAtlasNode> placedNodes, CalculatorSettings settings)
+        {
+            var result = new List<Rectangle>();
+            result.Add(new Rectangle(corner, nodeSize));
+            result.Add(new Rectangle(corner, nodeSize));
+            result.Add(new Rectangle(corner, nodeSize));
+            result.Add(new Rectangle(corner, nodeSize));
+            return null;
+            // top left
+            // top right
+            // etc
+
+            // out of bounds
+            // surrounded
+            // overlaps other node
+        }
     }
 }

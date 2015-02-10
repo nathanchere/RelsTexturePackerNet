@@ -14,5 +14,7 @@ namespace RelTexPacNet.Calculators
             UtilizationScore = 0;
             IsVaildPlacement = false;
         }
+
+        // TODO comparison
     }
 }
