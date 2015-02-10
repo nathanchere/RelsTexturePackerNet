@@ -103,18 +103,25 @@ namespace RelTexPacNet.Calculators
             if (settings.IsRotationEnabled) ;
             return result;
         }
-       
+
         private IEnumerable<PlacementNode> GetPossibleNodePlacementsForCorner(Point corner, Size nodeSize, List<TextureAtlasNode> placedNodes, CalculatorSettings settings)
         {
-            var result = new List<Rectangle>();
-            result.Add(new Rectangle(corner, nodeSize));
-            result.Add(new Rectangle(corner, nodeSize));
-            result.Add(new Rectangle(corner, nodeSize));
-            result.Add(new Rectangle(corner, nodeSize));
-            return null;
-            // top left
-            // top right
-            // etc
+            var boundaryArea = settings.Size.ToRectangle();
+
+            foreach (var rect in new[]
+            {
+                new Rectangle(corner.X, corner.Y, nodeSize.Width, nodeSize.Height),
+                new Rectangle(corner.X, corner.Y, -nodeSize.Width, nodeSize.Height).Normalize(),
+                new Rectangle(corner.X, corner.Y, -nodeSize.Width, -nodeSize.Height).Normalize(),
+                new Rectangle(corner.X, corner.Y, nodeSize.Width, -nodeSize.Height).Normalize(),
+            }
+                .Where(r => r.IsEntirelyContainedBy(boundaryArea))
+                .Where(r => placedNodes.Any(n => n.GetBounds().IntersectsWith(r)))
+                )
+            {
+
+            }
+
 
             // out of bounds
             // surrounded

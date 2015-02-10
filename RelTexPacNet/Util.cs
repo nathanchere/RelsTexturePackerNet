@@ -81,6 +81,11 @@ namespace RelTexPacNet
             return result;
         }
 
+        public static bool IsEntirelyContainedBy(this Rectangle rect, Rectangle target)
+        {
+            return rect.Left < target.Left || rect.Right > target.Right || rect.Top < target.Top || rect.Bottom > target.Bottom;
+        }
+
         // Assumes no rectangles are overlapping beyond their edges
         public static bool IsSurroundedBy(this Point point, Rectangle[] usedSpace)
         {
