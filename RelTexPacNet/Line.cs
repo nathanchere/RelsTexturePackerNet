@@ -1,7 +1,7 @@
 using System;
 using System.Drawing;
 
-namespace RelTexPacNet.Calculators
+namespace RelTexPacNet
 {
     /// <summary>
     /// Simplified based on assumption that line will always be flat along X or Y axis

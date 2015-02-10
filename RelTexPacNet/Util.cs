@@ -35,11 +35,21 @@ namespace RelTexPacNet
 
         public static Point[] GetCorners(this Rectangle rectangle)
         {
-            return new []{
+            return new[]{
                 new Point(rectangle.Left, rectangle.Top), 
                 new Point(rectangle.Right, rectangle.Top), 
                 new Point(rectangle.Right, rectangle.Bottom), 
                 new Point(rectangle.Left, rectangle.Bottom), 
+            };
+        }
+
+        public static Line[] GetEdges(this Rectangle rectangle)
+        {
+            return new[]{
+                new Line(rectangle.Left,rectangle.Top,rectangle.Right,rectangle.Top), 
+                new Line(rectangle.Left,rectangle.Bottom,rectangle.Right,rectangle.Bottom), 
+                new Line(rectangle.Top,rectangle.Left,rectangle.Bottom,rectangle.Left), 
+                new Line(rectangle.Top,rectangle.Right,rectangle.Bottom,rectangle.Right), 
             };
         }
 
