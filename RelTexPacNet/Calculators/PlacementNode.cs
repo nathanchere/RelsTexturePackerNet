@@ -2,8 +2,8 @@ namespace RelTexPacNet.Calculators
 {
     public class PlacementNode
     {
-        public PlacementPosition Placement { get; private set; }
-        public PlacementScore Score { get; private set; }
+        public PlacementPosition Placement { get; set; }
+        public PlacementScore Score { get; set; }
 
         public int TotalEdgeLength
         {

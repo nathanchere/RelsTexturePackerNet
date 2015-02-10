@@ -90,7 +90,7 @@ namespace RelTexPacNet.Calculators
                 var score = new PlacementScore();
                 var position = new PlacementPosition(corner.X, corner.Y, false, node.Size.Width, node.Size.Height);
 
-                foreach (var placement in GetPossibleNodePlacementsForCorner(corner, node.Size, placedNodes, settings))
+                foreach (var placement in GetPossibleNodePlacementsForCorner(corner, node, placedNodes, settings))
                 {
                 }                                
                 
@@ -104,28 +104,45 @@ namespace RelTexPacNet.Calculators
             return result;
         }
 
-        private IEnumerable<PlacementNode> GetPossibleNodePlacementsForCorner(Point corner, Size nodeSize, List<TextureAtlasNode> placedNodes, CalculatorSettings settings)
+        private IEnumerable<PlacementNode> GetPossibleNodePlacementsForCorner(Point corner, TextureAtlasNode node, List<TextureAtlasNode> placedNodes, CalculatorSettings settings)
         {
             var boundaryArea = settings.Size.ToRectangle();
 
-            foreach (var rect in new[]
-            {
-                new Rectangle(corner.X, corner.Y, nodeSize.Width, nodeSize.Height),
-                new Rectangle(corner.X, corner.Y, -nodeSize.Width, nodeSize.Height).Normalize(),
-                new Rectangle(corner.X, corner.Y, -nodeSize.Width, -nodeSize.Height).Normalize(),
-                new Rectangle(corner.X, corner.Y, nodeSize.Width, -nodeSize.Height).Normalize(),
+            foreach (var rect in new[] {
+                new Rectangle(corner.X, corner.Y, node.Size.Width, node.Size.Height),
+                new Rectangle(corner.X, corner.Y, -node.Size.Width, node.Size.Height).Normalize(),
+                new Rectangle(corner.X, corner.Y, -node.Size.Width, -node.Size.Height).Normalize(),
+                new Rectangle(corner.X, corner.Y, node.Size.Width, -node.Size.Height).Normalize(),
             }
                 .Where(r => r.IsEntirelyContainedBy(boundaryArea))
                 .Where(r => placedNodes.Any(n => n.GetBounds().IntersectsWith(r)))
                 )
             {
-
+                var result = new PlacementNode(node) {
+                    Placement = new PlacementPosition(rect.X, rect.Y, false, rect.Width, rect.Height)
+                };
+                yield return result;
             }
 
+            // No point rotating a square!
+            if (!settings.IsRotationEnabled || node.Size.Width == node.Size.Height) yield break;
 
-            // out of bounds
-            // surrounded
-            // overlaps other node
+            foreach (var rect in new[] {
+                new Rectangle(corner.X, corner.Y, node.Size.Height, node.Size.Width),
+                new Rectangle(corner.X, corner.Y, -node.Size.Height, node.Size.Width).Normalize(),
+                new Rectangle(corner.X, corner.Y, -node.Size.Height, -node.Size.Width).Normalize(),
+                new Rectangle(corner.X, corner.Y, node.Size.Height, -node.Size.Width).Normalize(),
+            }
+                .Where(r => r.IsEntirelyContainedBy(boundaryArea))
+                .Where(r => placedNodes.Any(n => n.GetBounds().IntersectsWith(r)))
+                )
+            {
+                var result = new PlacementNode(node) {
+                    Placement = new PlacementPosition(rect.X, rect.Y, false, rect.Width, rect.Height)
+                };
+                yield return result;
+            }
+            
         }
     }
 }
