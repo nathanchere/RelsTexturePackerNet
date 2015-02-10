@@ -69,6 +69,9 @@ namespace RelTexPacNet.Calculators
             return corners.Distinct().ToArray();
         }
 
+        /// <summary>
+        /// Find the best possible place for the current node and gibe 
+        /// </summary>        
         private PlacementNode Score(TextureAtlasNode node, List<TextureAtlasNode> placedNodes, CalculatorSettings settings)
         {       
             var result = new PlacementNode(node);
@@ -92,15 +95,9 @@ namespace RelTexPacNet.Calculators
 
                 foreach (var placement in GetPossibleNodePlacementsForCorner(corner, node, placedNodes, settings))
                 {
-                }                                
-                
-                //if (usedSpace.Where(r => r.IntersectsWith(placement)).Any()) continue;
-                
-                //position 
-                
-            }
 
-            if (settings.IsRotationEnabled) ;
+                }                                
+            }            
             return result;
         }
 
@@ -138,11 +135,10 @@ namespace RelTexPacNet.Calculators
                 )
             {
                 var result = new PlacementNode(node) {
-                    Placement = new PlacementPosition(rect.X, rect.Y, false, rect.Width, rect.Height)
+                    Placement = new PlacementPosition(rect.X, rect.Y, true, rect.Width, rect.Height)
                 };
                 yield return result;
             }
-            
         }
     }
 }
