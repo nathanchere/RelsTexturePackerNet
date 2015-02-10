@@ -44,6 +44,20 @@ namespace RelTexPacNet
 
         public static bool SharesEdge(this Rectangle rectangle, Point point)
         {
+            if (point.Y < rectangle.Top && point.Y > rectangle.Bottom && point.X < rectangle.Left && point.X > rectangle.Right) return false;
+            if (point.Y > rectangle.Top && point.Y < rectangle.Bottom && point.X > rectangle.Left && point.X < rectangle.Right) return false;
+
+            if (point.Y == rectangle.Top || point.Y == rectangle.Bottom)
+            {
+                return point.X >= rectangle.Left && point.X <= rectangle.Right;
+            }
+
+            if (point.X == rectangle.Left|| point.X == rectangle.Right)
+            {
+                return point.Y >= rectangle.Top && point.Y <= rectangle.Bottom;
+            }
+
+            // should never reach here
             return false;
         }
 

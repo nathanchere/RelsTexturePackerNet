@@ -19,32 +19,55 @@ namespace RelTexPacNet
             Assert.NotNull(result.Where(p => p.X == 100 && p.Y == 20).SingleOrDefault());
         }
 
-        [Theory]
-        // On the corners
+        [Theory]        
         [InlineData(10, 10, 50, 50, 10, 10, true)]
         [InlineData(10, 10, 50, 50, 10, 60, true)]
         [InlineData(10, 10, 50, 50, 60, 60, true)]
         [InlineData(10, 10, 50, 50, 60, 10, true)]
+        public void SharesEdge_detects_when_point_lies_on_corner(int rectX, int rectY, int rectWidth, int rectHeight, int pointX, int pointY, bool expected)
+        {
+            var rectangle = new Rectangle(rectX, rectY, rectWidth, rectHeight);
+            var point = new Point(pointX, pointY);
 
-        // Along the edges
+            var result = rectangle.SharesEdge(point);
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
         [InlineData(10, 10, 50, 50, 10, 30, true)]
         [InlineData(10, 10, 50, 50, 60, 30, true)]
         [InlineData(10, 10, 50, 50, 30, 10, true)]
-        [InlineData(10, 10, 50, 50, 30, 60, true)]
-
-        // Inside the rectangle
-        [InlineData(10, 10, 50, 50, 50, 50, false)]
-        [InlineData(10, 10, 50, 50, 20, 20, false)]        
-
-        // Outside the rectangle
-        [InlineData(10, 10, 50, 50, 10, 70, false)]
-        [InlineData(10, 10, 50, 50, 70, 10, false)]
-        [InlineData(10, 10, 50, 50, 0, 0, false)]
-        [InlineData(10, 10, 50, 50, 70, 70, false)]
+        [InlineData(10, 10, 50, 50, 30, 60, true)]        
         public void SharesEdge_detects_when_point_lies_on_edge(int rectX, int rectY, int rectWidth, int rectHeight, int pointX, int pointY, bool expected)
         {
             var rectangle = new Rectangle(rectX, rectY, rectWidth, rectHeight);
             var point = new Point(pointX,pointY);
+
+            var result = rectangle.SharesEdge(point);
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData(10, 10, 50, 50, 10, 70, false)]
+        [InlineData(10, 10, 50, 50, 70, 10, false)]
+        [InlineData(10, 10, 50, 50, 0, 0, false)]
+        [InlineData(10, 10, 50, 50, 70, 70, false)]
+        public void SharesEdge_detects_when_point_lies_outside_rectangle(int rectX, int rectY, int rectWidth, int rectHeight, int pointX, int pointY, bool expected)
+        {
+            var rectangle = new Rectangle(rectX, rectY, rectWidth, rectHeight);
+            var point = new Point(pointX, pointY);
+
+            var result = rectangle.SharesEdge(point);
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData(10, 10, 50, 50, 50, 50, false)]
+        [InlineData(10, 10, 50, 50, 20, 20, false)]        
+        public void SharesEdge_detects_when_point_lies_inside_rectangle(int rectX, int rectY, int rectWidth, int rectHeight, int pointX, int pointY, bool expected)
+        {
+            var rectangle = new Rectangle(rectX, rectY, rectWidth, rectHeight);
+            var point = new Point(pointX, pointY);
 
             var result = rectangle.SharesEdge(point);
             Assert.Equal(expected, result);
