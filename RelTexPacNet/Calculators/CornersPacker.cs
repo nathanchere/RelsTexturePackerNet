@@ -58,11 +58,14 @@ namespace RelTexPacNet.Calculators
             };
         }
 
+        /// <summary>
+        /// Return a list of all corners for 
+        /// </summary>       
         private static Point[] GetCorners(Size input, IEnumerable<TextureAtlasNode> placedNodes)
         {            
             var corners = placedNodes.SelectMany(x => x.GetBounds().GetCorners()).ToList();
             corners.AddRange(input.ToRectangle().GetCorners());
-            return corners.ToArray();
+            return corners.Distinct().ToArray();
         }
 
         private PlacementNode Score(TextureAtlasNode node, List<TextureAtlasNode> placedNodes, CalculatorSettings settings)
@@ -78,11 +81,12 @@ namespace RelTexPacNet.Calculators
             }
 
             var usedSpace = placedNodes.Select(n=>n.GetBounds()).ToArray();
-            var corners = GetCorners(settings.Size, placedNodes)
+            var availableCorners = GetCorners(settings.Size, placedNodes)
                 .Where(c => !c.IsSurroundedBy(usedSpace));
                 
-            foreach (var corner in corners)
+            foreach (var corner in availableCorners)
             {
+
                 // if it shares a corner
             }
 
