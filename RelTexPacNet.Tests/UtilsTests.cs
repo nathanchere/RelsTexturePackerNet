@@ -75,6 +75,18 @@ namespace RelTexPacNet
         }
 
         [Fact]
+        public void IsSurroundedBy_detects_when_surrounded_in_boundary_corner()
+        {
+            var rectangles = new[]
+            {
+                new Rectangle(0, 0, 50, 50),                
+            };
+            var boundary = new Rectangle(0, 0, 100, 100);
+            var result = new Point(0, 0).IsSurroundedBy(rectangles, boundary);
+            Assert.Equal(true, result);
+        }
+
+        [Fact]
         public void IsSurroundedBy_detects_when_surrounded_by_four_corners()
         {
             var rectangles = new[]
