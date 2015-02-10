@@ -80,17 +80,12 @@ namespace RelTexPacNet
             if (rectsSharingCorner.Length == 1) return false;
 
             // Two rects sharing a corner = one rect needs to share an edge to be surrounded
-            if (rectsSharingCorner.Length == 2)
-            {
-                
-            }
+            if (rectsSharingCorner.Length == 2 && rectsSharingEdge.Length == 1) return true;
             
             // No rects sharing a corner = two rects needs to share an edge to be surrounded
-            if (rectsSharingCorner.Length == 0)
-            {
-            }
+            if (rectsSharingCorner.Length == 0 && rectsSharingEdge.Length == 2) return true;            
             
-            return true;            
+            return false;
         }
     }
 }
