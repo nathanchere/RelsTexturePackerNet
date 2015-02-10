@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Collections;
+using System.Drawing;
 using System.Linq;
 using System.Security.Cryptography;
 
@@ -26,10 +27,19 @@ namespace RelTexPacNet
             return new Size(size.Width + x, size.Height + y);
         }
 
-        //TODO: intersects, toRectangle
-        ////public static Rectangle ToRectangle(this Size size)
-        ////{
-        ////    return size.Height * size.Width;
-        ////}
+        public static Rectangle ToRectangle(this Size size)
+        {
+            return new Rectangle(0, 0, size.Width, size.Height);
+        }
+
+        public static Point[] GetCorners(this Rectangle rectangle)
+        {
+            return new []{
+                new Point(rectangle.Left, rectangle.Top), 
+                new Point(rectangle.Right, rectangle.Top), 
+                new Point(rectangle.Right, rectangle.Bottom), 
+                new Point(rectangle.Left, rectangle.Bottom), 
+            };
+        }
     }
 }

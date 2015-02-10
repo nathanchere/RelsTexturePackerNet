@@ -1,70 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 
 namespace RelTexPacNet.Calculators
 {
     public class CornersPacker : ITextureAtlasCalculator
-    {
-        private class PlacementNode
+    {       
+        private static void ValidateInput(TextureAtlasInput input)
         {
-            public int X, Y;
-            public int Width, Height;
+            if (!input.Nodes.Any()) throw new InvalidOperationException("No input textures provided");
 
-            public int TotalEdgeLength
-            {
-                get { return 2 * (Width + Height); }
-            }
-
-            public bool IsRotated;
-
-            public TextureAtlasNode SourceNode;
-
-            public bool IsVaildPlacement = false;
-
-            public int WastageScore; // unutilized edges - lower is better
-            public int UtilizationScore; // utilized edges - higher is better
-
-            public PlacementNode(TextureAtlasNode sourceNode)
-            {
-                SourceNode = sourceNode;
-                X = 0;
-                Y = 0;
-                IsRotated = false;
-                IsVaildPlacement = false;
-                WastageScore = int.MaxValue;
-                UtilizationScore = 0;
-                Width = 0;
-                Height = 0;
-            }
-
-            /// <summary>
-            /// Persist the placement information to the actual texture atlas node
-            /// </summary>
-            public void PlaceNode()
-            {
-                SourceNode.IsRotated = IsRotated;
-                SourceNode.X = X;
-                SourceNode.Y = Y;
-            }
+            var totalInputArea = input.Nodes.Sum(x => x.Size.Pad(input.Settings.Padding).Area());
+            var totalOutputArea = input.Settings.Size.Pad(-input.Settings.Padding).Area();
+            if (totalInputArea > totalOutputArea) throw new ArgumentException("Input images (and padding) exceed the maximum total output area");
         }
 
         public TextureAtlas Calculate(TextureAtlasInput input)
         {
             ValidateInput(input);
-
             
             var unplacedNodes = input.Nodes.Select(n => n).ToList();
             var placedNodes = new List<TextureAtlasNode>();
 
             while (unplacedNodes.Any())
-            {
-                //var validPlacements = unplacedNodes
-                //    .Select(n => Score(n, result))
-                //    .Where(n => n.IsVaildPlacement)
-                //    .ToList();
+            {                
+                var validPlacements = unplacedNodes
+                    .Select(n => Score(n, placedNodes, input.Settings))
+                    .Where(n => n.Score.IsVaildPlacement)
+                    .ToList();
+
                 //var best = validPlacements
                 //    .OrderBy(n => n.WastageScore)
                 //    .ThenByDescending(n => n.UtilizationScore)
@@ -80,6 +47,8 @@ namespace RelTexPacNet.Calculators
 
                 placedNodes.Add(best);
                 unplacedNodes.Remove(best);
+
+                // TODO: Raise event node placed
             }
 
             return new TextureAtlas
@@ -89,26 +58,34 @@ namespace RelTexPacNet.Calculators
             };
         }
 
-        private static void ValidateInput(TextureAtlasInput input)
-        {
-            if (!input.Nodes.Any()) throw new InvalidOperationException("No input textures provided");
-
-            var totalInputArea = input.Nodes.Sum(x => x.Size.Pad(input.Settings.Padding).Area());
-            var totalOutputArea = input.Settings.Size.Pad(-input.Settings.Padding).Area();
-            if(totalInputArea > totalOutputArea) throw new ArgumentException("Input images (and padding) exceed the maximum total output area");
+        private static Point[] GetCorners(Size input, IEnumerable<TextureAtlasNode> placedNodes)
+        {            
+            var corners = placedNodes.SelectMany(x => x.GetBounds().GetCorners()).ToList();
+            corners.AddRange(input.ToRectangle().GetCorners());
+            return corners.ToArray();
         }
 
-        private PlacementNode Score(TextureAtlasNode node, List<TextureAtlasNode> placedNodes, bool isRotationEnabled)
-        {
+        private PlacementNode Score(TextureAtlasNode node, List<TextureAtlasNode> placedNodes, CalculatorSettings settings)
+        {            
             var result = new PlacementNode(node);
+            result.Score.IsVaildPlacement = true;
 
-            foreach (var placedNode in placedNodes)
+            if (!placedNodes.Any())
             {
-                // 
+                result.Score.IsVaildPlacement = true;
+                result.Score.UtilizationScore = node.Size.Width + node.Size.Height;
+                result.Score.WastageScore = 0;
+                return result;
             }
 
-            if (isRotationEnabled) ;
-            return null;
+            var corners = GetCorners(settings.Size, placedNodes);
+            foreach (var corner in corners)
+            {
+                // if it shares a corner
+            }
+
+            if (settings.IsRotationEnabled) ;
+            return result;
         }               
-    }
+    }    
 }
