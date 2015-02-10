@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Calculators\CornersPacker.cs" />
     <Compile Include="Calculators\CalculatorSettings.cs" />
+    <Compile Include="Line.cs" />
     <Compile Include="Calculators\PlacementNode.cs" />
     <Compile Include="Calculators\PlacementPosition.cs" />
     <Compile Include="Calculators\PlacementScore.cs" />

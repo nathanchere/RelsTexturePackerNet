@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Security.Cryptography;
 
 namespace RelTexPacNet
@@ -55,11 +57,11 @@ namespace RelTexPacNet
 
         public static Line[] GetEdges(this Rectangle rectangle)
         {
-            return new[]{
-                new Line(rectangle.Left,rectangle.Top,rectangle.Right,rectangle.Top), 
-                new Line(rectangle.Left,rectangle.Bottom,rectangle.Right,rectangle.Bottom), 
-                new Line(rectangle.Top,rectangle.Left,rectangle.Bottom,rectangle.Left), 
-                new Line(rectangle.Top,rectangle.Right,rectangle.Bottom,rectangle.Right), 
+            return new[] {
+                new Line(rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Top),
+                new Line(rectangle.Left, rectangle.Bottom, rectangle.Right, rectangle.Bottom),
+                new Line(rectangle.Top, rectangle.Left, rectangle.Bottom, rectangle.Left),
+                new Line(rectangle.Top, rectangle.Right, rectangle.Bottom, rectangle.Right),
             };
         }
 
@@ -99,6 +101,25 @@ namespace RelTexPacNet
             }
 
             return result;
+        }
+
+        public static bool Intersects(this Point point, Line line)
+        {
+            if (point.Y == line.Start.Y && point.Y == line.End.Y)
+            {
+                var leftmost = Math.Min(line.Start.X, line.End.X);
+                var rightmost = Math.Max(line.Start.X, line.End.X);
+                return point.X >= leftmost && point.X <= rightmost;
+            }
+
+            if (point.X == line.Start.X && point.X == line.End.X)
+            {
+                var topmost = Math.Min(line.Start.Y, line.End.Y);
+                var bottommost = Math.Max(line.Start.Y, line.End.Y);
+                return point.Y >= topmost && point.Y <= bottommost;
+            }
+
+            return false;
         }
 
         public static bool IsEntirelyContainedBy(this Rectangle rect, Rectangle target)

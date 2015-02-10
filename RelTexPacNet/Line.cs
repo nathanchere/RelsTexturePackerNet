@@ -7,7 +7,7 @@ namespace RelTexPacNet
     /// Simplified based on assumption that line will always be flat along X or Y axis
     /// </summary>
     public struct Line
-    {
+    {        
         public Line(Point start, Point end)
         {
             Start = start;
@@ -32,5 +32,26 @@ namespace RelTexPacNet
                 throw new Exception("You're doing it wrong");
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            return obj is Line && Equals((Line) obj);
+        }
+
+        public bool Equals(Line other)
+        {
+            return (Start.Equals(other.Start) && End.Equals(other.End)
+                || Start.Equals(other.End) && End.Equals(other.Start));
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return (Start.GetHashCode() * 397) ^ End.GetHashCode();
+            }
+        }
+
     }
 }
