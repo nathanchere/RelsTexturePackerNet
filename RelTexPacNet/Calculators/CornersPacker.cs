@@ -8,6 +8,37 @@ using System.Linq;
 
 namespace RelTexPacNet.Calculators
 {
+    /// <summary>
+    /// Simplified based on assumption that line will always be flat along X or Y axis
+    /// </summary>
+    public struct Line
+    {
+        public Line(Point start, Point end)
+        {
+            Start = start;
+            End = end;
+        }
+
+        public Line(int startX, int startY, int endX, int endY)
+        {
+            Start = new Point(startX, startY);
+            End = new Point(endX, endY);
+        }
+
+        public Point Start;
+        public Point End;
+
+        public int Length
+        {
+            get
+            {
+                if (Start.X == End.X) return Math.Abs(Start.Y - End.Y);
+                if (Start.Y == End.Y) return Math.Abs(Start.X - End.X);
+                throw new Exception("You're doing it wrong");
+            }
+        }
+    }
+
     public class CornersPacker : ITextureAtlasCalculator
     {       
         private static void ValidateInput(TextureAtlasInput input)
@@ -29,7 +60,7 @@ namespace RelTexPacNet.Calculators
             while (unplacedNodes.Any())
             {                
                 var validPlacements = unplacedNodes
-                    .Select(n => Score(n, placedNodes, input.Settings))
+                    .SelectMany(n => GetScoredPlacements(n, placedNodes, input.Settings))
                     .Where(n => n.Score.IsVaildPlacement)
                     .ToList();
 
@@ -58,12 +89,16 @@ namespace RelTexPacNet.Calculators
                 Size = input.Settings.Size,
             };
         }
-
-        /// <summary>
-        /// Return a list of all corners for 
-        /// </summary>       
+       
         private static Point[] GetCorners(Size input, IEnumerable<TextureAtlasNode> placedNodes)
         {            
+            var corners = placedNodes.SelectMany(x => x.GetBounds().GetCorners()).ToList();
+            corners.AddRange(input.ToRectangle().GetCorners());
+            return corners.Distinct().ToArray();
+        }
+
+        private static Line[] GetEdges(Size input, IEnumerable<TextureAtlasNode> placedNodes)
+        {
             var corners = placedNodes.SelectMany(x => x.GetBounds().GetCorners()).ToList();
             corners.AddRange(input.ToRectangle().GetCorners());
             return corners.Distinct().ToArray();
@@ -72,7 +107,7 @@ namespace RelTexPacNet.Calculators
         /// <summary>
         /// Find the best possible place for the current node and gibe 
         /// </summary>        
-        private PlacementNode Score(TextureAtlasNode node, List<TextureAtlasNode> placedNodes, CalculatorSettings settings)
+        private IEnumerable<PlacementNode> GetScoredPlacements(TextureAtlasNode node, List<TextureAtlasNode> placedNodes, CalculatorSettings settings)
         {       
             var result = new PlacementNode(node);
 
@@ -84,7 +119,8 @@ namespace RelTexPacNet.Calculators
                 result.Score.IsVaildPlacement = true;
                 result.Score.UtilizationScore = node.Size.Width + node.Size.Height;
                 result.Score.WastageScore = 0;
-                return result;
+                yield return result;
+                yield break;
             }
 
             var usedSpace = placedNodes.Select(n=>n.GetBounds()).ToArray();
@@ -94,14 +130,45 @@ namespace RelTexPacNet.Calculators
 
             foreach (var corner in availableCorners)
             {
-                var score = new PlacementScore();                
-
-                foreach (var placement in GetPossibleNodePlacementsForCorner(corner, node, placedNodes, settings))
+                foreach (var placement in GetPossibleNodePlacementsForCorner(corner, node, placedNodes, settings))                
                 {
-
+                    var score = Score(corner, placement, placedNodes, settings.Size);
+                    if (score.IsVaildPlacement)
+                    {
+                        yield return new PlacementNode(node) {
+                            Score = score,
+                            Placement = placement,
+                        };
+                    }
                 }                                
             }            
-            return result;
+        }
+
+        private PlacementScore Score(Point corner, PlacementPosition placement, List<TextureAtlasNode> placedNodes, Size size)
+        {
+            var result = new PlacementScore();                        
+            
+            //var sharedCorners = GetCorners()
+            //    .SelectMany(x => x.GetBounds().GetCorners())
+            //    .Where(x=>x == corner)
+            //    .Distinct()
+            //    .ToArray();
+
+            //var sharedEdges = placedNodes
+            //    .Where(x => x.GetBounds().SharesEdge(corner))
+            //    .Where(x => !x.GetBounds().GetCorners().Contains(corner))
+            //    .ToArray();
+
+            result.UtilizationScore = 0;
+
+
+
+            result .CornerParity = 0;
+
+            
+            result .WastageScore = 0;
+
+            result.IsVaildPlacement = true;
         }
 
         private IEnumerable<PlacementPosition> GetPossibleNodePlacementsForCorner(Point corner, TextureAtlasNode node, List<TextureAtlasNode> placedNodes, CalculatorSettings settings)
