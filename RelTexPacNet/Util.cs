@@ -74,17 +74,16 @@ namespace RelTexPacNet
 
             // Four rects sharing a corner = surrounded
             if (rectsSharingCorner.Length == 4) return true;            
-
-            // One or three rects sharing a corner = at least one diagonal exposed
-            if (rectsSharingCorner.Length == 3) return false;
-            if (rectsSharingCorner.Length == 1) return false;
-
+            
             // Two rects sharing a corner = one rect needs to share an edge to be surrounded
             if (rectsSharingCorner.Length == 2 && rectsSharingEdge.Length == 1) return true;
             
             // No rects sharing a corner = two rects needs to share an edge to be surrounded
             if (rectsSharingCorner.Length == 0 && rectsSharingEdge.Length == 2) return true;            
             
+            //// One or three rects sharing a corner = at least one diagonal exposed
+            //if (rectsSharingCorner.Length == 3) return false;
+            //if (rectsSharingCorner.Length == 1) return false;
             return false;
         }
     }
