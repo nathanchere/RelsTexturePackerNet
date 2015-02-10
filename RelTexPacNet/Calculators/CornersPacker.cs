@@ -68,8 +68,8 @@ namespace RelTexPacNet.Calculators
 
         private static Line[] GetEdges(Size input, IEnumerable<TextureAtlasNode> placedNodes)
         {
-            var corners = placedNodes.SelectMany(x => x.GetBounds().GetCorners()).ToList();
-            corners.AddRange(input.ToRectangle().GetCorners());
+            var corners = placedNodes.SelectMany(x => x.GetBounds().GetEdges()).ToList();
+            corners.AddRange(input.GetEdges());
             return corners.Distinct().ToArray();
         }
 

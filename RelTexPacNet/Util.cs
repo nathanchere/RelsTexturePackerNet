@@ -43,6 +43,16 @@ namespace RelTexPacNet
             };
         }
 
+        public static Line[] GetEdges(this Size size)
+        {
+            return new[]{
+                new Line(0,0,size.Width,0), 
+                new Line(0,size.Height,size.Width,size.Height), 
+                new Line(0,0,size.Height,0), 
+                new Line(0,size.Width,size.Height,size.Width), 
+            };
+        }
+
         public static Line[] GetEdges(this Rectangle rectangle)
         {
             return new[]{
