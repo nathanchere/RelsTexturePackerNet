@@ -76,6 +76,9 @@ namespace RelTexPacNet.Calculators
         {       
             var result = new PlacementNode(node);
 
+            // If this is the first node to be placed, just put it in a corner
+            // TODO: which is better - long size on long size or long on short side?
+            //    Look for minimum waste placement
             if (!placedNodes.Any())
             {                
                 result.Score.IsVaildPlacement = true;
@@ -86,12 +89,12 @@ namespace RelTexPacNet.Calculators
 
             var usedSpace = placedNodes.Select(n=>n.GetBounds()).ToArray();
             var availableCorners = GetCorners(settings.Size, placedNodes)
+                .Distinct()
                 .Where(c => !c.IsSurroundedBy(usedSpace));
 
             foreach (var corner in availableCorners)
             {
-                var score = new PlacementScore();
-                var position = new PlacementPosition(corner.X, corner.Y, false, node.Size.Width, node.Size.Height);
+                var score = new PlacementScore();                
 
                 foreach (var placement in GetPossibleNodePlacementsForCorner(corner, node, placedNodes, settings))
                 {
@@ -101,7 +104,7 @@ namespace RelTexPacNet.Calculators
             return result;
         }
 
-        private IEnumerable<PlacementNode> GetPossibleNodePlacementsForCorner(Point corner, TextureAtlasNode node, List<TextureAtlasNode> placedNodes, CalculatorSettings settings)
+        private IEnumerable<PlacementPosition> GetPossibleNodePlacementsForCorner(Point corner, TextureAtlasNode node, List<TextureAtlasNode> placedNodes, CalculatorSettings settings)
         {
             var boundaryArea = settings.Size.ToRectangle();
 
@@ -115,9 +118,7 @@ namespace RelTexPacNet.Calculators
                 .Where(r => placedNodes.Any(n => n.GetBounds().IntersectsWith(r)))
                 )
             {
-                var result = new PlacementNode(node) {
-                    Placement = new PlacementPosition(rect.X, rect.Y, false, rect.Width, rect.Height)
-                };
+                var result = new PlacementPosition(rect.X, rect.Y, false, rect.Width, rect.Height);
                 yield return result;
             }
 
@@ -134,9 +135,7 @@ namespace RelTexPacNet.Calculators
                 .Where(r => placedNodes.Any(n => n.GetBounds().IntersectsWith(r)))
                 )
             {
-                var result = new PlacementNode(node) {
-                    Placement = new PlacementPosition(rect.X, rect.Y, true, rect.Width, rect.Height)
-                };
+                var result = new PlacementPosition(rect.X, rect.Y, true, rect.Width, rect.Height);
                 yield return result;
             }
         }
