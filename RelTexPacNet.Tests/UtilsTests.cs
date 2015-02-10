@@ -74,12 +74,8 @@ namespace RelTexPacNet
             Assert.Equal(expected, result);
         }
 
-        [Theory]
-        [InlineData(50, 50, true)]
-        [InlineData(40, 50, false)]
-        [InlineData(50, 40, false)]
-        [InlineData(0, 0, false)]
-        public void ISSurroundedBy_detects_when_surrounded_by_four_corners(int x, int y, bool expected)
+        [Fact]
+        public void IsSurroundedBy_detects_when_surrounded_by_four_corners()
         {
             var rectangles = new[]
             {
@@ -88,8 +84,72 @@ namespace RelTexPacNet
                 new Rectangle(-10, 50, 60, 90),
                 new Rectangle(50, 50, 80, 5),
             };
-            var result = new Point(x, y).IsSurroundedBy(rectangles);
-            Assert.Equal(expected, result);
+            var result = new Point(50, 50).IsSurroundedBy(rectangles);
+            Assert.Equal(true, result);
+        }
+
+        [Fact]
+        public void IsSurroundedBy_detects_when_surrounded_by_two_corners_and_an_edge()
+        {
+            var rectangles = new[]
+            {
+                new Rectangle(0, 0, 50, 50),
+                new Rectangle(50, 40, 30, 10),
+                new Rectangle(0, 50, 100, 40),                
+            };
+            var result = new Point(50, 50).IsSurroundedBy(rectangles);
+            Assert.Equal(true, result);
+        }
+
+        [Fact]
+        public void IsSurroundedBy_detects_when_surrounded_by_two_edges()
+        {
+            var rectangles = new[]
+            {
+                new Rectangle(0, 0, 100, 50),                
+                new Rectangle(0, 50, 100, 5),
+            };
+            var result = new Point(50, 50).IsSurroundedBy(rectangles);
+            Assert.Equal(true, result);
+        }
+
+        [Fact]
+        public void IsSurroundedBy_detects_when_not_surrounded_at_all()
+        {
+            var rectangles = new[]
+            {
+                new Rectangle(0, 0, 10, 10),
+                new Rectangle(0, 10, 10, 10),
+                new Rectangle(0, 20, 10, 10),
+                new Rectangle(0, 30, 10, 10),
+                new Rectangle(0, 40, 10, 10),
+            };
+            var result = new Point(50, 50).IsSurroundedBy(rectangles);
+            Assert.Equal(false, result);
+        }
+
+        [Fact]
+        public void IsSurroundedBy_detects_when_not_surrounded_on_one_diagonal()
+        {
+            var rectangles = new[]
+            {
+                new Rectangle(0, 0, 50, 50),
+                new Rectangle(50, 40, 30, 10),
+                new Rectangle(-10, 50, 60, 90),
+            };
+            var result = new Point(50, 50).IsSurroundedBy(rectangles);
+            Assert.Equal(false, result);
+        }
+
+        [Fact]
+        public void IsSurroundedBy_detects_when_not_surrounded_on_three_diagonals()
+        {
+            var rectangles = new[]
+            {
+                new Rectangle(0, 0, 50, 50),                
+            };
+            var result = new Point(50, 50).IsSurroundedBy(rectangles);
+            Assert.Equal(false, result);
         }
     }
 }
