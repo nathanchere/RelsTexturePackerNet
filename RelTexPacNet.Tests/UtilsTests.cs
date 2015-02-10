@@ -78,14 +78,15 @@ namespace RelTexPacNet
         [InlineData(50, 50, true)]
         [InlineData(40, 50, false)]
         [InlineData(50, 40, false)]
-        [InlineData(0, 0, false)]        
+        [InlineData(0, 0, false)]
         public void ISSurroundedBy_detects_when_surrounded_by_four_corners(int x, int y, bool expected)
         {
-            var rectangles = new[] { 
-                new Rectangle(0,0,50,50),
-                new Rectangle(50,40,30,10),
-                new Rectangle(-10,50,60,90),
-                new Rectangle(50,50,80,5),
+            var rectangles = new[]
+            {
+                new Rectangle(0, 0, 50, 50),
+                new Rectangle(50, 40, 30, 10),
+                new Rectangle(-10, 50, 60, 90),
+                new Rectangle(50, 50, 80, 5),
             };
             var result = new Point(x, y).IsSurroundedBy(rectangles);
             Assert.Equal(expected, result);

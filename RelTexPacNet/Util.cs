@@ -61,13 +61,36 @@ namespace RelTexPacNet
             return false;
         }
 
+        // Assumes no rectangles are overlapping beyond their edges
         public static bool IsSurroundedBy(this Point point, Rectangle[] usedSpace)
         {
-            if (!usedSpace.Any()) return false;
+            // Cannot surround a point with only one edge
+            if (usedSpace.Length < 2) return false;
 
-            return true;
-            //var relevantSpace = usedSpace.Where(r => r.Contains(point) || r.SharesEdge(point));
-//            if(relevantSpace.Any
+            var rectsSharingCorner = usedSpace.Where(r => r.GetCorners().Contains(point)).ToArray();
+            var rectsSharingEdge = usedSpace.Where(r => r.SharesEdge(point))
+                .Where(r=>!rectsSharingCorner.Contains(r))
+                .ToArray();
+
+            // Four rects sharing a corner = surrounded
+            if (rectsSharingCorner.Length == 4) return true;            
+
+            // One or three rects sharing a corner = at least one diagonal exposed
+            if (rectsSharingCorner.Length == 3) return false;
+            if (rectsSharingCorner.Length == 1) return false;
+
+            // Two rects sharing a corner = one rect needs to share an edge to be surrounded
+            if (rectsSharingCorner.Length == 2)
+            {
+                
+            }
+            
+            // No rects sharing a corner = two rects needs to share an edge to be surrounded
+            if (rectsSharingCorner.Length == 0)
+            {
+            }
+            
+            return true;            
         }
     }
 }
