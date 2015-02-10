@@ -66,6 +66,7 @@
     <Compile Include="TextureAtlasRendererTests.cs" />
     <Compile Include="TexturePackerTests.cs" />
     <Compile Include="TestExtensions.cs" />
+    <Compile Include="UtilsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

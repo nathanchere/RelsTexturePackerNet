@@ -87,5 +87,5 @@ namespace RelTexPacNet.Calculators
             if (settings.IsRotationEnabled) ;
             return result;
         }               
-    }    
+    }
 }
