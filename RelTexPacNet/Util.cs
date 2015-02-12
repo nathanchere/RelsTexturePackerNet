@@ -55,6 +55,13 @@ namespace RelTexPacNet
             };
         }
 
+        public static int DistanceBetween(this Point input, Point target)
+        {
+            var d = Math.Pow(Math.Abs(input.X - target.X), 2)
+                  + Math.Pow(Math.Abs(input.Y - target.Y), 2);
+            return (int) Math.Sqrt(d);
+        }
+
         /// <remarks>
         /// Assumes all lines are fixed at 90 degree angles for simplicity
         /// </remarks>

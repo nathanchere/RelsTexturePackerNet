@@ -117,27 +117,24 @@ namespace RelTexPacNet.Calculators
         {
             var result = new PlacementScore();
 
-            var edges = GetEdges(outputTextureSize, placedNodes);
+            var edges = GetEdges(outputTextureSize, placedNodes).ToList();
+            var corners = placedNodes.SelectMany(n=>n.GetBounds().GetCorners()).ToList();
 
-            //var sharedCorners = GetCorners()
-            //    .SelectMany(x => x.GetBounds().GetCorners())
-            //    .Where(x=>x == corner)
-            //    .Distinct()
-            //    .ToArray();
+            var sharedEdgeSum = placement
+                .GetBounds()
+                .GetEdges()
+                .Sum(e => edges.Sum(placedEdge => e.GetOverlap(placedEdge)));
 
-            //var sharedEdges = placedNodes
-            //    .Where(x => x.GetBounds().SharesEdge(corner))
-            //    .Where(x => !x.GetBounds().GetCorners().Contains(corner))
-            //    .ToArray();
-
-            result.UtilizationScore = 0;
+            var cornerDistance = placement
+                .GetBounds()
+                .GetCorners()
+                .Sum(p => corners.Min(c => p.DistanceBetween(c)));
 
 
+            result.UtilizationScore = sharedEdgeSum;
+            result.WastageScore = placement.GetBounds().GetEdges().Sum(e=>e.Length) - sharedEdgeSum;
 
-            result .CornerParity = 0;
-
-            
-            result .WastageScore = 0;
+            result.CornerParity = cornerDistance;                      
 
             result.IsVaildPlacement = true;
 
