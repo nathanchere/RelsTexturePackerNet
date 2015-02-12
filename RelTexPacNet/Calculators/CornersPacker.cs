@@ -33,21 +33,17 @@ namespace RelTexPacNet.Calculators
                     .Where(n => n.Score.IsVaildPlacement)
                     .ToList();
 
-                //var best = validPlacements
-                //    .OrderBy(n => n.WastageScore)
-                //    .ThenByDescending(n => n.UtilizationScore)
-                //    .FirstOrDefault();
+                var best = validPlacements
+                    .OrderBy(n => n.Score.CornerParity)
+                    .ThenBy(n => n.Score.WastageScore)
+                    .ThenByDescending(n => n.Score.UtilizationScore)
+                    .FirstOrDefault();
 
-                var best = unplacedNodes.First();
+                if (best == null) throw new InvalidDataException("Insufficient free space available after " + placedNodes.Count + " textures placed");
 
-                //if (best == null) throw new InvalidDataException("Insufficient free space available after " + result.Count + " textures placed");
-
-                //best.PlaceNode();
-                //result.Add(best.SourceNode);
-                //unplacedNodes.Remove(best.SourceNode);
-
-                placedNodes.Add(best);
-                unplacedNodes.Remove(best);
+                best.PlaceNode();                
+                placedNodes.Add(best.SourceNode);
+                unplacedNodes.Remove(best.SourceNode);
 
                 // TODO: Raise event node placed
             }
@@ -80,17 +76,17 @@ namespace RelTexPacNet.Calculators
         {       
             var result = new PlacementNode(node);
 
-            // If this is the first node to be placed, just put it in a corner
-            // TODO: which is better - long size on long size or long on short side?
-            //    Look for minimum waste placement
-            if (!placedNodes.Any())
-            {                
-                result.Score.IsVaildPlacement = true;
-                result.Score.UtilizationScore = node.Size.Width + node.Size.Height;
-                result.Score.WastageScore = 0;
-                yield return result;
-                yield break;
-            }
+            //// If this is the first node to be placed, just put it in a corner
+            //// TODO: which is better - long size on long size or long on short side?
+            ////    Look for minimum waste placement
+            //if (!placedNodes.Any())
+            //{                
+            //    result.Score.IsVaildPlacement = true;
+            //    result.Score.UtilizationScore = node.Size.Width + node.Size.Height;
+            //    result.Score.WastageScore = 0;
+            //    yield return result;
+            //    yield break;
+            //}
 
             var usedSpace = placedNodes.Select(n=>n.GetBounds()).ToArray();
             var availableCorners = GetCorners(settings.Size, placedNodes)
@@ -118,7 +114,7 @@ namespace RelTexPacNet.Calculators
             var result = new PlacementScore();
 
             var edges = GetEdges(outputTextureSize, placedNodes).ToList();
-            var corners = placedNodes.SelectMany(n=>n.GetBounds().GetCorners()).ToList();
+            var corners = GetCorners(outputTextureSize, placedNodes).ToList();
 
             var sharedEdgeSum = placement
                 .GetBounds()
@@ -129,7 +125,6 @@ namespace RelTexPacNet.Calculators
                 .GetBounds()
                 .GetCorners()
                 .Sum(p => corners.Min(c => p.DistanceBetween(c)));
-
 
             result.UtilizationScore = sharedEdgeSum;
             result.WastageScore = placement.GetBounds().GetEdges().Sum(e=>e.Length) - sharedEdgeSum;
@@ -145,15 +140,19 @@ namespace RelTexPacNet.Calculators
         {
             var boundaryArea = settings.Size.ToRectangle();
 
-            foreach (var rect in new[] {
+            var possiblePlacementRects =  new[] {
                 new Rectangle(corner.X, corner.Y, node.Size.Width, node.Size.Height),
                 new Rectangle(corner.X, corner.Y, -node.Size.Width, node.Size.Height).Normalize(),
                 new Rectangle(corner.X, corner.Y, -node.Size.Width, -node.Size.Height).Normalize(),
-                new Rectangle(corner.X, corner.Y, node.Size.Width, -node.Size.Height).Normalize(),
-            }
-                .Where(r => r.IsEntirelyContainedBy(boundaryArea))
-                .Where(r => placedNodes.Any(n => n.GetBounds().IntersectsWith(r)))
-                )
+                new Rectangle(corner.X, corner.Y, node.Size.Width, -node.Size.Height).Normalize()
+            };
+
+            var validPlacements = possiblePlacementRects
+                .Where(r => r.IsEntirelyContainedBy(boundaryArea)).ToArray();
+            
+            var xx = validPlacements.Where(r => !placedNodes.Any(n => n.GetBounds().IntersectsWith(r))).ToArray();
+
+            foreach(var rect in xx)
             {
                 var result = new PlacementPosition(rect.X, rect.Y, false, rect.Width, rect.Height);
                 yield return result;
