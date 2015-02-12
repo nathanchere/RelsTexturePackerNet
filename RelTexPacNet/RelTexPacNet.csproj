@@ -78,7 +78,6 @@
     <Compile Include="Result.cs" />
     <Compile Include="TextureAtlas.cs" />
     <Compile Include="TextureAtlasRenderer.cs" />
-    <Compile Include="Calculators\MaxBinRect.cs" />
     <Compile Include="TextureAtlasNode.cs" />
     <Compile Include="TextureAtlasRendererSettings.cs" />
     <Compile Include="TexturePacker.cs" />
