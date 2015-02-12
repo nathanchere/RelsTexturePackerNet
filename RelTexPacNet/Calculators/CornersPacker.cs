@@ -66,10 +66,10 @@ namespace RelTexPacNet.Calculators
             return corners.Distinct().ToArray();
         }
 
-        private static Line[] GetEdges(Size input, IEnumerable<TextureAtlasNode> placedNodes)
+        private static Line[] GetEdges(Size outputTextureSize, IEnumerable<TextureAtlasNode> placedNodes)
         {
             var edges = placedNodes.SelectMany(x => x.GetBounds().GetEdges()).ToList();
-            edges.AddRange(input.GetEdges());
+            edges.AddRange(outputTextureSize.GetEdges()); // include overall output boundary
             return edges.Distinct().ToArray();
         }
 
@@ -113,11 +113,11 @@ namespace RelTexPacNet.Calculators
             }            
         }
 
-        private PlacementScore Score(Point corner, PlacementPosition placement, List<TextureAtlasNode> placedNodes, Size size)
+        private PlacementScore Score(Point corner, PlacementPosition placement, List<TextureAtlasNode> placedNodes, Size outputTextureSize)
         {
             var result = new PlacementScore();
 
-            var edges = placedNodes.SelectMany(x => x.GetBounds().GetEdges()).Distinct().ToArray();
+            var edges = GetEdges(outputTextureSize, placedNodes);
 
             //var sharedCorners = GetCorners()
             //    .SelectMany(x => x.GetBounds().GetCorners())
@@ -140,6 +140,8 @@ namespace RelTexPacNet.Calculators
             result .WastageScore = 0;
 
             result.IsVaildPlacement = true;
+
+            return result;
         }
 
         private IEnumerable<PlacementPosition> GetPossibleNodePlacementsForCorner(Point corner, TextureAtlasNode node, List<TextureAtlasNode> placedNodes, CalculatorSettings settings)
