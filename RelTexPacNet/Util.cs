@@ -51,8 +51,48 @@ namespace RelTexPacNet
                 new Line(0,0,size.Width,0), 
                 new Line(0,size.Height,size.Width,size.Height), 
                 new Line(0,0,size.Height,0), 
-                new Line(0,size.Width,size.Height,size.Width), 
+                new Line(0,size.Width,size.Height,size.Width),
             };
+        }
+
+        /// <remarks>
+        /// Assumes all lines are fixed at 90 degree angles for simplicity
+        /// </remarks>
+        public static int GetOverlap(this Line input, Line target)
+        {
+            // Both aligned on X axis
+            if (input.Start.X == input.End.X
+                && target.Start.X == target.End.X
+                && input.Start.X == target.Start.X)
+            {
+                var inputMinY = Math.Min(input.Start.Y, input.End.Y);
+                var inputMaxY = Math.Max(input.Start.Y, input.End.Y);
+                var targetMinY = Math.Min(target.Start.Y, target.End.Y);
+                var targetMaxY = Math.Max(target.Start.Y, target.End.Y);
+
+                var minY = Math.Max(inputMinY, targetMinY);
+                var maxY = Math.Min(inputMaxY, targetMaxY);
+                if (minY >= maxY) return 0;
+                return maxY - minY;
+            }
+
+            // Both aligned on Y axis
+            if (input.Start.Y == input.End.Y
+                && target.Start.Y == target.End.Y
+                && input.Start.Y == target.Start.Y)
+            {
+                var inputMinX = Math.Min(input.Start.X, input.End.X);
+                var inputMaxX = Math.Max(input.Start.X, input.End.X);
+                var targetMinX = Math.Min(target.Start.X, target.End.X);
+                var targetMaxX = Math.Max(target.Start.X, target.End.X);
+
+                var minX = Math.Max(inputMinX, targetMinX);
+                var maxX = Math.Min(inputMaxX, targetMaxX);
+                if (minX >= maxX) return 0;
+                return maxX - minX;
+            }
+
+            return 0;
         }
 
         public static Line[] GetEdges(this Rectangle rectangle)
